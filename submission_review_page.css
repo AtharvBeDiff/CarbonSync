@@ -1,0 +1,124 @@
+/* Submission Review Page - Specific Styles */
+/* Keep admin sidebar styles consistent with provided common component */
+.admin-sidebar {
+    width: 270px
+    }
+.admin-sidebar .nav-link {
+    border-radius: 0.375rem
+    }
+.admin-sidebar .nav-link:hover {
+    background-color: rgba(129, 199, 132, 0.12);
+    color: #1b5e20
+    }
+.admin-sidebar .nav-link.active {
+    background-color: rgba(129, 199, 132, 0.2);
+    color: #1b5e20
+    }
+.admin-role {
+    background-color: var(--color-primary);
+    color: #0d3b0d
+    }
+/* Layout adjustments: ensure main content sits beside sidebar on lg+ */
+.main-content {
+    margin-left: 0
+    }
+@media (min-width: 992px) {
+    /* Sidebar visible at lg via offcanvas-lg + d-lg-flex; reserve width using flex layout */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh
+        }
+    .navbar + .admin-sidebar + .main-content, .navbar + .main-content {
+        /* when offcanvas is outside normal flow on small screens */
+        }
+    .admin-sidebar {
+        position: sticky;
+        top: 56px;
+        height: calc(100vh - 56px)
+        }
+    .main-content {
+        margin-left: 270px
+        }
+    }
+/* Submission header */
+.submission-header-card .badge {
+    font-size: 0.85rem
+    }
+/* Media gallery helpers */
+.media-thumb {
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+    }
+.media-thumb:hover {
+    transform: translatey(-2px);
+    box-shadow: var(--shadow-2)
+    }
+.media-thumb.ring {
+    outline-offset: 2px
+    }
+/* Map container */
+.map-container {
+    height: 420px
+    }
+@media (min-width: 1200px) {
+    .map-container {
+        height: 520px
+        }
+    }
+/* Leaflet custom marker icon (font-based) */
+.leaflet-div-icon.evidence-icon, .evidence-icon {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow-1);
+    color: var(--color-info)
+    }
+/* Compare slider */
+.compare-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: var(--radius-2);
+    background: #000
+    }
+.compare-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+    }
+.compare-img.after {
+    clip-path: inset(0 0 0 50%);
+    transition: clip-path 0.08s linear
+    }
+.compare-slider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    width: 96%;
+    margin-inline: auto;
+    z-index: 2
+    }
+/* Sticky verification action bar */
+.verify-action-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: var(--z-bottom-bar, 1015);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.04)
+    }
+/* Table sort header cursor */
+th.sortable {
+    cursor: pointer;
+    user-select: none
+    }
+/* Utility: object-fit for modal image */
+.object-fit-contain {
+    object-fit: contain
+    }

@@ -1,0 +1,44 @@
+/* user_dashboard.css - Page-specific styles (kept minimal, leveraging theme) */
+/* Typography - ensure Poppins is applied */
+body {
+    font-family: "Poppins", var(--font-sans), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif
+    }
+/* Layout wrappers */
+.dashboard-shell {
+    min-height: calc(100vh - 56px - 64px);
+    /* header + footer approx */
+    }
+.dashboard-main {
+    background: transparent
+    }
+/* Improve spacing for cards */
+.metric-card {
+    min-height: 120px
+    }
+/* Table hover */
+#portfolioTable tbody tr.hover-row {
+    transition: background-color 0.15s ease;
+    cursor: pointer
+    }
+#portfolioTable tbody tr.hover-row:hover {
+    background: var(--neutral-soft)
+    }
+/* Offcanvas adjustments */
+@media (max-width: 991.98px) {
+    .offcanvas .nav .nav-link {
+        padding: 0.5rem 0.75rem
+        }
+    }
+/* Chart container: allow proper height with responsive behavior */
+#portfolioChart {
+    min-height: 240px
+    }
+/* Role switch buttons */
+.js-role-switch.btn-primary {
+    background-color: var(--color-info);
+    border-color: var(--color-info)
+    }
+/* Footer spacing consistency */
+footer {
+    z-index: 5
+    }

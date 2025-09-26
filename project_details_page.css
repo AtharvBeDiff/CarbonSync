@@ -1,0 +1,59 @@
+/* project_details_page.css - specific styles for project details page */
+/* Typography override to prioritize Poppins without breaking global theme */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Project hero spacing and layout */
+.project-hero .card {
+    border: 1px solid var(--border-color)
+    }
+.project-hero .badge-soft.success {
+    background: var(--success-soft);
+    color: #0d5c3d
+    }
+/* Map container sizing */
+.map-container {
+    height: 360px;
+    width: 100%
+    }
+@media (min-width: 992px) {
+    .map-container {
+        height: 420px
+        }
+    }
+/* Media gallery */
+.media-slide {
+    object-fit: cover;
+    height: 360px
+    }
+@media (max-width: 575.98px) {
+    .media-slide {
+        height: 240px
+        }
+    }
+/* Evidence thumbs inside accordion */
+.evidence-thumb {
+    width: 160px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--radius-1);
+    border: 1px solid var(--border-color)
+    }
+/* Tabs container visual */
+#projectTabs .nav-link {
+    font-weight: 600
+    }
+#projectTabsContent {
+    box-shadow: var(--shadow-1)
+    }
+/* Table tweaks */
+#lotsTable thead th {
+    user-select: none
+    }
+#lotsTable tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02)
+    }
+/* Toast positioning is handled inline; ensure rounded corners consistent */
+#liveToast {
+    border-radius: var(--radius-1)
+    }

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Wallet - BlueCarbonMRV
+  </title>
+  <!-- Brand Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <!-- dayjs -->
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js">
+  </script>
+  <!-- Global Theme CSS -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="wallet_page.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <!-- Common Authenticated Header (Wallet & Settings) -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenu" class="btn btn-outline-success me-2 d-lg-none" data-bs-target="#sidebarMenu" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./user_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fw-bold">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-3">
+     <a aria-label="Notifications" class="text-decoration-none position-relative text-dark d-none d-md-inline" href="#">
+      <i class="fa-regular fa-bell fs-5">
+      </i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--secondary);">
+       1
+      </span>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#">
+       <img alt="" class="rounded-circle me-2" height="32" onerror="this.src='https://picsum.photos/seed/avatar/32/32'" src="https://via.placeholder.com/32" width="32"/>
+       <span>
+        Account
+       </span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./settings_page.html">
+         Settings
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./wallet_page.html">
+         Wallet
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <div class="d-flex">
+   <!-- Sidebar: responsive offcanvas that becomes a fixed sidebar on lg+ -->
+   <aside aria-labelledby="sidebarLabel" class="common-sidebar offcanvas-lg offcanvas-start bg-white border-end" id="sidebarMenu" tabindex="-1">
+    <div class="offcanvas-header d-lg-none">
+     <h5 class="offcanvas-title" id="sidebarLabel">
+      Menu
+     </h5>
+     <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+     </button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column p-3">
+     <a class="d-flex align-items-center mb-3 text-decoration-none" href="./user_dashboard.html">
+      <span class="rounded-circle bg-success-subtle p-2 me-2">
+      </span>
+      <span class="fs-6 fw-bold">
+       BlueCarbonMRV
+      </span>
+     </a>
+     <div class="d-flex align-items-center mt-2 mb-3">
+      <img alt="avatar" class="rounded-circle me-2" onerror="this.src='https://picsum.photos/seed/user/36/36'" src="https://via.placeholder.com/36"/>
+      <div class="small">
+       <div class="fw-semibold" id="sidebarUserName">
+        User Name
+       </div>
+       <span class="badge common-role text-dark" id="sidebarUserRole">
+        Role
+       </span>
+      </div>
+     </div>
+     <hr/>
+     <ul class="nav nav-pills flex-column mb-auto gap-1">
+      <li>
+       <a class="nav-link" href="./user_dashboard.html">
+        <i class="fa-solid fa-arrow-left me-2">
+        </i>
+        Back to Dashboard
+       </a>
+      </li>
+      <li>
+       <a class="nav-link active" data-page="wallet_page" href="./wallet_page.html">
+        <i class="fa-solid fa-wallet me-2">
+        </i>
+        Wallet
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" data-page="settings_page" href="./settings_page.html">
+        <i class="fa-solid fa-gear me-2">
+        </i>
+        Settings
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" href="./marketplace_page.html">
+        <i class="fa-solid fa-store me-2">
+        </i>
+        Marketplace
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" href="./home_page.html">
+        <i class="fa-solid fa-house me-2">
+        </i>
+        Home
+       </a>
+      </li>
+     </ul>
+    </div>
+   </aside>
+   <main class="flex-grow-1">
+    <section class="container-fluid py-3 py-lg-4">
+     <!-- Page Header -->
+     <div class="page-header">
+      <div class="d-flex align-items-center gap-2">
+       <h1 class="page-title m-0">
+        Wallet
+       </h1>
+       <span class="badge bg-success-subtle text-success fw-semibold">
+        Carbon Credits
+       </span>
+      </div>
+      <div aria-label="View switch" class="view-switcher" role="group">
+       <span class="option active">
+        Overview
+       </span>
+       <span class="option">
+        Insights
+       </span>
+      </div>
+     </div>
+     <!-- System feedback area -->
+     <div class="alert alert-info d-none" id="systemFeedback" role="alert">
+      Loading wallet data...
+     </div>
+     <!-- Wallet Summary Card -->
+     <div class="card mb-4" id="walletSummaryCard">
+      <div class="card-header">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-wallet text-success">
+        </i>
+        <span class="widget-title">
+         Wallet Summary
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-light btn-sm" id="btnReceive">
+         <i class="fa-solid fa-download me-1">
+         </i>
+         Receive
+        </button>
+        <button class="btn btn-primary btn-sm" id="btnSend">
+         <i class="fa-solid fa-paper-plane me-1">
+         </i>
+         Send
+        </button>
+       </div>
+      </div>
+      <div class="card-body">
+       <div class="row g-3 align-items-center">
+        <div class="col-12 col-lg-6">
+         <div class="text-muted text-uppercase small mb-1">
+          Current Balance
+         </div>
+         <div class="display-5 fw-bold mb-2" id="balanceDisplay">
+          <span class="skeleton" style="height:48px;width:220px;display:inline-block;border-radius:8px;">
+          </span>
+         </div>
+         <div class="text-muted small">
+          Unit: tCO2e
+         </div>
+         <div class="mt-3">
+          <div class="text-muted text-uppercase small">
+           Wallet Address
+          </div>
+          <div class="d-flex align-items-center gap-2 mt-1">
+           <code class="address-badge" id="walletAddressCode">
+            Loading...
+           </code>
+           <button class="btn btn-outline-secondary btn-sm" data-bs-title="Copy address" data-bs-toggle="tooltip" id="btnCopyAddress">
+            <i class="fa-regular fa-copy">
+            </i>
+           </button>
+          </div>
+         </div>
+        </div>
+        <div class="col-12 col-lg-6">
+         <canvas aria-label="Balance trend chart" height="120" id="balanceTrend">
+         </canvas>
+        </div>
+       </div>
+      </div>
+      <div class="card-footer d-flex align-items-center justify-content-between">
+       <div class="small text-muted">
+        Last updated:
+        <span id="lastUpdated">
+         —
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <span class="badge-soft success">
+         <i class="fa-solid fa-circle-check">
+         </i>
+         On-chain synced
+        </span>
+       </div>
+      </div>
+     </div>
+     <!-- Transaction History -->
+     <div class="card">
+      <div class="card-header">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-clock-rotate-left text-info">
+        </i>
+        <span class="widget-title">
+         Transaction History
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-light btn-sm" id="btnRefresh">
+         <i class="fa-solid fa-rotate">
+         </i>
+        </button>
+       </div>
+      </div>
+      <div class="card-body">
+       <!-- Filters -->
+       <form class="row g-2 align-items-end mb-3" id="filterForm">
+        <div class="col-12 col-md-3">
+         <label class="form-label" for="filterType">
+          Type
+         </label>
+         <select class="form-select" id="filterType">
+          <option selected="" value="All">
+           All
+          </option>
+          <option>
+           Minted
+          </option>
+          <option>
+           Bought
+          </option>
+          <option>
+           Sold
+          </option>
+          <option>
+           Sent
+          </option>
+          <option>
+           Received
+          </option>
+         </select>
+        </div>
+        <div class="col-6 col-md-3">
+         <label class="form-label" for="startDate">
+          Start Date
+         </label>
+         <input class="form-control" id="startDate" type="date"/>
+        </div>
+        <div class="col-6 col-md-3">
+         <label class="form-label" for="endDate">
+          End Date
+         </label>
+         <input class="form-control" id="endDate" type="date"/>
+        </div>
+        <div class="col-12 col-md-3 d-flex gap-2">
+         <button class="btn btn-success flex-fill" type="submit">
+          <i class="fa-solid fa-filter me-1">
+          </i>
+          Apply
+         </button>
+         <button class="btn btn-light flex-fill" id="btnClearFilters" type="button">
+          Clear
+         </button>
+        </div>
+       </form>
+       <!-- Table -->
+       <div class="table-responsive">
+        <table class="table table-theme align-middle" id="txTable">
+         <thead>
+          <tr>
+           <th scope="col">
+            Type
+           </th>
+           <th class="sortable" data-sort="date" scope="col">
+            Date
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="amount" scope="col">
+            Amount (tCO2e)
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th scope="col">
+            From
+           </th>
+           <th scope="col">
+            To
+           </th>
+           <th scope="col">
+            Project
+           </th>
+           <th scope="col">
+            Status
+           </th>
+           <th scope="col">
+            Tx Hash
+           </th>
+          </tr>
+         </thead>
+         <tbody id="txTableBody">
+          <!-- Loading skeleton rows -->
+          <tr class="loading-row">
+           <td colspan="8">
+            <span class="skeleton" style="height:18px">
+            </span>
+           </td>
+          </tr>
+          <tr class="loading-row">
+           <td colspan="8">
+            <span class="skeleton" style="height:18px">
+            </span>
+           </td>
+          </tr>
+          <tr class="loading-row">
+           <td colspan="8">
+            <span class="skeleton" style="height:18px">
+            </span>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <!-- Pagination + Info -->
+       <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+        <div class="text-muted small" id="paginationInfo">
+         —
+        </div>
+        <nav aria-label="Transaction pagination">
+         <ul class="pagination pagination-sm mb-0" id="pagination">
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </section>
+   </main>
+  </div>
+  <!-- Common Authenticated Footer -->
+  <footer class="bg-light border-top py-3 mt-auto">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="small text-muted">
+     © BlueCarbonMRV
+    </div>
+    <div class="small">
+     <a class="text-decoration-none me-3" href="./terms.html">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./privacy.html">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast container for lightweight notifications (using SweetAlert2 toast API in JS) -->
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Apply Poppins font
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.fontFamily = "Poppins, var(--font-sans)";
+});
+
+// Sample/mock state
+const state = {
+    isLoading: true,
+    walletData: null,
+    error: null,
+    sort: {
+        key: 'date',
+        dir: 'desc'
+    },
+    filters: {
+        type: 'All',
+        startDate: null,
+        endDate: null
+    },
+    pagination: {
+        page: 1,
+        perPage: 10
+    },
+    transactions: []
+};
+
+// Mock fetch wallet data
+function fetchWalletData() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                address: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                balance: 12456.32,
+                trend: [12000, 12150, 11820, 12240, 12360, 12410, 12456]
+            });
+        }, 800);
+    });
+}
+
+// Mock fetch transactions
+function fetchTransactions() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const data = [{
+                type: 'Minted',
+                amount: 5000,
+                date: '2025-09-14T10:45:00Z',
+                status: 'Confirmed',
+                from: 'Protocol',
+                to: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                project: 'Mangrove-Delta-001',
+                hash: '0x9d3f7ab12c45ee008c1a9bca11aa9f00d1a2b3c4d5e6f7a819203b4c5d6e7f89'
+            }, {
+                type: 'Bought',
+                amount: 1500,
+                date: '2025-09-12T15:20:00Z',
+                status: 'Confirmed',
+                from: '0x7e21c4fA98dE1093cB2a90b4F2bCEc0a4578E321',
+                to: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                project: 'Seagrass-007',
+                hash: '0xa1b2c3d4e5f697887766554433221100ffeeccbb99887766554433221100ffab'
+            }, {
+                type: 'Sold',
+                amount: 800,
+                date: '2025-09-10T09:10:00Z',
+                status: 'Confirmed',
+                from: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                to: '0xBf0934aA56cD3210aBeE9087F0a0c0D1199A77aa',
+                project: 'Mangrove-Delta-001',
+                hash: '0x0ff1ce2d3b4a5c6d7e8f90123456789abcdeff00112233445566778899aabbcc'
+            }, {
+                type: 'Sent',
+                amount: 250,
+                date: '2025-09-08T18:35:00Z',
+                status: 'Confirmed',
+                from: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                to: '0x6dE3f98a0B2c1D3e4F5a6b7C8d9E0f1a2B3c4D5e',
+                project: 'Seagrass-007',
+                hash: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcd'
+            }, {
+                type: 'Received',
+                amount: 300,
+                date: '2025-09-05T11:00:00Z',
+                status: 'Confirmed',
+                from: '0x1122aabbccddeeff0099887766554433221100aa',
+                to: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                project: 'BlueCarbon Pilot',
+                hash: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcd'
+            }, {
+                type: 'Sent',
+                amount: 120,
+                date: '2025-09-02T08:22:00Z',
+                status: 'Failed',
+                from: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                to: '0x8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b',
+                project: 'BlueCarbon Pilot',
+                hash: '0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdead'
+            }, {
+                type: 'Bought',
+                amount: 900,
+                date: '2025-08-28T13:40:00Z',
+                status: 'Confirmed',
+                from: '0x9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b',
+                to: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                project: 'Coral-Revive-2025',
+                hash: '0xbead1234bead5678bead9abcbeaddef0bead1234bead5678bead9abcbeaddef0'
+            }, {
+                type: 'Minted',
+                amount: 2000,
+                date: '2025-08-20T07:05:00Z',
+                status: 'Confirmed',
+                from: 'Protocol',
+                to: '0x3fA2C9bA5E7D4f1B89aE0cA1f2E3D4C5B6a78901',
+                project: 'Mangrove-Delta-002',
+                hash: '0xca1e5badc0ffeebabecafe000111222333444555666777888999aaaabbbbccc'
+            }];
+            resolve(data);
+        }, 900);
+    });
+}
+
+// Utilities
+const fmt = {
+    number: (n) => n.toLocaleString(undefined, {
+        maximumFractionDigits: 2
+    }),
+    date: (iso) => dayjs(iso).format('MMM D, YYYY, h:mm A'),
+    addrShort: (addr) => addr ? addr.slice(0, 6) + '…' + addr.slice(-4) : '',
+    hashShort: (h) => h ? h.slice(0, 10) + '…' + h.slice(-6) : ''
+};
+
+function txTypeIcon(type) {
+    switch (type) {
+        case 'Minted':
+            return {
+                icon: 'fa-seedling', cls: 'text-success', bg: 'bg-success-subtle'
+            };
+        case 'Bought':
+            return {
+                icon: 'fa-cart-shopping', cls: 'text-info', bg: 'bg-info-subtle'
+            };
+        case 'Sold':
+            return {
+                icon: 'fa-dollar-sign', cls: 'text-warning', bg: 'bg-warning-subtle'
+            };
+        case 'Sent':
+            return {
+                icon: 'fa-arrow-up-right-from-square', cls: 'text-danger', bg: 'bg-danger-subtle'
+            };
+        case 'Received':
+            return {
+                icon: 'fa-arrow-down', cls: 'text-primary', bg: 'bg-primary-subtle'
+            };
+        default:
+            return {
+                icon: 'fa-circle', cls: 'text-muted', bg: 'bg-light'
+            };
+    }
+}
+
+function statusBadge(status) {
+    switch (status) {
+        case 'Confirmed':
+            return '<span class="badge-soft success"><i class="fa-solid fa-circle-check"></i> Confirmed</span>';
+        case 'Pending':
+            return '<span class="badge-soft info"><i class="fa-regular fa-clock"></i> Pending</span>';
+        case 'Failed':
+            return '<span class="badge-soft error"><i class="fa-solid fa-triangle-exclamation"></i> Failed</span>';
+        default:
+            return '<span class="badge-soft">' + status + '</span>';
+    }
+}
+
+// Rendering
+function renderWalletSummary() {
+    const balanceEl = document.getElementById('balanceDisplay');
+    const addrEl = document.getElementById('walletAddressCode');
+    const lastUpdated = document.getElementById('lastUpdated');
+    if (state.isLoading) {
+        balanceEl.innerHTML = '<span class="skeleton" style="height:48px;width:220px;display:inline-block;border-radius:8px;"></span>';
+        addrEl.textContent = 'Loading...';
+        return;
+    }
+    balanceEl.textContent = fmt.number(state.walletData.balance);
+    addrEl.textContent = state.walletData.address;
+    lastUpdated.textContent = dayjs().format('MMM D, YYYY h:mm A');
+    // Enable/disable send button
+    document.getElementById('btnSend').disabled = !(state.walletData.balance > 0);
+    // Update sidebar user info sample
+    document.getElementById('sidebarUserName').textContent = 'Account';
+    document.getElementById('sidebarUserRole').textContent = 'Member';
+}
+
+function applyFiltersSort() {
+    let rows = [...state.transactions];
+    // Filter by type
+    if (state.filters.type && state.filters.type !== 'All') {
+        rows = rows.filter(r => r.type === state.filters.type);
+    }
+    // Filter by dates
+    if (state.filters.startDate) {
+        rows = rows.filter(r => dayjs(r.date).isAfter(dayjs(state.filters.startDate).subtract(1, 'day')));
+    }
+    if (state.filters.endDate) {
+        rows = rows.filter(r => dayjs(r.date).isBefore(dayjs(state.filters.endDate).add(1, 'day')));
+    }
+    // Sort
+    rows.sort((a, b) => {
+        const dir = state.sort.dir === 'asc' ? 1 : -1;
+        const key = state.sort.key;
+        if (key === 'date') return (dayjs(a.date).valueOf() - dayjs(b.date).valueOf()) * dir;
+        if (key === 'amount') return (a.amount - b.amount) * dir;
+        return 0;
+    });
+    return rows;
+}
+
+function renderTable() {
+    const tbody = document.getElementById('txTableBody');
+    const allRows = applyFiltersSort();
+    const total = allRows.length;
+    const {
+        page,
+        perPage
+    } = state.pagination;
+    const startIdx = (page - 1) * perPage;
+    const pageRows = allRows.slice(startIdx, startIdx + perPage);
+
+    if (state.isLoading) {
+        tbody.innerHTML = `
+          <tr class="loading-row"><td colspan="8"><span class="skeleton" style="height:18px"></span></td></tr>
+          <tr class="loading-row"><td colspan="8"><span class="skeleton" style="height:18px"></span></td></tr>
+          <tr class="loading-row"><td colspan="8"><span class="skeleton" style="height:18px"></span></td></tr>
+        `;
+        document.getElementById('pagination').innerHTML = '';
+        document.getElementById('paginationInfo').textContent = 'Loading transactions...';
+        return;
+    }
+
+    if (pageRows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-state-text">No transactions match the selected filters.</div></div></td></tr>`;
+        document.getElementById('pagination').innerHTML = '';
+        document.getElementById('paginationInfo').textContent = '0 results';
+        return;
+    }
+
+    tbody.innerHTML = pageRows.map(tx => {
+        const t = txTypeIcon(tx.type);
+        const explorer = `https://polygonscan.com/tx/${tx.hash}`;
+        const fromShort = fmt.addrShort(tx.from);
+        const toShort = fmt.addrShort(tx.to);
+        return `
+          <tr class="table-hover-reveal">
+            <td>
+              <span class="icon-badge ${t.bg}"><i class="fa-solid ${t.icon} ${t.cls}"></i></span>
+              <span class="ms-2 fw-semibold">${tx.type}</span>
+            </td>
+            <td>${fmt.date(tx.date)}</td>
+            <td class="fw-semibold">${fmt.number(tx.amount)}</td>
+            <td><span class="addr" data-bs-toggle="tooltip" title="${tx.from}">${fromShort}</span></td>
+            <td><span class="addr" data-bs-toggle="tooltip" title="${tx.to}">${toShort}</span></td>
+            <td>${tx.project}</td>
+            <td>${statusBadge(tx.status)}</td>
+            <td>
+              <a href="${explorer}" target="_blank" rel="noopener" class="text-decoration-none" data-bs-toggle="tooltip" title="View in explorer">${fmt.hashShort(tx.hash)} <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i></a>
+            </td>
+          </tr>
+        `;
+    }).join('');
+
+    // Pagination render
+    const pages = Math.ceil(total / state.pagination.perPage);
+    const pagEl = document.getElementById('pagination');
+    pagEl.innerHTML = '';
+    if (pages > 1) {
+        const prev = document.createElement('li');
+        prev.className = 'page-item' + (state.pagination.page === 1 ? ' disabled' : '');
+        prev.innerHTML = `<a class="page-link" href="#" aria-label="Previous">&laquo;</a>`;
+        prev.onclick = (e) => {
+            e.preventDefault();
+            if (state.pagination.page > 1) {
+                state.pagination.page--;
+                renderTable();
+            }
+        };
+        pagEl.appendChild(prev);
+        for (let i = 1; i <= pages; i++) {
+            const li = document.createElement('li');
+            li.className = 'page-item' + (i === state.pagination.page ? ' active' : '');
+            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            li.onclick = (e) => {
+                e.preventDefault();
+                state.pagination.page = i;
+                renderTable();
+            };
+            pagEl.appendChild(li);
+        }
+        const next = document.createElement('li');
+        next.className = 'page-item' + (state.pagination.page === pages ? ' disabled' : '');
+        next.innerHTML = `<a class="page-link" href="#" aria-label="Next">&raquo;</a>`;
+        next.onclick = (e) => {
+            e.preventDefault();
+            if (state.pagination.page < pages) {
+                state.pagination.page++;
+                renderTable();
+            }
+        };
+        pagEl.appendChild(next);
+    }
+
+    const start = startIdx + 1;
+    const end = startIdx + pageRows.length;
+    document.getElementById('paginationInfo').textContent = `Showing ${start}-${end} of ${total}`;
+
+    // Re-init tooltips
+    initTooltips();
+}
+
+function initTooltips() {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+}
+
+// Sorting handlers
+function initSorting() {
+    document.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+            const key = th.dataset.sort;
+            if (state.sort.key === key) {
+                state.sort.dir = state.sort.dir === 'asc' ? 'desc' : 'asc';
+            } else {
+                state.sort.key = key;
+                state.sort.dir = 'asc';
+            }
+            renderTable();
+        });
+    });
+}
+
+// Chart
+let chartInstance = null;
+
+function renderChart() {
+    if (!state.walletData) return;
+    const ctx = document.getElementById('balanceTrend');
+    const data = state.walletData.trend || [];
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.map((_, i) => `D${i+1}`),
+            datasets: [{
+                label: 'Balance',
+                data,
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-primary') || '#81C784',
+                backgroundColor: 'rgba(129,199,132,0.15)',
+                tension: 0.35,
+                fill: true,
+                pointRadius: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                x: {
+                    display: false
+                },
+                y: {
+                    display: true,
+                    grid: {
+                        color: 'rgba(0,0,0,0.05)'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Actions
+function copyAddress() {
+    if (!state.walletData) return;
+    navigator.clipboard.writeText(state.walletData.address).then(() => {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            timer: 1800,
+            showConfirmButton: false,
+            icon: 'success',
+            title: 'Address copied'
+        });
+    });
+}
+
+function openReceive() {
+    if (!state.walletData) return;
+    const addr = state.walletData.address;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(addr)}`;
+    Swal.fire({
+        title: 'Receive Credits',
+        html: `
+          <div class="d-flex flex-column align-items-center gap-3">
+            <img src="${qrUrl}" alt="QR Code" width="180" height="180" class="border rounded" />
+            <div class="small text-muted">Your Address</div>
+            <code class="address-badge">${addr}</code>
+            <button class="btn btn-primary" id="swalCopy">Copy Address</button>
+          </div>
+        `,
+        showConfirmButton: false,
+        didOpen: () => {
+            document.getElementById('swalCopy').addEventListener('click', () => {
+                navigator.clipboard.writeText(addr).then(() => {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        timer: 1600,
+                        showConfirmButton: false,
+                        icon: 'success',
+                        title: 'Copied!'
+                    });
+                });
+            });
+        }
+    });
+}
+
+function openSend() {
+    if (!state.walletData) return;
+    const max = state.walletData.balance;
+    Swal.fire({
+        title: 'Transfer Credits',
+        html: `
+          <form id="sendForm" class="text-start">
+            <div class="mb-3">
+              <label class="form-label">Recipient Address</label>
+              <input type="text" class="form-control" id="recipient" placeholder="0x..." required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Amount (tCO2e)</label>
+              <input type="number" step="0.01" min="0" class="form-control" id="amount" placeholder="0.00" required>
+              <div class="form-text">Available: ${fmt.number(max)}</div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Note (optional)</label>
+              <textarea class="form-control" id="note" rows="2" placeholder="Purpose or reference..."></textarea>
+            </div>
+          </form>
+        `,
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Send',
+        preConfirm: () => {
+            const recipient = document.getElementById('recipient').value.trim();
+            const amount = parseFloat(document.getElementById('amount').value);
+            if (!/^0x[a-fA-F0-9]{6,}$/.test(recipient)) {
+                Swal.showValidationMessage('Enter a valid wallet address');
+                return false;
+            }
+            if (!(amount > 0)) {
+                Swal.showValidationMessage('Amount must be greater than 0');
+                return false;
+            }
+            if (amount > max) {
+                Swal.showValidationMessage('Insufficient balance');
+                return false;
+            }
+            return {
+                recipient,
+                amount
+            };
+        }
+    }).then((res) => {
+        if (res.isConfirmed) {
+            const {
+                recipient,
+                amount
+            } = res.value;
+            // Simulate sending
+            Swal.fire({
+                title: 'Submitting transaction',
+                didOpen: () => Swal.showLoading(),
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            });
+            setTimeout(() => {
+                Swal.close();
+                // Deduct and add a pending/confirmed tx
+                state.walletData.balance = Math.max(0, state.walletData.balance - amount);
+                const newTx = {
+                    type: 'Sent',
+                    amount,
+                    date: new Date().toISOString(),
+                    status: 'Pending',
+                    from: state.walletData.address,
+                    to: recipient,
+                    project: 'N/A',
+                    hash: '0x' + Math.random().toString(16).substring(2).padEnd(64, '0')
+                };
+                state.transactions.unshift(newTx);
+                renderWalletSummary();
+                state.pagination.page = 1;
+                renderTable();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Transfer Submitted',
+                    text: 'Your transaction is pending confirmation.',
+                    timer: 2200,
+                    showConfirmButton: false
+                });
+                // After 2.5s, mark as confirmed
+                setTimeout(() => {
+                    newTx.status = 'Confirmed';
+                    renderTable();
+                }, 2500);
+            }, 1400);
+        }
+    });
+}
+
+function attachEvents() {
+    document.getElementById('btnCopyAddress').addEventListener('click', copyAddress);
+    document.getElementById('btnReceive').addEventListener('click', openReceive);
+    document.getElementById('btnSend').addEventListener('click', openSend);
+    document.getElementById('btnRefresh').addEventListener('click', init);
+
+    document.getElementById('filterForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const type = document.getElementById('filterType').value;
+        const startDate = document.getElementById('startDate').value || null;
+        const endDate = document.getElementById('endDate').value || null;
+        // Validate date range
+        if (startDate && endDate && dayjs(startDate).isAfter(dayjs(endDate))) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid date range',
+                text: 'Start date cannot be after end date.'
+            });
+            return;
+        }
+        state.filters = {
+            type,
+            startDate,
+            endDate
+        };
+        state.pagination.page = 1;
+        renderTable();
+    });
+    document.getElementById('btnClearFilters').addEventListener('click', () => {
+        document.getElementById('filterType').value = 'All';
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+        state.filters = {
+            type: 'All',
+            startDate: null,
+            endDate: null
+        };
+        state.pagination.page = 1;
+        renderTable();
+    });
+}
+
+// Init
+async function init() {
+    state.isLoading = true;
+    document.getElementById('systemFeedback').classList.remove('d-none');
+    renderWalletSummary();
+    renderTable();
+    try {
+        const [wallet, txs] = await Promise.all([fetchWalletData(), fetchTransactions()]);
+        state.walletData = wallet;
+        state.transactions = txs;
+        state.isLoading = false;
+        document.getElementById('systemFeedback').classList.add('d-none');
+        renderWalletSummary();
+        renderChart();
+        renderTable();
+    } catch (e) {
+        state.error = e;
+        document.getElementById('systemFeedback').classList.replace('alert-info', 'alert-danger');
+        document.getElementById('systemFeedback').textContent = 'Failed to load wallet data. Please try again.';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initTooltips();
+    initSorting();
+    attachEvents();
+    init();
+});
+  </script>
+ </body>
+</html>

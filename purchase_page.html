@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Purchase Credits • BlueCarbonMRV
+  </title>
+  <!-- Brand Typography: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Font Awesome 6 -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+   <!-- SweetAlert2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js">
+   </script>
+   <!-- Chart.js -->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+   </script>
+   <!-- Global Theme CSS -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page-specific CSS -->
+   <link href="purchase_page.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body>
+  <!-- Header (Investor Header with quick action to Marketplace) -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenu" class="btn btn-outline-primary me-2 d-lg-none" data-bs-target="#sidebarMenu" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./user_dashboard.html">
+     <span class="rounded-circle bg-info-subtle p-2 me-2">
+     </span>
+     <span class="fw-bold">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <div class="d-none d-lg-flex ms-3">
+     <a class="btn btn-primary" href="./marketplace_page.html" style="background-color: var(--secondary); border-color: var(--secondary); color:#08306b;">
+      <i class="fa-solid fa-store me-1">
+      </i>
+      Browse Marketplace
+     </a>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+     <form class="d-none d-md-flex" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+       </span>
+       <input aria-label="Search" class="form-control" placeholder="Search projects" type="search"/>
+      </div>
+     </form>
+     <a class="text-decoration-none position-relative text-dark" href="#">
+      <i class="fa-regular fa-bell fs-5">
+      </i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--secondary);">
+       2
+      </span>
+     </a>
+     <a class="text-decoration-none text-dark" href="#">
+      <i class="fa-regular fa-envelope fs-5">
+      </i>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#">
+       <img alt="Investor avatar" class="rounded-circle me-2" height="32" onerror="this.src='https://picsum.photos/seed/fallbackuser/32/32'" src="https://picsum.photos/seed/user/32/32" width="32"/>
+       <span>
+        Investor
+       </span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./settings_page.html">
+         Settings
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./wallet_page.html">
+         Wallet
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Offcanvas Sidebar (for < lg) -->
+  <div aria-labelledby="sidebarMenuLabel" class="offcanvas offcanvas-start" id="sidebarMenu" tabindex="-1">
+   <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarMenuLabel">
+     BlueCarbonMRV
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body d-flex flex-column">
+    <!-- Same menu items as desktop sidebar -->
+    <div class="d-flex align-items-center mt-2 mb-3">
+     <img alt="avatar" class="rounded-circle me-2" onerror="this.src='https://picsum.photos/seed/fallback/36/36'" src="https://picsum.photos/seed/investor/36/36"/>
+     <div class="small">
+      <div class="fw-semibold">
+       Investor Name
+      </div>
+      <span class="badge inv-role text-dark">
+       Investor
+      </span>
+     </div>
+    </div>
+    <hr/>
+    <ul class="nav nav-pills flex-column mb-auto gap-1">
+     <li>
+      <a class="nav-link" data-page="user_dashboard" href="./user_dashboard.html">
+       <i class="fa-solid fa-gauge me-2">
+       </i>
+       Dashboard
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./marketplace_page.html">
+       <i class="fa-solid fa-store me-2">
+       </i>
+       Marketplace
+      </a>
+     </li>
+     <li>
+      <a aria-controls="portfolioMenuMobile" aria-expanded="false" class="nav-link" data-bs-toggle="collapse" href="#portfolioMenuMobile" role="button">
+       <i class="fa-solid fa-briefcase me-2">
+       </i>
+       Portfolio
+      </a>
+      <div class="collapse ps-4" id="portfolioMenuMobile">
+       <a class="nav-link py-1" href="./user_dashboard.html#holdings">
+        My Holdings
+       </a>
+       <a class="nav-link py-1 d-flex align-items-center" href="./user_dashboard.html#history">
+        <i class="fa-solid fa-receipt me-2">
+        </i>
+        Purchase History
+       </a>
+      </div>
+     </li>
+     <li>
+      <a class="nav-link" href="./wallet_page.html">
+       <i class="fa-solid fa-wallet me-2">
+       </i>
+       Wallet
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./settings_page.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./help.html">
+       <i class="fa-solid fa-circle-question me-2">
+       </i>
+       Help
+      </a>
+     </li>
+    </ul>
+   </div>
+  </div>
+  <!-- Desktop Sidebar (visible lg and up) -->
+  <style>
+   .inv-sidebar { width: 260px; }
+    .inv-sidebar .nav-link { border-radius:.375rem; }
+    .inv-sidebar .nav-link:hover { background-color: rgba(144,202,249,.15); color:#0d47a1; }
+    .inv-sidebar .nav-link.active { background-color: rgba(144,202,249,.25); color:#0d47a1; }
+    .inv-role { background-color: var(--secondary); }
+  </style>
+  <aside class="inv-sidebar d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-white border-end min-vh-100" id="desktopSidebar">
+   <a class="d-flex align-items-center mb-3 text-decoration-none" href="./user_dashboard.html">
+    <span class="rounded-circle bg-info-subtle p-2 me-2">
+    </span>
+    <span class="fs-5 fw-bold">
+     BlueCarbonMRV
+    </span>
+   </a>
+   <div class="d-flex align-items-center mt-2 mb-3">
+    <img alt="avatar" class="rounded-circle me-2" onerror="this.src='https://picsum.photos/seed/fallback/36/36'" src="https://picsum.photos/seed/investor/36/36"/>
+    <div class="small">
+     <div class="fw-semibold">
+      Investor Name
+     </div>
+     <span class="badge inv-role text-dark">
+      Investor
+     </span>
+    </div>
+   </div>
+   <hr/>
+   <ul class="nav nav-pills flex-column mb-auto gap-1">
+    <li>
+     <a class="nav-link" data-page="user_dashboard" href="./user_dashboard.html">
+      <i class="fa-solid fa-gauge me-2">
+      </i>
+      Dashboard
+     </a>
+    </li>
+    <li>
+     <a class="nav-link" href="./marketplace_page.html">
+      <i class="fa-solid fa-store me-2">
+      </i>
+      Marketplace
+     </a>
+    </li>
+    <li>
+     <a aria-controls="portfolioMenu" aria-expanded="true" class="nav-link" data-bs-toggle="collapse" href="#portfolioMenu" role="button">
+      <i class="fa-solid fa-briefcase me-2">
+      </i>
+      Portfolio
+     </a>
+     <div class="collapse show ps-4" id="portfolioMenu">
+      <a class="nav-link py-1" href="./user_dashboard.html#holdings">
+       My Holdings
+      </a>
+      <a class="nav-link py-1 d-flex align-items-center" href="./user_dashboard.html#history">
+       <i class="fa-solid fa-receipt me-2">
+       </i>
+       Purchase History
+      </a>
+     </div>
+    </li>
+    <li>
+     <a class="nav-link" href="./wallet_page.html">
+      <i class="fa-solid fa-wallet me-2">
+      </i>
+      Wallet
+     </a>
+    </li>
+    <li>
+     <a class="nav-link" href="./settings_page.html">
+      <i class="fa-solid fa-gear me-2">
+      </i>
+      Settings
+     </a>
+    </li>
+    <li>
+     <a class="nav-link" href="./help.html">
+      <i class="fa-solid fa-circle-question me-2">
+      </i>
+      Help
+     </a>
+    </li>
+   </ul>
+  </aside>
+  <!-- Main Content -->
+  <main class="flex-grow-1" id="mainContent">
+   <div class="container-fluid">
+    <div class="row">
+     <!-- leave space for sidebar on lg with flex layout -->
+     <div class="col-12 col-lg-10 col-xl-10 ms-lg-auto px-3 px-lg-4 py-4">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="breadcrumb">
+       <ol class="breadcrumb mb-2">
+        <li class="breadcrumb-item">
+         <a href="./home_page.html">
+          Home
+         </a>
+        </li>
+        <li class="breadcrumb-item">
+         <a href="./marketplace_page.html">
+          Marketplace
+         </a>
+        </li>
+        <li class="breadcrumb-item">
+         <a href="./project_details_page.html">
+          Project
+         </a>
+        </li>
+        <li aria-current="page" class="breadcrumb-item active">
+         Purchase
+        </li>
+       </ol>
+      </nav>
+      <!-- Page Header -->
+      <div class="page-header">
+       <div>
+        <h1 class="page-title mb-1">
+         Purchase Carbon Credits
+        </h1>
+        <div class="text-muted">
+         Securely acquire tokenized credits and instantly add them to your wallet.
+        </div>
+       </div>
+       <div class="d-none d-md-flex align-items-center gap-2">
+        <a class="btn btn-light" href="./wallet_page.html">
+         <i class="fa-solid fa-wallet me-2">
+         </i>
+         View Wallet
+        </a>
+        <a class="btn btn-info" href="./project_details_page.html">
+         <i class="fa-solid fa-circle-info me-2">
+         </i>
+         Project Info
+        </a>
+       </div>
+      </div>
+      <!-- System Feedback Area -->
+      <div class="alert alert-info d-flex align-items-center" id="systemAlert" role="alert">
+       <i class="fa-solid fa-circle-info me-2">
+       </i>
+       Prices update every 10 minutes. Network fees are estimated at checkout.
+      </div>
+      <!-- Purchase Flow: two-column layout -->
+      <div class="row g-4" id="purchaseFlow">
+       <!-- Purchase Form Column -->
+       <div class="col-12 col-lg-7">
+        <div class="card h-100">
+         <div class="card-header">
+          <div class="d-flex align-items-center gap-2">
+           <i class="fa-solid fa-cart-shopping text-info">
+           </i>
+           <span class="widget-title">
+            Purchase Form
+           </span>
+          </div>
+          <span class="badge bg-info-subtle text-dark" id="projectBadge">
+           Loading...
+          </span>
+         </div>
+         <div class="card-body">
+          <!-- Loading state -->
+          <div class="d-flex align-items-center gap-2 mb-3" id="formLoading">
+           <div class="spinner-border text-info spinner-border-sm" role="status">
+           </div>
+           <span class="text-muted">
+            Fetching project and wallet details...
+           </span>
+          </div>
+          <form class="needs-validation" id="purchaseForm" novalidate="">
+           <div class="mb-3">
+            <label class="form-label" for="quantityInput">
+             Quantity of Credits
+            </label>
+            <div class="input-group">
+             <span class="input-group-text">
+              <i class="fa-solid fa-leaf">
+              </i>
+             </span>
+             <input class="form-control" disabled="" id="quantityInput" min="1" placeholder="Enter number of credits" required="" step="1" type="number"/>
+            </div>
+            <div class="form-text">
+             Must be a positive integer and not exceed available credits or your wallet balance.
+            </div>
+            <div class="invalid-feedback" id="quantityFeedback">
+             Please enter a valid quantity.
+            </div>
+           </div>
+           <div class="row g-3 mb-3">
+            <div class="col-6">
+             <div class="border rounded p-3 bg-surface">
+              <div class="text-muted small">
+               Price per Credit
+              </div>
+              <div class="fs-5 fw-bold" id="pricePerCredit">
+               $—
+              </div>
+             </div>
+            </div>
+            <div class="col-6">
+             <div class="border rounded p-3 bg-surface">
+              <div class="text-muted small">
+               Subtotal
+              </div>
+              <div class="fs-5 fw-bold" id="totalCost">
+               $0.00
+              </div>
+             </div>
+            </div>
+           </div>
+           <div class="row g-3 mb-3">
+            <div class="col-6">
+             <div class="border rounded p-3">
+              <div class="text-muted small">
+               Available Credits
+              </div>
+              <div class="fw-semibold" id="availableCredits">
+               —
+              </div>
+             </div>
+            </div>
+            <div class="col-6">
+             <div class="border rounded p-3">
+              <div class="text-muted small">
+               Wallet Balance
+              </div>
+              <div class="fw-semibold" id="walletBalance">
+               —
+              </div>
+             </div>
+            </div>
+           </div>
+           <div class="mb-3">
+            <div class="form-check">
+             <input class="form-check-input" disabled="" id="agreeTos" required="" type="checkbox" value=""/>
+             <label class="form-check-label" for="agreeTos">
+              I agree to the Terms of Purchase and understand this transaction is final.
+             </label>
+             <div class="invalid-feedback">
+              You must agree before purchasing.
+             </div>
+            </div>
+           </div>
+           <div class="d-grid d-sm-flex gap-2">
+            <button class="btn btn-primary" disabled="" id="purchaseBtn" type="button">
+             <i class="fa-solid fa-shield-halved me-2">
+             </i>
+             Proceed to Purchase
+            </button>
+            <button class="btn btn-light" id="resetBtn" type="button">
+             <i class="fa-solid fa-rotate me-2">
+             </i>
+             Reset
+            </button>
+           </div>
+          </form>
+         </div>
+         <div class="card-footer d-flex align-items-center justify-content-between">
+          <small class="text-muted">
+           Network: Polygon | Est. gas:
+           <span id="estGas">
+            —
+           </span>
+          </small>
+          <a class="small text-decoration-none" data-bs-toggle="collapse" href="#feeInfo">
+           How fees are calculated
+          </a>
+         </div>
+         <div class="collapse p-3" id="feeInfo">
+          <div class="alert alert-info mb-0">
+           <i class="fa-regular fa-circle-question me-2">
+           </i>
+           Fees are estimated based on current network conditions and finalized at execution.
+          </div>
+         </div>
+        </div>
+       </div>
+       <!-- Project Snapshot Column -->
+       <div class="col-12 col-lg-5">
+        <div class="card h-100 purchase-summary">
+         <div class="card-header">
+          <div class="d-flex align-items-center gap-2">
+           <i class="fa-solid fa-seedling text-success">
+           </i>
+           <span class="widget-title">
+            Project Snapshot
+           </span>
+          </div>
+          <a class="small text-decoration-none" href="./project_details_page.html">
+           <i class="fa-solid fa-up-right-from-square me-1">
+           </i>
+           View Full Project Details
+          </a>
+         </div>
+         <div class="card-body">
+          <div class="d-flex align-items-start gap-3 mb-3">
+           <img alt="Project image" class="rounded" height="96" id="projectImage" onerror="this.src='https://picsum.photos/seed/fallback/96/96'" src="https://picsum.photos/seed/project/96/96" width="96">
+            <div>
+             <h3 class="h5 mb-1" id="projectName">
+              Loading project...
+             </h3>
+             <div class="text-muted small" id="projectLocation">
+              —
+             </div>
+             <div class="mt-2">
+              <span class="badge-soft success me-2">
+               <i class="fa-solid fa-check me-1">
+               </i>
+               Verified
+              </span>
+              <span class="badge-soft info">
+               <i class="fa-regular fa-clock me-1">
+               </i>
+               Updated
+               <span id="lastUpdated">
+                —
+               </span>
+              </span>
+             </div>
+            </div>
+           </img>
+          </div>
+          <div class="mb-3">
+           <canvas aria-label="Recent price chart" height="120" id="priceChart" role="img">
+           </canvas>
+          </div>
+          <ul class="list-group list-group-flush mb-3">
+           <li class="list-group-item d-flex justify-content-between align-items-center">
+            Registry ID
+            <span class="fw-semibold" id="registryId">
+             —
+            </span>
+           </li>
+           <li class="list-group-item d-flex justify-content-between align-items-center">
+            Methodology
+            <span class="fw-semibold" id="methodology">
+             —
+            </span>
+           </li>
+           <li class="list-group-item d-flex justify-content-between align-items-center">
+            Vintage
+            <span class="fw-semibold" id="vintage">
+             —
+            </span>
+           </li>
+          </ul>
+          <div class="alert alert-warning mb-0">
+           <i class="fa-solid fa-triangle-exclamation me-2">
+           </i>
+           Ensure your wallet has sufficient MATIC for gas fees.
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <!-- Transaction Status Display -->
+      <div class="card mt-4 d-none" id="txStatusPanel">
+       <div class="card-header">
+        <div class="d-flex align-items-center gap-2">
+         <i class="fa-regular fa-hourglass-half text-warning" id="txStatusIcon">
+         </i>
+         <span class="widget-title">
+          Transaction Status
+         </span>
+        </div>
+       </div>
+       <div class="card-body">
+        <div class="mb-2" id="txStatusMessage">
+         Processing your transaction...
+        </div>
+        <div class="d-flex align-items-center flex-wrap gap-3">
+         <a class="text-decoration-none d-none" href="#" id="blockExplorerLink" target="_blank">
+          <i class="fa-solid fa-up-right-from-square me-1">
+          </i>
+          View on Polygonscan
+         </a>
+         <span class="text-muted small" id="txHashText">
+         </span>
+        </div>
+       </div>
+       <div class="card-footer d-flex justify-content-between align-items-center">
+        <div class="text-muted small">
+         Status:
+         <span id="txStatusLabel">
+          pending
+         </span>
+        </div>
+        <div class="d-flex gap-2">
+         <a class="btn btn-success btn-sm" href="./wallet_page.html" id="viewInWalletBtn">
+          <i class="fa-solid fa-wallet me-1">
+          </i>
+          View in Wallet
+         </a>
+         <a class="btn btn-light btn-sm" href="./user_dashboard.html#history">
+          <i class="fa-solid fa-list me-1">
+          </i>
+          View History
+         </a>
+        </div>
+       </div>
+      </div>
+      <!-- Recent Purchases (Sample Data with sorting/filtering) -->
+      <section class="mt-5">
+       <div class="section-header">
+        <h2 class="h5 mb-0">
+         Recent Purchases
+        </h2>
+        <div class="d-flex gap-2">
+         <input class="form-control form-control-sm" id="purchaseSearch" placeholder="Search purchases..." type="search"/>
+         <div class="dropdown">
+          <button aria-expanded="false" class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" type="button">
+           <i class="fa-solid fa-filter me-1">
+           </i>
+           Filters
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end p-2" style="min-width: 220px;">
+           <li class="mb-2">
+            <span class="text-muted small">
+             Date Range
+            </span>
+           </li>
+           <li class="mb-2">
+            <input class="form-control form-control-sm" id="filterFrom" type="date"/>
+           </li>
+           <li class="mb-2">
+            <input class="form-control form-control-sm" id="filterTo" type="date"/>
+           </li>
+           <li>
+            <button class="btn btn-primary btn-sm w-100" id="applyFiltersBtn">
+             Apply
+            </button>
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+       <div class="table-responsive">
+        <table class="table-theme w-100" id="recentPurchasesTable">
+         <thead>
+          <tr>
+           <th class="sortable" data-key="date">
+            Date
+            <i class="fa-solid fa-sort ms-1 text-muted">
+            </i>
+           </th>
+           <th>
+            Project
+           </th>
+           <th class="text-end sortable" data-key="quantity">
+            Quantity
+            <i class="fa-solid fa-sort ms-1 text-muted">
+            </i>
+           </th>
+           <th class="text-end sortable" data-key="total">
+            Total (USD)
+            <i class="fa-solid fa-sort ms-1 text-muted">
+            </i>
+           </th>
+           <th>
+            Status
+           </th>
+           <th>
+            Action
+           </th>
+          </tr>
+         </thead>
+         <tbody id="recentPurchasesBody">
+          <!-- rows via JS -->
+         </tbody>
+        </table>
+       </div>
+       <div class="d-flex justify-content-between align-items-center mt-2">
+        <small class="text-muted" id="paginationInfo">
+         Showing 0–0 of 0
+        </small>
+        <div class="btn-group btn-group-sm" role="group">
+         <button class="btn btn-light" disabled="" id="prevPage">
+          <i class="fa-solid fa-chevron-left">
+          </i>
+         </button>
+         <button class="btn btn-light" disabled="" id="nextPage">
+          <i class="fa-solid fa-chevron-right">
+          </i>
+         </button>
+        </div>
+       </div>
+      </section>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer (Investor Footer) -->
+  <footer class="bg-light border-top py-3 mt-4">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="small text-muted">
+     © BlueCarbonMRV
+    </div>
+    <div class="d-flex gap-3">
+     <a class="btn btn-outline-primary btn-sm" href="./wallet_page.html" style="border-color: var(--secondary); color:#0d47a1;">
+      View Wallet
+     </a>
+     <a class="btn btn-primary btn-sm" href="./marketplace_page.html" style="background-color: var(--secondary); border-color: var(--secondary); color:#08306b;">
+      Buy Credits
+     </a>
+    </div>
+    <div class="small">
+     <a class="text-decoration-none me-3" href="./terms.html">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./privacy.html">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Mocked data fetch and page logic
+const state = {
+    projectId: new URLSearchParams(window.location.search).get('projectId') || '101',
+    project: null,
+    walletBalance: 0,
+    quantity: 0,
+    price: 0,
+    available: 0,
+    gasEstimate: 0.08, // MATIC
+    currency: 'USD',
+    transaction: {
+        status: 'idle',
+        hash: '',
+        error: ''
+    }
+};
+
+// Elements
+const els = {};
+
+function cacheEls() {
+    els.formLoading = document.getElementById('formLoading');
+    els.quantityInput = document.getElementById('quantityInput');
+    els.quantityFeedback = document.getElementById('quantityFeedback');
+    els.totalCost = document.getElementById('totalCost');
+    els.pricePerCredit = document.getElementById('pricePerCredit');
+    els.availableCredits = document.getElementById('availableCredits');
+    els.walletBalance = document.getElementById('walletBalance');
+    els.agreeTos = document.getElementById('agreeTos');
+    els.purchaseBtn = document.getElementById('purchaseBtn');
+    els.resetBtn = document.getElementById('resetBtn');
+    els.estGas = document.getElementById('estGas');
+    els.projectBadge = document.getElementById('projectBadge');
+    els.projectName = document.getElementById('projectName');
+    els.projectLocation = document.getElementById('projectLocation');
+    els.lastUpdated = document.getElementById('lastUpdated');
+    els.registryId = document.getElementById('registryId');
+    els.methodology = document.getElementById('methodology');
+    els.vintage = document.getElementById('vintage');
+    els.projectImage = document.getElementById('projectImage');
+
+    els.txPanel = document.getElementById('txStatusPanel');
+    els.txIcon = document.getElementById('txStatusIcon');
+    els.txMsg = document.getElementById('txStatusMessage');
+    els.txHashText = document.getElementById('txHashText');
+    els.txLabel = document.getElementById('txStatusLabel');
+    els.blockExplorerLink = document.getElementById('blockExplorerLink');
+
+    // Table
+    els.tableBody = document.getElementById('recentPurchasesBody');
+    els.paginationInfo = document.getElementById('paginationInfo');
+    els.prevPage = document.getElementById('prevPage');
+    els.nextPage = document.getElementById('nextPage');
+    els.search = document.getElementById('purchaseSearch');
+    els.filterFrom = document.getElementById('filterFrom');
+    els.filterTo = document.getElementById('filterTo');
+    els.applyFiltersBtn = document.getElementById('applyFiltersBtn');
+}
+
+function formatCurrency(n) {
+    return n.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    });
+}
+
+function simulateFetch() {
+    // Simulate API calls
+    return new Promise(resolve => {
+        setTimeout(() => {
+            const project = {
+                id: state.projectId,
+                name: 'Delta Mangrove Restoration ' + state.projectId,
+                location: 'Delta Province, Country X',
+                price: 12.5,
+                available: 1250,
+                registryId: 'REG-DELTA-' + state.projectId,
+                methodology: 'ARR Mangrove - v2.1',
+                vintage: '2019-2021',
+                lastUpdated: '2h ago'
+            };
+            const walletBalance = 3000; // USD
+            resolve({
+                project,
+                walletBalance
+            });
+        }, 800);
+    });
+}
+
+function initChart(prices) {
+    const ctx = document.getElementById('priceChart');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: prices.map((_, i) => 'T-' + (prices.length - i)),
+            datasets: [{
+                label: 'Price ($)',
+                data: prices,
+                tension: 0.35,
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-info') || '#0099D2',
+                backgroundColor: 'rgba(0,153,210,0.08)',
+                pointRadius: 0,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    ticks: {
+                        callback: (v) => '$' + v
+                    }
+                },
+                x: {
+                    display: false
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            }
+        }
+    });
+}
+
+function updateTotals() {
+    const qty = parseInt(els.quantityInput.value || '0', 10);
+    state.quantity = isNaN(qty) ? 0 : qty;
+    const total = state.quantity * state.price;
+    els.totalCost.textContent = formatCurrency(total);
+
+    const validQty = Number.isInteger(state.quantity) && state.quantity > 0;
+    const notExceedAvail = state.quantity <= state.available;
+    const notExceedFunds = total <= state.walletBalance;
+
+    let message = '';
+    if (!validQty) message = 'Enter a positive whole number.';
+    else if (!notExceedAvail) message = 'Exceeds available credits.';
+    else if (!notExceedFunds) message = 'Insufficient wallet balance.';
+
+    if (message) {
+        els.quantityInput.classList.add('is-invalid');
+        els.quantityFeedback.textContent = message;
+    } else {
+        els.quantityInput.classList.remove('is-invalid');
+    }
+
+    const canProceed = validQty && notExceedAvail && notExceedFunds && els.agreeTos.checked;
+    els.purchaseBtn.disabled = !canProceed;
+}
+
+function mountPurchaseFlow() {
+    // Enable inputs
+    els.quantityInput.disabled = false;
+    els.agreeTos.disabled = false;
+    els.formLoading.classList.add('d-none');
+
+    // Fill project and wallet info
+    els.projectBadge.textContent = 'Project #' + state.project.id;
+    els.pricePerCredit.textContent = formatCurrency(state.price);
+    els.availableCredits.textContent = state.available.toLocaleString();
+    els.walletBalance.textContent = formatCurrency(state.walletBalance);
+    els.estGas.textContent = state.gasEstimate + ' MATIC (est)';
+
+    els.projectName.textContent = state.project.name;
+    els.projectLocation.textContent = state.project.location;
+    els.lastUpdated.textContent = state.project.lastUpdated;
+    els.registryId.textContent = state.project.registryId;
+    els.methodology.textContent = state.project.methodology;
+    els.vintage.textContent = state.project.vintage;
+
+    // Chart - mock price series around current price
+    const base = state.price;
+    const series = Array.from({
+        length: 24
+    }, (_, i) => {
+        const jitter = (Math.sin(i / 3) + Math.cos(i / 4)) * 0.2 + (Math.random() - 0.5) * 0.25;
+        return +(base + jitter).toFixed(2);
+    });
+    initChart(series);
+
+    // Events
+    els.quantityInput.addEventListener('input', updateTotals);
+    els.agreeTos.addEventListener('change', updateTotals);
+    els.resetBtn.addEventListener('click', () => {
+        els.quantityInput.value = '';
+        els.agreeTos.checked = false;
+        updateTotals();
+    });
+
+    els.purchaseBtn.addEventListener('click', () => {
+        const total = state.quantity * state.price;
+        const summaryHtml = `\n          <div class="text-start">\n            <p class="mb-2">You are purchasing <strong>${state.quantity}</strong> credits from <strong>${state.project.name}</strong>.</p>\n            <ul class="list-unstyled small mb-3">\n              <li><i class="fa-solid fa-tag me-2 text-info"></i> Price per credit: ${formatCurrency(state.price)}</li>\n              <li><i class="fa-solid fa-sack-dollar me-2 text-success"></i> Total: <strong>${formatCurrency(total)}</strong></li>\n              <li><i class="fa-brands fa-polygon me-2 text-warning"></i> Est. Gas: ${state.gasEstimate} MATIC</li>\n            </ul>\n          </div>`;
+
+        Swal.fire({
+            title: 'Confirm Purchase',
+            html: summaryHtml,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm & Pay',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true,
+            allowOutsideClick: () => !Swal.isLoading(),
+            preConfirm: () => {
+                // simulate blockchain tx
+                return new Promise((resolve, reject) => {
+                    Swal.showLoading();
+                    setTimeout(() => {
+                        // Simulate success 85% of the time
+                        if (Math.random() < 0.85) {
+                            const hash = '0x' + Math.random().toString(16).slice(2).padEnd(64, 'a');
+                            resolve({
+                                hash
+                            });
+                        } else {
+                            reject(new Error('Network congestion, please try again.'));
+                        }
+                    }, 1800);
+                }).catch(err => {
+                    Swal.showValidationMessage(err.message);
+                });
+            }
+        }).then(result => {
+            if (result.isConfirmed && result.value?.hash) {
+                const hash = result.value.hash;
+                state.transaction = {
+                    status: 'success',
+                    hash,
+                    error: ''
+                };
+                renderTxStatus();
+                Swal.fire({
+                    title: 'Purchase Complete',
+                    text: 'Your transaction has been submitted successfully.',
+                    icon: 'success',
+                    timer: 2200,
+                    showConfirmButton: false
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // do nothing
+            }
+        });
+    });
+
+    updateTotals();
+}
+
+function renderTxStatus() {
+    els.txPanel.classList.remove('d-none');
+    if (state.transaction.status === 'success') {
+        els.txIcon.className = 'fa-solid fa-circle-check text-success';
+        els.txMsg.textContent = 'Success! Your credits are on their way to your wallet.';
+        els.txLabel.textContent = 'success';
+        els.txHashText.textContent = 'Tx Hash: ' + state.transaction.hash;
+        const explorerUrl = 'https://polygonscan.com/tx/' + state.transaction.hash;
+        els.blockExplorerLink.href = explorerUrl;
+        els.blockExplorerLink.classList.remove('d-none');
+    } else if (state.transaction.status === 'error') {
+        els.txIcon.className = 'fa-solid fa-circle-xmark text-danger';
+        els.txMsg.textContent = 'Transaction failed: ' + state.transaction.error;
+        els.txLabel.textContent = 'failed';
+        els.blockExplorerLink.classList.add('d-none');
+    } else {
+        els.txIcon.className = 'fa-regular fa-hourglass-half text-warning';
+        els.txMsg.textContent = 'Processing your transaction...';
+        els.txLabel.textContent = 'pending';
+        els.blockExplorerLink.classList.add('d-none');
+    }
+}
+
+// Recent Purchases Table (mock data, sorting, filtering)
+const tableState = {
+    rows: [],
+    sortKey: 'date',
+    sortDir: 'desc',
+    page: 1,
+    pageSize: 6,
+    filterText: '',
+    from: null,
+    to: null
+};
+
+function seedTableData() {
+    const data = [{
+        date: '2025-03-12',
+        project: 'Delta Mangrove Restoration 101',
+        quantity: 120,
+        total: 1500.00,
+        status: 'Settled',
+        hash: '0xabc123'
+    }, {
+        date: '2025-03-10',
+        project: 'Delta Mangrove Restoration 102',
+        quantity: 50,
+        total: 625.00,
+        status: 'Settled',
+        hash: '0xdef456'
+    }, {
+        date: '2025-03-08',
+        project: 'Delta Mangrove Restoration 101',
+        quantity: 200,
+        total: 2500.00,
+        status: 'Settled',
+        hash: '0x987654'
+    }, {
+        date: '2025-03-05',
+        project: 'Coastal Blue Carbon 87',
+        quantity: 75,
+        total: 900.00,
+        status: 'Failed',
+        hash: '0xaaaaaa'
+    }, {
+        date: '2025-03-01',
+        project: 'Delta Mangrove Restoration 101',
+        quantity: 40,
+        total: 500.00,
+        status: 'Settled',
+        hash: '0xbbbbbb'
+    }, {
+        date: '2025-02-26',
+        project: 'Peatland Recovery North',
+        quantity: 60,
+        total: 720.00,
+        status: 'Settled',
+        hash: '0xcccccc'
+    }, {
+        date: '2025-02-20',
+        project: 'Coastal Blue Carbon 87',
+        quantity: 30,
+        total: 360.00,
+        status: 'Settled',
+        hash: '0xdddddd'
+    }, {
+        date: '2025-02-18',
+        project: 'Delta Mangrove Restoration 102',
+        quantity: 90,
+        total: 1125.00,
+        status: 'Settled',
+        hash: '0xeeeeee'
+    }];
+    tableState.rows = data;
+}
+
+function applyFilters(rows) {
+    const text = tableState.filterText.toLowerCase();
+    const from = tableState.from ? new Date(tableState.from) : null;
+    const to = tableState.to ? new Date(tableState.to) : null;
+    return rows.filter(r => {
+        const matchesText = !text || r.project.toLowerCase().includes(text) || r.status.toLowerCase().includes(text);
+        const d = new Date(r.date);
+        const afterFrom = !from || d >= from;
+        const beforeTo = !to || d <= to;
+        return matchesText && afterFrom && beforeTo;
+    });
+}
+
+function sortRows(rows) {
+    const {
+        sortKey,
+        sortDir
+    } = tableState;
+    return rows.slice().sort((a, b) => {
+        let v1 = a[sortKey];
+        let v2 = b[sortKey];
+        if (sortKey === 'date') {
+            v1 = new Date(v1).getTime();
+            v2 = new Date(v2).getTime();
+        }
+        const cmp = v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+        return sortDir === 'asc' ? cmp : -cmp;
+    });
+}
+
+function renderTable() {
+    let rows = applyFilters(tableState.rows);
+    rows = sortRows(rows);
+
+    const startIdx = (tableState.page - 1) * tableState.pageSize;
+    const pageRows = rows.slice(startIdx, startIdx + tableState.pageSize);
+
+    els.tableBody.innerHTML = pageRows.map(r => `
+        <tr>
+          <td>${r.date}</td>
+          <td>${r.project}</td>
+          <td class="text-end">${r.quantity.toLocaleString()}</td>
+          <td class="text-end">${formatCurrency(r.total)}</td>
+          <td>
+            ${r.status === 'Settled' ? '<span class="badge bg-success">Settled</span>' : '<span class="badge bg-danger">Failed</span>'}
+          </td>
+          <td>
+            <a href="https://polygonscan.com/tx/${r.hash}" target="_blank" class="btn btn-sm btn-light"><i class="fa-solid fa-up-right-from-square"></i></a>
+          </td>
+        </tr>
+      `).join('');
+
+    const end = Math.min(startIdx + pageRows.length, rows.length);
+    els.paginationInfo.textContent = `Showing ${rows.length ? startIdx + 1 : 0}–${end} of ${rows.length}`;
+    els.prevPage.disabled = tableState.page <= 1;
+    els.nextPage.disabled = end >= rows.length;
+}
+
+function bindTableEvents() {
+    document.querySelectorAll('#recentPurchasesTable thead th.sortable').forEach(th => {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', () => {
+            const key = th.getAttribute('data-key');
+            if (tableState.sortKey === key) {
+                tableState.sortDir = tableState.sortDir === 'asc' ? 'desc' : 'asc';
+            } else {
+                tableState.sortKey = key;
+                tableState.sortDir = 'asc';
+            }
+            tableState.page = 1;
+            renderTable();
+        });
+    });
+    els.prevPage.addEventListener('click', () => {
+        if (tableState.page > 1) {
+            tableState.page--;
+            renderTable();
+        }
+    });
+    els.nextPage.addEventListener('click', () => {
+        tableState.page++;
+        renderTable();
+    });
+    els.search.addEventListener('input', (e) => {
+        tableState.filterText = e.target.value;
+        tableState.page = 1;
+        renderTable();
+    });
+    els.applyFiltersBtn.addEventListener('click', () => {
+        tableState.from = els.filterFrom.value || null;
+        tableState.to = els.filterTo.value || null;
+        tableState.page = 1;
+        renderTable();
+        // Close dropdown
+        const ddEl = els.applyFiltersBtn.closest('.dropdown');
+        const dd = bootstrap.Dropdown.getOrCreateInstance(ddEl.querySelector('[data-bs-toggle="dropdown"]'));
+        dd.hide();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    cacheEls();
+    seedTableData();
+    bindTableEvents();
+    renderTable();
+
+    // Simulate data fetch
+    const {
+        project,
+        walletBalance
+    } = await simulateFetch();
+    state.project = project;
+    state.price = project.price;
+    state.available = project.available;
+    state.walletBalance = walletBalance;
+    mountPurchaseFlow();
+});
+  </script>
+ </body>
+</html>

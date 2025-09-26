@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   BlueCarbonMRV • Create New Project
+  </title>
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <!-- Leaflet CSS -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" integrity="sha512-pKE1FvCjU6J87hcplQ03YjM1ZV1cZ6s4qgkTZiDk+wWJYDC8X4vCqC3q2CwK5OQ3m2Qad9fqs1xEfY2z8mJuNg==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- Leaflet.Draw CSS -->
+   <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" integrity="sha512-Hp1zjwSuuq5iFh1bczJb4u+KAwSmlB4FjT9p6oG8JQ0zv0nVsO8eYf1wMQS9s2lCy4i2R2QeXkhC7s1/JCT1eg==" referrerpolicy="no-referrer" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
+     <!-- Site Theme CSS -->
+     <link href="style.css" rel="stylesheet"/>
+     <!-- Page-specific CSS -->
+     <link href="project_creation_page.css" rel="stylesheet"/>
+     <style>
+      /* Inline tiny fix to ensure Poppins becomes primary font without duplicating theme */
+    body { font-family: 'Poppins', var(--font-sans); }
+     </style>
+    </link>
+   </link>
+  </link>
+ </head>
+ <body>
+  <!-- Header (Common Component) -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenu" class="btn btn-outline-success me-2 d-lg-none" data-bs-target="#sidebarMenu" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./user_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fw-bold">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <div class="d-none d-lg-flex ms-3">
+     <a class="btn btn-success" href="./project_creation_page.html" style="background-color: var(--color-primary); border-color: var(--color-primary);">
+      <i class="fa-solid fa-plus me-1">
+      </i>
+      New Project
+     </a>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+     <form class="d-none d-md-flex" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+       </span>
+       <input aria-label="Search" class="form-control" placeholder="Search my projects" type="search"/>
+      </div>
+     </form>
+     <a class="text-decoration-none position-relative text-dark" href="#">
+      <i class="fa-regular fa-bell fs-5">
+      </i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--color-secondary);">
+       3
+      </span>
+     </a>
+     <a class="text-decoration-none text-dark" href="./marketplace_page.html">
+      <i class="fa-regular fa-envelope fs-5">
+      </i>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#">
+       <img alt="user" class="rounded-circle me-2" height="32" onerror="this.onerror=null;this.src='https://picsum.photos/seed/avatar/32/32'" src="https://via.placeholder.com/32" width="32"/>
+       <span>
+        Developer
+       </span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./settings_page.html">
+         Settings
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./wallet_page.html">
+         Wallet
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <div class="container-fluid">
+   <div class="row g-0">
+    <!-- Sidebar (Common Component) -->
+    <style>
+     .dev-sidebar { width: 260px; }
+        .dev-sidebar .nav-link { color:#2f3b2f; border-radius:.375rem; }
+        .dev-sidebar .nav-link:hover { background-color: rgba(129,199,132,.12); color:#1b5e20; }
+        .dev-sidebar .nav-link.active { background-color: rgba(129,199,132,.2); color:#1b5e20; }
+        .role-badge { background-color: var(--color-secondary); }
+    </style>
+    <aside aria-labelledby="sidebarMenuLabel" class="offcanvas-lg offcanvas-start dev-sidebar flex-column flex-shrink-0 p-3 bg-white border-end min-vh-100" data-bs-scroll="true" id="sidebarMenu" tabindex="-1">
+     <div class="offcanvas-header d-lg-none">
+      <h5 class="offcanvas-title" id="sidebarMenuLabel">
+       BlueCarbonMRV
+      </h5>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+      </button>
+     </div>
+     <div class="offcanvas-body p-0 d-flex flex-column">
+      <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none px-3" href="./user_dashboard.html">
+       <span class="rounded-circle bg-success-subtle p-2 me-2">
+       </span>
+       <span class="fs-5 fw-bold">
+        BlueCarbonMRV
+       </span>
+      </a>
+      <div class="d-flex align-items-center mt-3 mb-3 px-3">
+       <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/user/36/36'" src="https://via.placeholder.com/36"/>
+       <div class="small">
+        <div class="fw-semibold">
+         User Name
+        </div>
+        <span class="badge role-badge text-dark">
+         NGO / Panchayat
+        </span>
+       </div>
+      </div>
+      <hr class="my-2"/>
+      <ul class="nav nav-pills flex-column mb-auto gap-1 px-2">
+       <li class="nav-item">
+        <a class="nav-link" data-page="user_dashboard" href="./user_dashboard.html">
+         <i class="fa-solid fa-gauge me-2">
+         </i>
+         Dashboard
+        </a>
+       </li>
+       <li>
+        <a aria-controls="projMenu" aria-expanded="true" class="nav-link" data-bs-toggle="collapse" href="#projMenu" role="button">
+         <i class="fa-solid fa-folder-tree me-2">
+         </i>
+         Projects
+        </a>
+        <div class="collapse show ps-4" id="projMenu">
+         <a class="nav-link py-1" href="./user_dashboard.html#projects">
+          My Projects
+         </a>
+         <a class="nav-link py-1 d-flex align-items-center active" data-page="project_creation_page" href="./project_creation_page.html">
+          <i class="fa-solid fa-plus me-2">
+          </i>
+          Create New
+         </a>
+        </div>
+       </li>
+       <li>
+        <a class="nav-link" href="./wallet_page.html">
+         <i class="fa-solid fa-wallet me-2">
+         </i>
+         Wallet
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="./marketplace_page.html">
+         <i class="fa-solid fa-store me-2">
+         </i>
+         Marketplace
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="./settings_page.html">
+         <i class="fa-solid fa-gear me-2">
+         </i>
+         Settings
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="./help_page.html">
+         <i class="fa-solid fa-circle-question me-2">
+         </i>
+         Help &amp; Support
+        </a>
+       </li>
+      </ul>
+     </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="col flex-grow-1">
+     <div class="main-panel">
+      <!-- Breadcrumbs -->
+      <nav aria-label="breadcrumb" class="breadcrumb mb-2">
+       <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+         <a href="./home_page.html">
+          Home
+         </a>
+        </li>
+        <li class="breadcrumb-item">
+         <a href="./user_dashboard.html">
+          Dashboard
+         </a>
+        </li>
+        <li aria-current="page" class="breadcrumb-item active">
+         Create Project
+        </li>
+       </ol>
+      </nav>
+      <!-- Page Header -->
+      <div class="page-header">
+       <div class="d-flex align-items-center gap-3">
+        <h1 class="page-title mb-0">
+         Create New Project
+        </h1>
+        <span class="badge-soft info">
+         Project Developer
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <div aria-label="View Switcher" class="view-switcher">
+         <span class="option active">
+          <i class="fa-regular fa-square-check me-1">
+          </i>
+          Wizard
+         </span>
+        </div>
+        <button class="btn btn-light" id="saveDraftBtn">
+         <i class="fa-regular fa-floppy-disk me-2">
+         </i>
+         Save Draft
+        </button>
+       </div>
+      </div>
+      <!-- Wizard Container -->
+      <div class="app-card mb-4">
+       <div class="card-header">
+        <div class="d-flex align-items-center gap-3">
+         <div class="fw-semibold" id="stepIndicator">
+          Step 1 of 4
+         </div>
+         <div aria-label="Progress" class="progress" style="width: 220px; height: 10px;">
+          <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" class="progress-bar" id="progressBar" role="progressbar" style="width: 25%">
+          </div>
+         </div>
+        </div>
+        <div class="text-muted small">
+         Provide details, define boundaries, upload documents, and review.
+        </div>
+       </div>
+       <div class="card-body">
+        <!-- System feedback area -->
+        <div class="mb-3" id="alertArea">
+        </div>
+        <!-- Step 1: Project Details Form -->
+        <section class="wizard-step" data-step="1">
+         <div class="row g-4">
+          <div class="col-12 col-lg-8">
+           <div class="mb-3">
+            <label class="form-label" for="projectName">
+             Project Name
+            </label>
+            <input class="form-control" id="projectName" placeholder="e.g., Sundarbans Mangrove Restoration Initiative" required="" type="text"/>
+            <div class="form-text">
+             5–100 characters
+            </div>
+            <div class="invalid-feedback">
+             Please enter between 5 and 100 characters.
+            </div>
+           </div>
+           <div class="mb-3">
+            <label class="form-label" for="projectDescription">
+             Project Description
+            </label>
+            <textarea class="form-control" id="projectDescription" placeholder="Describe goals, scope, community involvement..." required="" rows="5"></textarea>
+            <div class="form-text">
+             At least 50 characters
+            </div>
+            <div class="invalid-feedback">
+             Please enter a detailed description (minimum 50 characters).
+            </div>
+           </div>
+           <div class="mb-3">
+            <label class="form-label" for="ecosystemType">
+             Ecosystem Type
+            </label>
+            <select class="form-select" id="ecosystemType" required="">
+             <option disabled="" selected="" value="">
+              Select ecosystem type
+             </option>
+             <option value="Mangroves">
+              Mangroves
+             </option>
+             <option value="Seagrass Meadows">
+              Seagrass Meadows
+             </option>
+             <option value="Salt Marshes">
+              Salt Marshes
+             </option>
+            </select>
+            <div class="invalid-feedback">
+             Please select an ecosystem type.
+            </div>
+           </div>
+          </div>
+          <div class="col-12 col-lg-4">
+           <div class="metric-card">
+            <div class="metric-title">
+             Guidelines
+            </div>
+            <ul class="mb-0 small text-muted">
+             <li>
+              Use an official project name.
+             </li>
+             <li>
+              Describe the restoration approach and stakeholders.
+             </li>
+             <li>
+              Select the primary blue carbon ecosystem.
+             </li>
+            </ul>
+           </div>
+          </div>
+         </div>
+        </section>
+        <!-- Step 2: Map Boundary Tool -->
+        <section class="wizard-step" data-step="2" hidden="">
+         <div class="row g-4">
+          <div class="col-12 col-xl-8">
+           <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="fw-semibold">
+             Define Project Boundary
+            </div>
+            <div class="d-flex align-items-center gap-2">
+             <div aria-label="Drawing Tools" class="btn-group" role="group">
+              <button class="btn btn-outline-success tool-btn active" data-tool="polygon" type="button">
+               <i class="fa-solid fa-draw-polygon me-1">
+               </i>
+               Draw Polygon
+              </button>
+              <button class="btn btn-outline-success tool-btn" data-tool="circle" type="button">
+               <i class="fa-solid fa-location-dot me-1">
+               </i>
+               Pin + Radius
+              </button>
+             </div>
+             <button class="btn btn-light" id="clearMapBtn" type="button">
+              <i class="fa-solid fa-eraser me-1">
+              </i>
+              Clear
+             </button>
+            </div>
+           </div>
+           <div class="map-container rounded border" id="map">
+           </div>
+           <div class="form-text mt-1">
+            Use OpenStreetMap. Pan/zoom to your site and draw a polygon or place a pin with a radius.
+           </div>
+          </div>
+          <div class="col-12 col-xl-4">
+           <div class="app-card p-3">
+            <div class="mb-3 circle-only" hidden="">
+             <label class="form-label" for="radiusInput">
+              Radius (in meters)
+             </label>
+             <input class="form-control" id="radiusInput" min="100" step="10" type="number" value="500"/>
+             <div class="form-text">
+              Minimum 100 meters
+             </div>
+            </div>
+            <div class="mb-3">
+             <label class="form-label">
+              Selected Geometry
+             </label>
+             <div class="bg-light rounded p-2 small" id="geometrySummary">
+              None
+             </div>
+            </div>
+            <div class="alert alert-info mb-0">
+             <i class="fa-solid fa-circle-info me-1">
+             </i>
+             Tip: For irregular coastlines, polygon is recommended. Circle is useful for simple buffer zones.
+            </div>
+           </div>
+          </div>
+         </div>
+        </section>
+        <!-- Step 3: Document Uploader -->
+        <section class="wizard-step" data-step="3" hidden="">
+         <div class="row g-4">
+          <div class="col-12 col-xl-7">
+           <div class="dropzone" id="fileDropzone">
+            <input accept=".pdf,.jpg,.jpeg,.png" hidden="" id="fileInput" multiple="" type="file"/>
+            <div class="text-center text-muted">
+             <i class="fa-solid fa-cloud-arrow-up fa-2x mb-2 text-success">
+             </i>
+             <div class="fw-semibold">
+              Drag &amp; drop files here
+             </div>
+             <div class="small">
+              or
+              <a href="#" id="browseFiles">
+               click to select
+              </a>
+              (PDF/JPG/PNG, up to 10MB each)
+             </div>
+            </div>
+           </div>
+           <div class="mt-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+             <div class="fw-semibold">
+              Files to Upload
+             </div>
+             <div class="small text-muted" id="fileCount">
+              0 files
+             </div>
+            </div>
+            <ul aria-live="polite" class="list-group" id="fileList">
+            </ul>
+           </div>
+          </div>
+          <div class="col-12 col-xl-5">
+           <div class="app-card p-3 h-100">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+             <div class="fw-semibold">
+              Required Documents
+             </div>
+             <div class="d-flex gap-2">
+              <input class="form-control form-control-sm" id="docSearch" placeholder="Search..." style="max-width: 160px;" type="text"/>
+              <select class="form-select form-select-sm" id="docSort" style="max-width: 180px;">
+               <option value="type">
+                Sort by Type
+               </option>
+               <option value="status">
+                Sort by Status
+               </option>
+              </select>
+             </div>
+            </div>
+            <div class="table-responsive">
+             <table class="table table-theme align-middle" id="docTable">
+              <thead>
+               <tr>
+                <th>
+                 Document Type
+                </th>
+                <th>
+                 Requirement
+                </th>
+                <th>
+                 Status
+                </th>
+                <th class="text-end">
+                 Action
+                </th>
+               </tr>
+              </thead>
+              <tbody>
+               <tr>
+                <td>
+                 Land Rights Agreement
+                </td>
+                <td>
+                 Mandatory
+                </td>
+                <td>
+                 <span class="badge-soft warning">
+                  Pending
+                 </span>
+                </td>
+                <td class="text-end">
+                 <button class="btn btn-sm btn-light add-doc" data-type="Land Rights Agreement">
+                  <i class="fa-solid fa-plus">
+                  </i>
+                 </button>
+                </td>
+               </tr>
+               <tr>
+                <td>
+                 Community Consent
+                </td>
+                <td>
+                 Mandatory
+                </td>
+                <td>
+                 <span class="badge-soft warning">
+                  Pending
+                 </span>
+                </td>
+                <td class="text-end">
+                 <button class="btn btn-sm btn-light add-doc" data-type="Community Consent">
+                  <i class="fa-solid fa-plus">
+                  </i>
+                 </button>
+                </td>
+               </tr>
+               <tr>
+                <td>
+                 Initial Environmental Assessment
+                </td>
+                <td>
+                 Recommended
+                </td>
+                <td>
+                 <span class="badge-soft warning">
+                  Pending
+                 </span>
+                </td>
+                <td class="text-end">
+                 <button class="btn btn-sm btn-light add-doc" data-type="Initial Environmental Assessment">
+                  <i class="fa-solid fa-plus">
+                  </i>
+                 </button>
+                </td>
+               </tr>
+               <tr>
+                <td>
+                 GIS Shape/GeoJSON
+                </td>
+                <td>
+                 Mandatory
+                </td>
+                <td>
+                 <span class="badge-soft warning">
+                  Pending
+                 </span>
+                </td>
+                <td class="text-end">
+                 <button class="btn btn-sm btn-light add-doc" data-type="GIS Shape/GeoJSON">
+                  <i class="fa-solid fa-plus">
+                  </i>
+                 </button>
+                </td>
+               </tr>
+               <tr>
+                <td>
+                 Community Benefit Plan
+                </td>
+                <td>
+                 Recommended
+                </td>
+                <td>
+                 <span class="badge-soft warning">
+                  Pending
+                 </span>
+                </td>
+                <td class="text-end">
+                 <button class="btn btn-sm btn-light add-doc" data-type="Community Benefit Plan">
+                  <i class="fa-solid fa-plus">
+                  </i>
+                 </button>
+                </td>
+               </tr>
+               <tr>
+                <td>
+                 Baseline Carbon Study
+                </td>
+                <td>
+                 Optional
+                </td>
+                <td>
+                 <span class="badge-soft warning">
+                  Pending
+                 </span>
+                </td>
+                <td class="text-end">
+                 <button class="btn btn-sm btn-light add-doc" data-type="Baseline Carbon Study">
+                  <i class="fa-solid fa-plus">
+                  </i>
+                 </button>
+                </td>
+               </tr>
+              </tbody>
+             </table>
+             <div class="small text-muted">
+              Showing 1–6 of 6
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </section>
+        <!-- Step 4: Review & Submit -->
+        <section class="wizard-step" data-step="4" hidden="">
+         <div class="row g-4">
+          <div class="col-12 col-lg-6">
+           <div class="app-card p-3 h-100">
+            <div class="widget-title mb-2">
+             Project Details Summary
+            </div>
+            <dl class="row mb-0" id="detailsSummary">
+             <dt class="col-sm-4">
+              Name
+             </dt>
+             <dd class="col-sm-8">
+              —
+             </dd>
+             <dt class="col-sm-4">
+              Description
+             </dt>
+             <dd class="col-sm-8">
+              —
+             </dd>
+             <dt class="col-sm-4">
+              Ecosystem
+             </dt>
+             <dd class="col-sm-8">
+              —
+             </dd>
+            </dl>
+           </div>
+          </div>
+          <div class="col-12 col-lg-6">
+           <div class="app-card p-3 h-100">
+            <div class="widget-title mb-2">
+             Boundary Preview
+            </div>
+            <div class="map-container rounded border" id="mapReview">
+            </div>
+            <div class="small text-muted mt-2">
+             Static preview for confirmation.
+            </div>
+           </div>
+          </div>
+          <div class="col-12">
+           <div class="app-card p-3">
+            <div class="widget-title mb-2">
+             Documents
+            </div>
+            <ul class="list-group" id="docsSummary">
+            </ul>
+           </div>
+          </div>
+         </div>
+        </section>
+       </div>
+       <div class="card-footer d-flex justify-content-between align-items-center">
+        <button class="btn btn-light" id="backBtn">
+         <i class="fa-solid fa-arrow-left me-2">
+         </i>
+         Back
+        </button>
+        <div class="d-flex gap-2">
+         <button class="btn btn-secondary" id="saveAndExitBtn">
+          <i class="fa-regular fa-floppy-disk me-2">
+          </i>
+          Save &amp; Exit
+         </button>
+         <button class="btn btn-success" id="nextBtn">
+          Next
+          <i class="fa-solid fa-arrow-right ms-2">
+          </i>
+         </button>
+         <button class="btn btn-primary d-none" id="submitBtn">
+          <i class="fa-solid fa-paper-plane me-2">
+          </i>
+          Submit Project for Review
+         </button>
+        </div>
+       </div>
+      </div>
+      <!-- Help/Support Section -->
+      <div class="alert alert-warning">
+       <i class="fa-solid fa-circle-question me-2">
+       </i>
+       Need help? Visit
+       <a href="./help_page.html">
+        Help &amp; Support
+       </a>
+       or contact your program administrator.
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <!-- Bottom Info Bar (System Logs) -->
+  <div class="bottom-bar d-none d-md-flex">
+   <div class="log-line" id="logLine">
+    Ready.
+   </div>
+  </div>
+  <!-- Footer (Common Component) -->
+  <footer class="bg-light border-top py-3 mt-4">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="small text-muted">
+     © BlueCarbonMRV
+    </div>
+    <div class="d-flex gap-3">
+     <a class="btn btn-outline-success btn-sm" href="./marketplace_page.html">
+      Browse Marketplace
+     </a>
+     <a class="btn btn-success btn-sm" href="./project_creation_page.html" style="background-color: var(--color-primary); border-color: var(--color-primary);">
+      Create Project
+     </a>
+    </div>
+    <div class="small">
+     <a class="text-decoration-none me-3" href="./terms_page.html">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./privacy_page.html">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- Leaflet JS -->
+  <script crossorigin="anonymous" integrity="sha512-pKE1FvCjU6J87hcplQ03YjM1ZV1cZ6s4qgkTZiDk+wWJYDC8X4vCqC3q2CwK5OQ3m2Qad9fqs1xEfY2z8mJuNg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js">
+  </script>
+  <!-- Leaflet.Draw JS -->
+  <script crossorigin="anonymous" integrity="sha512-Zm3GFlmI2dY8MAlv1ARrIZCq3gI6nqyJ9kC5k6awfEwJw2twdCNnLG+PrqVxS0nJUW8qF6xFWWz3UuZcJg1o4w==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js">
+  </script>
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js">
+  </script>
+  <script>
+   // Global state
+const state = {
+    currentStep: 1,
+    totalSteps: 4,
+    projectData: {
+        name: '',
+        description: '',
+        ecosystemType: '',
+        boundary: {
+            type: null,
+            geojson: null,
+            center: null,
+            radius: null
+        },
+        documents: []
+    }
+};
+
+const els = {};
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+function log(msg) {
+    const line = document.getElementById('logLine');
+    if (line) line.textContent = msg;
+}
+
+function setAlert(html, type = 'info') {
+    const area = document.getElementById('alertArea');
+    if (!area) return;
+    area.innerHTML = html ? `<div class="alert alert-${type} ">${html}</div>` : '';
+}
+
+function bytesToSize(bytes) {
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    if (bytes === 0) return '0 B';
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+    return `${(bytes/Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
+}
+
+function updateProgress() {
+    const pct = Math.round((state.currentStep / state.totalSteps) * 100);
+    $('#progressBar').style.width = pct + '%';
+    $('#progressBar').setAttribute('aria-valuenow', pct);
+    $('#stepIndicator').textContent = `Step ${state.currentStep} of ${state.totalSteps}`;
+    // Toggle buttons
+    $('#backBtn').disabled = state.currentStep === 1;
+    if (state.currentStep < state.totalSteps) {
+        $('#nextBtn').classList.remove('d-none');
+        $('#submitBtn').classList.add('d-none');
+    } else {
+        $('#nextBtn').classList.add('d-none');
+        $('#submitBtn').classList.remove('d-none');
+    }
+}
+
+function showStep(n) {
+    state.currentStep = n;
+    $$('.wizard-step').forEach(sec => sec.hidden = parseInt(sec.dataset.step, 10) !== n);
+    updateProgress();
+    setAlert('');
+    if (n === 2) ensureMapInitialized();
+    if (n === 4) renderReview();
+}
+
+// Validation per step
+function validateStep1() {
+    let ok = true;
+    const name = $('#projectName').value.trim();
+    const desc = $('#projectDescription').value.trim();
+    const eco = $('#ecosystemType').value;
+    // Name
+    if (name.length < 5 || name.length > 100) {
+        ok = false;
+        $('#projectName').classList.add('is-invalid');
+    } else {
+        $('#projectName').classList.remove('is-invalid');
+        $('#projectName').classList.add('is-valid');
+    }
+    // Description
+    if (desc.length < 50) {
+        ok = false;
+        $('#projectDescription').classList.add('is-invalid');
+    } else {
+        $('#projectDescription').classList.remove('is-invalid');
+        $('#projectDescription').classList.add('is-valid');
+    }
+    // Ecosystem
+    if (!eco) {
+        ok = false;
+        $('#ecosystemType').classList.add('is-invalid');
+    } else {
+        $('#ecosystemType').classList.remove('is-invalid');
+        $('#ecosystemType').classList.add('is-valid');
+    }
+    if (ok) {
+        state.projectData.name = name;
+        state.projectData.description = desc;
+        state.projectData.ecosystemType = eco;
+    }
+    if (!ok) setAlert('<i class="fa-solid fa-triangle-exclamation me-1"></i> Please fix errors before continuing.', 'danger');
+    return ok;
+}
+
+function validateStep2() {
+    const b = state.projectData.boundary;
+    let ok = false;
+    if (b.type === 'polygon' && b.geojson) ok = true;
+    if (b.type === 'circle' && b.center && b.radius && b.radius >= 100) ok = true;
+    if (!ok) setAlert('<i class="fa-solid fa-map-location-dot me-1"></i> Please draw a polygon or place a pin with radius (>= 100m).', 'warning');
+    return ok;
+}
+
+function validateStep3() {
+    const ok = state.projectData.documents.length > 0;
+    if (!ok) setAlert('<i class="fa-solid fa-file-circle-exclamation me-1"></i> Please add at least one supporting document.', 'warning');
+    return ok;
+}
+
+function goNext() {
+    if (state.currentStep === 1 && !validateStep1()) return;
+    if (state.currentStep === 2 && !validateStep2()) return;
+    if (state.currentStep === 3 && !validateStep3()) return;
+    showStep(Math.min(state.totalSteps, state.currentStep + 1));
+    log(`Moved to step ${state.currentStep}.`);
+}
+
+// Step 2: Map logic
+let map, reviewMap, drawnItems, polygonDrawer, marker, circle;
+let mapInitialized = false;
+
+function ensureMapInitialized() {
+    if (mapInitialized) return;
+    mapInitialized = true;
+    map = L.map('map').setView([20.5937, 78.9629], 5); // India center approx
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+    drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    polygonDrawer = new L.Draw.Polygon(map, {
+        allowIntersection: false,
+        showArea: true,
+        shapeOptions: {
+            color: '#00774E'
+        }
+    });
+
+    map.on(L.Draw.Event.CREATED, function(e) {
+        if (e.layerType === 'polygon') {
+            clearAllDrawings();
+            drawnItems.addLayer(e.layer);
+            const gj = e.layer.toGeoJSON();
+            state.projectData.boundary = {
+                type: 'polygon',
+                geojson: gj,
+                center: null,
+                radius: null
+            };
+            updateGeometrySummary();
+        }
+    });
+
+    // Default tool: polygon
+    setTool('polygon');
+    $('#clearMapBtn').addEventListener('click', () => {
+        clearAllDrawings();
+        updateGeometrySummary();
+    });
+
+    // Circle mode handlers
+    map.on('click', (ev) => {
+        if (!$('#radiusInput')) return; // safety
+        const activeCircle = $('.tool-btn.active')?.dataset.tool === 'circle';
+        if (!activeCircle) return;
+        const r = parseFloat($('#radiusInput').value || '0');
+        if (isNaN(r) || r < 100) {
+            setAlert('Please enter a valid radius (>=100m).', 'warning');
+            return;
+        }
+        // Place marker+circle
+        if (marker) {
+            map.removeLayer(marker);
+            marker = null;
+        }
+        if (circle) {
+            map.removeLayer(circle);
+            circle = null;
+        }
+        marker = L.marker(ev.latlng).addTo(map);
+        circle = L.circle(ev.latlng, {
+            radius: r,
+            color: '#00774E',
+            fillOpacity: 0.1
+        }).addTo(map);
+        state.projectData.boundary = {
+            type: 'circle',
+            geojson: null,
+            center: [ev.latlng.lat, ev.latlng.lng],
+            radius: r
+        };
+        updateGeometrySummary();
+    });
+
+    $('#radiusInput').addEventListener('input', () => {
+        if (!circle) return;
+        const r = parseFloat($('#radiusInput').value || '0');
+        if (!isNaN(r) && r >= 100) {
+            circle.setRadius(r);
+            state.projectData.boundary.radius = r;
+            updateGeometrySummary();
+        }
+    });
+
+    $$('.tool-btn').forEach(btn => btn.addEventListener('click', () => setTool(btn.dataset.tool)));
+    updateGeometrySummary();
+}
+
+function clearAllDrawings() {
+    drawnItems.clearLayers();
+    if (marker) {
+        map.removeLayer(marker);
+        marker = null;
+    }
+    if (circle) {
+        map.removeLayer(circle);
+        circle = null;
+    }
+    state.projectData.boundary = {
+        type: null,
+        geojson: null,
+        center: null,
+        radius: null
+    };
+}
+
+function setTool(tool) {
+    $$('.tool-btn').forEach(b => b.classList.toggle('active', b.dataset.tool === tool));
+    const circleOnlyBox = $('.circle-only');
+    if (tool === 'polygon') {
+        circleOnlyBox.hidden = true;
+        clearAllDrawings();
+        polygonDrawer.enable();
+        log('Polygon tool active.');
+    } else {
+        if (polygonDrawer) polygonDrawer.disable();
+        circleOnlyBox.hidden = false;
+        clearAllDrawings();
+        log('Pin + Radius tool active. Click on the map to place a pin.');
+    }
+    updateGeometrySummary();
+}
+
+function updateGeometrySummary() {
+    const g = state.projectData.boundary;
+    const box = $('#geometrySummary');
+    if (!g.type) {
+        box.textContent = 'None';
+        return;
+    }
+    if (g.type === 'polygon') {
+        const coords = g.geojson?.geometry?.coordinates?.[0]?.length || 0;
+        box.textContent = `Polygon with ${Math.max(0, coords - 1)} vertices`;
+    } else {
+        box.textContent = `Circle at [${g.center.map(n=>n.toFixed(5)).join(', ')}], radius ${Math.round(g.radius)} m`;
+    }
+}
+
+// Step 3: Uploader
+function renderFileList() {
+    const list = $('#fileList');
+    list.innerHTML = '';
+    state.projectData.documents.forEach((f, idx) => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+        li.innerHTML = `
+          <div class="d-flex align-items-center gap-2">
+            <i class="fa-regular fa-file-lines text-muted"></i>
+            <div>
+              <div class="fw-semibold">${f.name}</div>
+              <div class="small text-muted">${bytesToSize(f.size)}</div>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline-danger" aria-label="Remove ${f.name}" data-idx="${idx}"><i class="fa-solid fa-trash"></i></button>`;
+        list.appendChild(li);
+    });
+    $('#fileCount').textContent = `${state.projectData.documents.length} file(s)`;
+    list.querySelectorAll('button[data-idx]').forEach(btn => btn.addEventListener('click', (e) => {
+        const i = parseInt(e.currentTarget.dataset.idx, 10);
+        state.projectData.documents.splice(i, 1);
+        renderFileList();
+    }));
+}
+
+function acceptFile(file) {
+    const allowed = ['application/pdf', 'image/jpeg', 'image/png'];
+    const ext = file.name.toLowerCase().split('.').pop();
+    const isTypeOk = allowed.includes(file.type) || ['pdf', 'jpg', 'jpeg', 'png'].includes(ext);
+    const isSizeOk = file.size <= 10 * 1024 * 1024; // 10MB
+    return isTypeOk && isSizeOk;
+}
+
+function handleFiles(files) {
+    const accepted = [];
+    const rejected = [];
+    Array.from(files).forEach(f => (acceptFile(f) ? accepted.push(f) : rejected.push(f)));
+    if (rejected.length) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid file(s)',
+            text: 'Only PDF/JPG/PNG and up to 10MB allowed.'
+        });
+    }
+    if (accepted.length) {
+        state.projectData.documents.push(...accepted);
+        renderFileList();
+        setAlert(`${accepted.length} file(s) added.`, 'success');
+    }
+}
+
+function setupDropzone() {
+    const dz = $('#fileDropzone');
+    const input = $('#fileInput');
+    $('#browseFiles').addEventListener('click', (e) => {
+        e.preventDefault();
+        input.click();
+    });
+    input.addEventListener('change', (e) => handleFiles(e.target.files));
+
+    ;
+    ['dragenter', 'dragover'].forEach(evt => dz.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dz.classList.add('drag');
+    }));;
+    ['dragleave', 'drop'].forEach(evt => dz.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dz.classList.remove('drag');
+    }));
+    dz.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
+}
+
+// Step 3: Table sorting/filtering
+function setupDocTable() {
+    const tbody = $('#docTable tbody');
+    const rows = () => Array.from(tbody.querySelectorAll('tr'));
+    $('#docSearch').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        rows().forEach(tr => {
+            const txt = tr.innerText.toLowerCase();
+            tr.style.display = txt.includes(q) ? '' : 'none';
+        });
+    });
+    $('#docSort').addEventListener('change', (e) => {
+        const by = e.target.value;
+        const sorted = rows().sort((a, b) => {
+            const ta = a.children[by === 'type' ? 0 : 2].innerText.trim();
+            const tb = b.children[by === 'type' ? 0 : 2].innerText.trim();
+            return ta.localeCompare(tb);
+        });
+        sorted.forEach(tr => tbody.appendChild(tr));
+    });
+    $$('.add-doc').forEach(btn => btn.addEventListener('click', () => {
+        Swal.fire({
+            icon: 'info',
+            title: 'Upload Required',
+            text: `Please upload the document: ${btn.dataset.type}.`
+        });
+    }));
+}
+
+// Step 4: Review render
+function renderReview() {
+    // Fill details
+    const dl = $('#detailsSummary');
+    dl.innerHTML = `
+        <dt class="col-sm-4">Name</dt><dd class="col-sm-8">${state.projectData.name || '—'}</dd>
+        <dt class="col-sm-4">Description</dt><dd class="col-sm-8">${state.projectData.description || '—'}</dd>
+        <dt class="col-sm-4">Ecosystem</dt><dd class="col-sm-8">${state.projectData.ecosystemType || '—'}</dd>`;
+
+    // Docs list
+    const ul = $('#docsSummary');
+    ul.innerHTML = '';
+    if (state.projectData.documents.length === 0) {
+        ul.innerHTML = '<li class="list-group-item text-muted">No documents attached.</li>';
+    } else {
+        state.projectData.documents.forEach(f => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+            li.innerHTML = `<span><i class='fa-regular fa-file-lines me-2'></i>${f.name}</span><span class='small text-muted'>${bytesToSize(f.size)}</span>`;
+            ul.appendChild(li);
+        });
+    }
+
+    // Map preview
+    setTimeout(() => {
+        if (!reviewMap) {
+            reviewMap = L.map('mapReview', {
+                zoomControl: false,
+                attributionControl: false,
+                dragging: false,
+                scrollWheelZoom: false,
+                doubleClickZoom: false,
+                boxZoom: false,
+                keyboard: false
+            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19
+            }).addTo(reviewMap);
+        }
+        const b = state.projectData.boundary;
+        // Clear layers by recreating map container content would be heavy; instead track and remove last layer
+        if (window._reviewLayer) {
+            reviewMap.removeLayer(window._reviewLayer);
+            window._reviewLayer = null;
+        }
+        if (b.type === 'polygon' && b.geojson) {
+            window._reviewLayer = L.geoJSON(b.geojson, {
+                style: {
+                    color: '#00774E'
+                }
+            }).addTo(reviewMap);
+            reviewMap.fitBounds(window._reviewLayer.getBounds(), {
+                padding: [20, 20]
+            });
+        } else if (b.type === 'circle' && b.center && b.radius) {
+            const latlng = L.latLng(b.center[0], b.center[1]);
+            window._reviewLayer = L.circle(latlng, {
+                radius: b.radius,
+                color: '#00774E',
+                fillOpacity: 0.1
+            }).addTo(reviewMap);
+            reviewMap.fitBounds(window._reviewLayer.getBounds(), {
+                padding: [20, 20]
+            });
+        } else {
+            reviewMap.setView([20.5937, 78.9629], 5);
+        }
+    }, 50);
+}
+
+// Submissions
+function submitProject() {
+    const loadingBtn = $('#submitBtn');
+    loadingBtn.disabled = true;
+    loadingBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
+    log('Submitting project...');
+    // Simulate API call
+    setTimeout(() => {
+        loadingBtn.disabled = false;
+        loadingBtn.innerHTML = '<i class="fa-solid fa-paper-plane me-2"></i>Submit Project for Review';
+        Swal.fire({
+            icon: 'success',
+            title: 'Project Submitted',
+            text: 'Your project has been submitted for administrative review.',
+            timer: 1600,
+            showConfirmButton: false
+        });
+        setTimeout(() => {
+            window.location.href = './user_dashboard.html';
+        }, 1600);
+    }, 1400);
+}
+
+// Save Draft & Save & Exit
+function saveDraft(notifyOnly = false) {
+    // Persist to localStorage as a mock
+    localStorage.setItem('projectDraft', JSON.stringify(state.projectData));
+    if (notifyOnly) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Draft Saved',
+            timer: 1200,
+            showConfirmButton: false
+        });
+    } else {
+        Swal.fire({
+            icon: 'success',
+            title: 'Draft Saved',
+            text: 'You can continue later from your dashboard.'
+        }).then(() => {
+            window.location.href = './user_dashboard.html';
+        });
+    }
+}
+
+// Event bindings
+window.addEventListener('DOMContentLoaded', () => {
+    els.name = $('#projectName');
+    els.desc = $('#projectDescription');
+    els.eco = $('#ecosystemType');
+
+    $('#nextBtn').addEventListener('click', goNext);
+    $('#backBtn').addEventListener('click', () => {
+        showStep(Math.max(1, state.currentStep - 1));
+        log(`Moved to step ${state.currentStep}.`);
+    });
+    $('#submitBtn').addEventListener('click', submitProject);
+    $('#saveDraftBtn').addEventListener('click', () => saveDraft(true));
+    $('#saveAndExitBtn').addEventListener('click', () => saveDraft(false));
+
+    // Real-time simple checks
+    els.name.addEventListener('input', () => {
+        const v = els.name.value.trim();
+        els.name.classList.toggle('is-invalid', v.length && (v.length < 5 || v.length > 100));
+    });
+    els.desc.addEventListener('input', () => {
+        const v = els.desc.value.trim();
+        els.desc.classList.toggle('is-invalid', v.length && v.length < 50);
+    });
+    els.eco.addEventListener('change', () => {
+        els.eco.classList.remove('is-invalid');
+    });
+
+    setupDropzone();
+    setupDocTable();
+
+    showStep(1);
+    log('Ready to create a new project.');
+});
+  </script>
+ </body>
+</html>

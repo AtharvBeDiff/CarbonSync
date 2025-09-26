@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Project Review | BlueCarbonMRV Admin
+  </title>
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <!-- SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet"/>
+  <!-- Leaflet (Map) -->
+  <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet">
+   <!-- Site Theme -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page-specific CSS -->
+   <link href="project_review_page.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body class="bg-light">
+  <!-- Header: Admin/Verifier Header with quick access to queues -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenu" class="btn btn-outline-success me-2 d-lg-none" data-bs-target="#sidebarMenu" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./admin_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fw-bold">
+      Admin Console
+     </span>
+    </a>
+    <div class="d-none d-lg-flex ms-3 gap-2">
+     <a class="btn btn-outline-success" href="./project_review_page.html">
+      <i class="fa-solid fa-clipboard-check me-1">
+      </i>
+      Verification Queue
+     </a>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+     <form class="d-none d-md-flex" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+       </span>
+       <input aria-label="Search" class="form-control" placeholder="Search users, projects, submissions" type="search"/>
+      </div>
+     </form>
+     <a class="text-decoration-none position-relative text-dark" href="#">
+      <i class="fa-regular fa-bell fs-5">
+      </i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--color-secondary);">
+       5
+      </span>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#">
+       <img alt="Admin" class="rounded-circle me-2" height="32" onerror="this.onerror=null;this.src='https://picsum.photos/seed/admin/32/32';" src="https://via.placeholder.com/32" width="32"/>
+       <span>
+        Admin
+       </span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./settings_page.html">
+         Settings
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <div class="container-fluid">
+   <div class="row flex-nowrap">
+    <!-- Sidebar (Admin) - responsive offcanvas on < lg, static on >= lg -->
+    <aside aria-labelledby="sidebarMenuLabel" class="admin-sidebar offcanvas-lg offcanvas-start d-lg-flex flex-column flex-shrink-0 p-3 bg-white border-end min-vh-100" id="sidebarMenu" tabindex="-1">
+     <div class="offcanvas-header d-lg-none">
+      <h5 class="offcanvas-title" id="sidebarMenuLabel">
+       BlueCarbonMRV Admin
+      </h5>
+      <button aria-label="Close" class="btn-close text-reset" data-bs-dismiss="offcanvas" type="button">
+      </button>
+     </div>
+     <div class="offcanvas-body p-0 d-flex flex-column">
+      <a class="d-flex align-items-center mb-3 text-decoration-none px-3 pt-2" href="./admin_dashboard.html">
+       <span class="rounded-circle bg-success-subtle p-2 me-2">
+       </span>
+       <span class="fs-5 fw-bold">
+        BlueCarbonMRV Admin
+       </span>
+      </a>
+      <div class="d-flex align-items-center mt-2 mb-3 px-3">
+       <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/avatar/36/36';" src="https://via.placeholder.com/36"/>
+       <div class="small">
+        <div class="fw-semibold">
+         Admin/Verifier
+        </div>
+        <span class="badge admin-role">
+         Admin
+        </span>
+       </div>
+      </div>
+      <hr class="my-2"/>
+      <ul class="nav nav-pills flex-column mb-auto gap-1 px-2">
+       <li>
+        <a class="nav-link" data-page="admin_dashboard" href="./admin_dashboard.html">
+         <i class="fa-solid fa-gauge me-2">
+         </i>
+         Dashboard
+        </a>
+       </li>
+       <li>
+        <a aria-controls="queueMenu" aria-expanded="true" class="nav-link" data-bs-toggle="collapse" href="#queueMenu" role="button">
+         <i class="fa-solid fa-clipboard-check me-2">
+         </i>
+         Queues
+        </a>
+        <div class="collapse show ps-4" id="queueMenu">
+         <a class="nav-link py-1 d-flex align-items-center" href="./admin_dashboard.html#users">
+          <i class="fa-solid fa-users-gear me-2">
+          </i>
+          User Verifications
+         </a>
+         <a class="nav-link py-1 active" data-page="project_review_page" href="./project_review_page.html">
+          Project Review
+         </a>
+         <a class="nav-link py-1" data-page="submission_review_page" href="./submission_review_page.html">
+          Submission Review
+         </a>
+        </div>
+       </li>
+       <li>
+        <a class="nav-link" href="./admin_dashboard.html#analytics">
+         <i class="fa-solid fa-chart-line me-2">
+         </i>
+         Analytics
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="./settings_page.html">
+         <i class="fa-solid fa-gear me-2">
+         </i>
+         Settings
+        </a>
+       </li>
+      </ul>
+     </div>
+    </aside>
+    <!-- Main content area split: Queue panel + Detail view -->
+    <main class="col px-0">
+     <div class="container-fluid">
+      <div class="row g-0">
+       <!-- Pending Projects Queue (secondary left panel) -->
+       <div class="col-12 col-xl-3 border-end bg-white queue-panel">
+        <div class="p-3">
+         <div class="d-flex align-items-center justify-content-between mb-2">
+          <h5 class="mb-0 d-flex align-items-center gap-2">
+           <i class="fa-solid fa-inbox text-success">
+           </i>
+           Pending Projects
+          </h5>
+          <span class="badge bg-success-subtle text-success-emphasis" id="queueCount">
+           0
+          </span>
+         </div>
+         <div class="input-group mb-2">
+          <span class="input-group-text bg-white">
+           <i class="fa-solid fa-magnifying-glass text-muted">
+           </i>
+          </span>
+          <input class="form-control" id="queueSearch" placeholder="Search projects by name..." type="text"/>
+         </div>
+         <div class="d-flex gap-2 mb-3 flex-wrap">
+          <select class="form-select form-select-sm" id="ecosystemFilter" style="max-width: 160px;">
+           <option value="">
+            All Ecosystems
+           </option>
+           <option value="Mangroves">
+            Mangroves
+           </option>
+           <option value="Seagrass">
+            Seagrass
+           </option>
+           <option value="Saltmarsh">
+            Saltmarsh
+           </option>
+          </select>
+          <select class="form-select form-select-sm" id="sortOrder" style="max-width: 160px;">
+           <option value="newest">
+            Newest first
+           </option>
+           <option value="oldest">
+            Oldest first
+           </option>
+          </select>
+         </div>
+         <div class="list-group small" id="queueList" style="max-height: calc(100vh - 270px); overflow:auto;">
+          <!-- Queue items injected here -->
+          <div class="skeleton rounded mb-2" style="height:60px;">
+          </div>
+          <div class="skeleton rounded mb-2" style="height:60px;">
+          </div>
+          <div class="skeleton rounded mb-2" style="height:60px;">
+          </div>
+         </div>
+         <div class="d-flex align-items-center justify-content-between mt-3 small text-muted">
+          <div id="queuePaginationInfo">
+           Page 1 of 1
+          </div>
+          <div class="btn-group btn-group-sm" role="group">
+           <button class="btn btn-light" disabled="" id="prevPage">
+            <i class="fa-solid fa-chevron-left">
+            </i>
+           </button>
+           <button class="btn btn-light" disabled="" id="nextPage">
+            <i class="fa-solid fa-chevron-right">
+            </i>
+           </button>
+          </div>
+         </div>
+        </div>
+       </div>
+       <!-- Detail View -->
+       <div class="col-12 col-xl-9">
+        <div class="p-3 p-lg-4">
+         <!-- Page Header and Breadcrumb -->
+         <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+          <div>
+           <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-1">
+             <li class="breadcrumb-item">
+              <a href="./home_page.html">
+               Home
+              </a>
+             </li>
+             <li class="breadcrumb-item">
+              <a href="./admin_dashboard.html">
+               Admin
+              </a>
+             </li>
+             <li aria-current="page" class="breadcrumb-item active">
+              Project Review
+             </li>
+            </ol>
+           </nav>
+           <h2 class="page-title mb-0">
+            Review Project
+           </h2>
+           <div class="text-muted small">
+            Check details, map boundaries, and documents, then approve or reject.
+           </div>
+          </div>
+          <div class="view-switcher d-none d-md-inline-flex">
+           <div class="option active">
+            <i class="fa-solid fa-list">
+            </i>
+           </div>
+           <div class="option">
+            <i class="fa-solid fa-layer-group">
+            </i>
+           </div>
+          </div>
+         </div>
+         <!-- Action Toolbar (sticky) -->
+         <div class="card sticky-top action-toolbar" style="z-index: 9;">
+          <div class="card-body py-2 d-flex align-items-center justify-content-between flex-wrap gap-2">
+           <div class="d-flex align-items-center gap-3 small">
+            <span class="badge bg-info-subtle text-info-emphasis" id="selectedProjectBadge">
+             No project selected
+            </span>
+            <span class="text-muted" id="submissionMeta">
+             Select a project from the queue to begin
+            </span>
+           </div>
+           <div class="d-flex gap-2">
+            <button class="btn btn-success" disabled="" id="approveBtn">
+             <i class="fa-solid fa-check me-1">
+             </i>
+             Approve
+            </button>
+            <button class="btn btn-danger" disabled="" id="rejectBtn">
+             <i class="fa-solid fa-xmark me-1">
+             </i>
+             Reject
+            </button>
+           </div>
+          </div>
+         </div>
+         <!-- Info + Map + Documents grid -->
+         <div class="grid auto-fit-lg mt-3">
+          <!-- Project Information Card -->
+          <div class="app-card">
+           <div class="card-header">
+            <div class="title d-flex align-items-center gap-2">
+             <i class="fa-solid fa-circle-info text-info">
+             </i>
+             Project Information
+            </div>
+            <div class="dropdown">
+             <button class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+              Actions
+             </button>
+             <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+               <a class="dropdown-item" href="#" id="openProjectDetailsLink" target="_blank">
+                Open public details
+               </a>
+              </li>
+              <li>
+               <a class="dropdown-item" href="#" id="openSubmitterProfileLink" target="_blank">
+                Open submitter profile
+               </a>
+              </li>
+             </ul>
+            </div>
+           </div>
+           <div class="card-body">
+            <h3 class="mb-1" id="projectTitle">
+             Select a project to view details
+            </h3>
+            <div class="mb-2">
+             <a class="text-decoration-none" href="#" id="submitterLink">
+              <i class="fa-solid fa-user-shield me-1">
+              </i>
+              <span id="submitterName">
+               —
+              </span>
+             </a>
+             <span class="mx-2">
+              •
+             </span>
+             <span class="text-muted" id="submissionDate">
+              —
+             </span>
+            </div>
+            <p class="mb-3" id="projectDescription">
+             Use the queue to the left to choose a pending project for review. Description and goals will appear here.
+            </p>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+             <span class="badge-soft info" id="ecosystemTag">
+              Ecosystem: —
+             </span>
+             <span class="badge-soft primary" id="regionTag">
+              Region: —
+             </span>
+             <span class="badge-soft success" id="areaTag">
+              Area: —
+             </span>
+            </div>
+           </div>
+           <div class="card-footer d-flex align-items-center justify-content-between small">
+            <div>
+             Project ID:
+             <span id="projectId">
+              —
+             </span>
+            </div>
+            <div class="text-muted" id="statusPill">
+             <span class="badge bg-warning-subtle text-warning-emphasis">
+              Pending Verification
+             </span>
+            </div>
+           </div>
+          </div>
+          <!-- Map Boundary Viewer -->
+          <div class="app-card">
+           <div class="card-header">
+            <div class="title d-flex align-items-center gap-2">
+             <i class="fa-solid fa-map-location-dot text-primary">
+             </i>
+             Boundary Map
+            </div>
+            <div class="d-flex align-items-center gap-2">
+             <div class="form-check form-switch m-0">
+              <input class="form-check-input" id="satToggle" role="switch" type="checkbox"/>
+              <label class="form-check-label small" for="satToggle">
+               Satellite
+              </label>
+             </div>
+            </div>
+           </div>
+           <div class="card-body p-0">
+            <div id="map" style="height: 340px; width: 100%;">
+            </div>
+           </div>
+           <div class="card-footer d-flex align-items-center justify-content-between small">
+            <div>
+             <i class="fa-regular fa-compass me-1">
+             </i>
+             Pan and zoom to inspect boundaries
+            </div>
+            <button class="btn btn-light btn-sm" id="fitBoundsBtn">
+             <i class="fa-solid fa-arrows-to-circle me-1">
+             </i>
+             Fit to boundary
+            </button>
+           </div>
+          </div>
+          <!-- Documents Viewer -->
+          <div class="app-card">
+           <div class="card-header">
+            <div class="title d-flex align-items-center gap-2">
+             <i class="fa-regular fa-file-lines text-secondary">
+             </i>
+             Supporting Documents
+            </div>
+            <div class="small text-muted" id="docCount">
+             —
+            </div>
+           </div>
+           <div class="card-body">
+            <ul class="list-group list-group-flush" id="documentList">
+             <li class="list-group-item text-muted">
+              No project selected
+             </li>
+            </ul>
+           </div>
+           <div class="card-footer d-flex align-items-center justify-content-between small">
+            <span id="docNotes">
+             Ensure all required documents are present.
+            </span>
+            <a class="text-decoration-none" href="#" id="downloadAllLink">
+             <i class="fa-solid fa-download me-1">
+             </i>
+             Download all
+            </a>
+           </div>
+          </div>
+          <!-- Document Coverage mini-chart -->
+          <div class="app-card">
+           <div class="card-header">
+            <div class="title d-flex align-items-center gap-2">
+             <i class="fa-solid fa-chart-pie text-success">
+             </i>
+             Document Coverage
+            </div>
+           </div>
+           <div class="card-body">
+            <canvas height="160" id="coverageChart">
+            </canvas>
+           </div>
+          </div>
+         </div>
+         <!-- System notifications area -->
+         <div class="mt-4">
+          <div class="alert alert-info d-none" id="systemAlert" role="alert">
+           <i class="fa-solid fa-circle-info me-1">
+           </i>
+           <span id="systemAlertText">
+            System message
+           </span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-light border-top py-3 mt-auto">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="small text-muted">
+     © BlueCarbonMRV • Admin
+    </div>
+    <div class="small">
+     <a class="text-decoration-none me-3" href="./settings_page.html#terms">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./settings_page.html#privacy">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast container -->
+  <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-dark border-0" id="liveToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body" id="toastBody">
+      Loading new submissions...
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Dependencies: Bootstrap Bundle, Leaflet, SweetAlert2, Chart.js -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Sample mock data
+const mockProjects = [{
+    id: 'PRJ-2025-001',
+    name: 'Sundarbans Mangrove Restoration Phase II',
+    submitter: {
+        id: 'NGO-142',
+        name: 'Green Delta Trust'
+    },
+    submittedAt: '2025-01-12T09:24:00Z',
+    ecosystem: 'Mangroves',
+    region: 'Sundarbans, West Bengal',
+    areaHa: 1250,
+    description: 'Restoration of degraded mangrove patches using community-based interventions, sediment accretion facilitation, and natural regeneration support. Goals include shoreline stabilization and carbon sequestration.',
+    documents: [{
+        name: 'Project_Proposal.pdf',
+        url: '#',
+        type: 'pdf'
+    }, {
+        name: 'Boundary_Coordinates.geojson',
+        url: '#',
+        type: 'json'
+    }, {
+        name: 'Stakeholder_Support_Letters.zip',
+        url: '#',
+        type: 'zip'
+    }, {
+        name: 'Field_Survey_Photos.zip',
+        url: '#',
+        type: 'zip'
+    }, ],
+    coverage: {
+        provided: 4,
+        missing: 1
+    },
+    geojson: {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [88.65, 21.85],
+                        [88.95, 21.85],
+                        [88.95, 22.05],
+                        [88.65, 22.05],
+                        [88.65, 21.85]
+                    ]
+                ]
+            }
+        }]
+    }
+}, {
+    id: 'PRJ-2025-002',
+    name: 'Gulf of Mannar Seagrass Mapping Initiative',
+    submitter: {
+        id: 'NGO-203',
+        name: 'OceanCare Collective'
+    },
+    submittedAt: '2025-01-20T13:57:00Z',
+    ecosystem: 'Seagrass',
+    region: 'Gulf of Mannar, Tamil Nadu',
+    areaHa: 620,
+    description: 'High-resolution seagrass meadow mapping and baseline carbon stock assessments across priority islands, with community co-monitoring.',
+    documents: [{
+        name: 'Methodology.pdf',
+        url: '#',
+        type: 'pdf'
+    }, {
+        name: 'Study_Area_Map.jpg',
+        url: '#',
+        type: 'image'
+    }, {
+        name: 'Community_MOU.pdf',
+        url: '#',
+        type: 'pdf'
+    }],
+    coverage: {
+        provided: 3,
+        missing: 2
+    },
+    geojson: {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [78.05, 8.9],
+                        [78.35, 8.9],
+                        [78.35, 9.15],
+                        [78.05, 9.15],
+                        [78.05, 8.9]
+                    ]
+                ]
+            }
+        }]
+    }
+}, {
+    id: 'PRJ-2025-003',
+    name: 'Gujarat Saltmarsh Rehabilitation Pilot',
+    submitter: {
+        id: 'PANCH-58',
+        name: 'Okha Panchayat'
+    },
+    submittedAt: '2025-01-22T08:10:00Z',
+    ecosystem: 'Saltmarsh',
+    region: 'Dwarka District, Gujarat',
+    areaHa: 380,
+    description: 'Pilot rehabilitation of saltmarsh vegetation through hydrological restoration and invasive species management in tidal creeks.',
+    documents: [{
+        name: 'Pilot_Design.pdf',
+        url: '#',
+        type: 'pdf'
+    }, {
+        name: 'Hydrology_Assessment.pdf',
+        url: '#',
+        type: 'pdf'
+    }, {
+        name: 'Budget.xlsx',
+        url: '#',
+        type: 'sheet'
+    }, {
+        name: 'Local_Resolution.pdf',
+        url: '#',
+        type: 'pdf'
+    }, {
+        name: 'Baseline_Survey.zip',
+        url: '#',
+        type: 'zip'
+    }],
+    coverage: {
+        provided: 5,
+        missing: 0
+    },
+    geojson: {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [69.0, 22.3],
+                        [69.2, 22.3],
+                        [69.2, 22.45],
+                        [69.0, 22.45],
+                        [69.0, 22.3]
+                    ]
+                ]
+            }
+        }]
+    }
+}, {
+    id: 'PRJ-2025-004',
+    name: 'Backwater Mangrove Buffer Creation',
+    submitter: {
+        id: 'NGO-219',
+        name: 'BlueRoots Foundation'
+    },
+    submittedAt: '2025-01-26T11:45:00Z',
+    ecosystem: 'Mangroves',
+    region: 'Kundapura, Karnataka',
+    areaHa: 210,
+    description: 'Creation of mangrove buffer strips along backwater channels to reduce erosion and enhance fish nursery habitats.',
+    documents: [{
+        name: 'EIA_Summary.pdf',
+        url: '#',
+        type: 'pdf'
+    }, {
+        name: 'Boundary_Map.pdf',
+        url: '#',
+        type: 'pdf'
+    }],
+    coverage: {
+        provided: 2,
+        missing: 3
+    },
+    geojson: {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [74.65, 13.6],
+                        [74.85, 13.6],
+                        [74.85, 13.8],
+                        [74.65, 13.8],
+                        [74.65, 13.6]
+                    ]
+                ]
+            }
+        }]
+    }
+}, {
+    id: 'PRJ-2025-005',
+    name: 'Palk Bay Seagrass Carbon Baseline',
+    submitter: {
+        id: 'NGO-301',
+        name: 'CoastWatch India'
+    },
+    submittedAt: '2025-01-28T15:05:00Z',
+    ecosystem: 'Seagrass',
+    region: 'Palk Bay, Tamil Nadu',
+    areaHa: 540,
+    description: 'Baseline carbon stock assessment across representative seagrass beds to support credit methodology selection.',
+    documents: [{
+        name: 'Sampling_Plan.pdf',
+        url: '#',
+        type: 'pdf'
+    }, {
+        name: 'Permissions.pdf',
+        url: '#',
+        type: 'pdf'
+    }, {
+        name: 'Species_List.xlsx',
+        url: '#',
+        type: 'sheet'
+    }],
+    coverage: {
+        provided: 3,
+        missing: 2
+    },
+    geojson: {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [79.0, 9.1],
+                        [79.25, 9.1],
+                        [79.25, 9.3],
+                        [79.0, 9.3],
+                        [79.0, 9.1]
+                    ]
+                ]
+            }
+        }]
+    }
+}];
+
+// State
+let filteredProjects = [...mockProjects];
+let currentPage = 1;
+const pageSize = 20; // large enough to avoid paging on sample
+let selectedProjectId = null;
+
+// Elements
+const queueListEl = document.getElementById('queueList');
+const queueCountEl = document.getElementById('queueCount');
+const queueSearchEl = document.getElementById('queueSearch');
+const ecosystemFilterEl = document.getElementById('ecosystemFilter');
+const sortOrderEl = document.getElementById('sortOrder');
+const queuePaginationInfo = document.getElementById('queuePaginationInfo');
+const prevPageBtn = document.getElementById('prevPage');
+const nextPageBtn = document.getElementById('nextPage');
+
+// Detail view elements
+const projectTitleEl = document.getElementById('projectTitle');
+const submitterNameEl = document.getElementById('submitterName');
+const submitterLinkEl = document.getElementById('submitterLink');
+const submissionDateEl = document.getElementById('submissionDate');
+const projectDescriptionEl = document.getElementById('projectDescription');
+const ecosystemTagEl = document.getElementById('ecosystemTag');
+const regionTagEl = document.getElementById('regionTag');
+const areaTagEl = document.getElementById('areaTag');
+const projectIdEl = document.getElementById('projectId');
+const openProjectDetailsLinkEl = document.getElementById('openProjectDetailsLink');
+const openSubmitterProfileLinkEl = document.getElementById('openSubmitterProfileLink');
+const selectedProjectBadgeEl = document.getElementById('selectedProjectBadge');
+const submissionMetaEl = document.getElementById('submissionMeta');
+
+const docListEl = document.getElementById('documentList');
+const docCountEl = document.getElementById('docCount');
+const downloadAllLinkEl = document.getElementById('downloadAllLink');
+
+const approveBtn = document.getElementById('approveBtn');
+const rejectBtn = document.getElementById('rejectBtn');
+
+const systemAlert = document.getElementById('systemAlert');
+const systemAlertText = document.getElementById('systemAlertText');
+
+// Toast helper
+function showToast(message) {
+    const toastEl = document.getElementById('liveToast');
+    document.getElementById('toastBody').textContent = message;
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+}
+
+// Render queue
+function renderQueue() {
+    queueListEl.innerHTML = '';
+    const start = (currentPage - 1) * pageSize;
+    const pageItems = filteredProjects.slice(start, start + pageSize);
+    queueCountEl.textContent = filteredProjects.length;
+    const totalPages = Math.max(1, Math.ceil(filteredProjects.length / pageSize));
+    queuePaginationInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    prevPageBtn.disabled = currentPage <= 1;
+    nextPageBtn.disabled = currentPage >= totalPages;
+
+    if (pageItems.length === 0) {
+        queueListEl.innerHTML = '<div class="empty-state small py-4">No pending projects match your filters.</div>';
+        return;
+    }
+
+    pageItems.forEach(p => {
+        const active = p.id === selectedProjectId ? 'active' : '';
+        const item = document.createElement('a');
+        item.href = '#';
+        item.className = `list-group-item list-group-item-action ${active}`;
+        item.innerHTML = `
+          <div class="d-flex w-100 justify-content-between align-items-start">
+            <div>
+              <div class="fw-semibold">${p.name}</div>
+              <div class="text-muted">${p.submitter.name} • ${formatDate(p.submittedAt)}</div>
+            </div>
+            <span class="badge bg-light text-dark border">${p.ecosystem}</span>
+          </div>
+        `;
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            selectProject(p.id);
+        });
+        queueListEl.appendChild(item);
+    });
+}
+
+function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+// Filtering and sorting
+function applyFilters() {
+    const q = queueSearchEl.value.trim().toLowerCase();
+    const eco = ecosystemFilterEl.value;
+    const order = sortOrderEl.value;
+
+    filteredProjects = mockProjects.filter(p => {
+        return (
+            (!eco || p.ecosystem === eco) &&
+            (p.name.toLowerCase().includes(q) || p.submitter.name.toLowerCase().includes(q))
+        );
+    });
+
+    filteredProjects.sort((a, b) => {
+        if (order === 'newest') return new Date(b.submittedAt) - new Date(a.submittedAt);
+        return new Date(a.submittedAt) - new Date(b.submittedAt);
+    });
+
+    currentPage = 1;
+    renderQueue();
+}
+
+queueSearchEl.addEventListener('input', () => applyFilters());
+ecosystemFilterEl.addEventListener('change', () => applyFilters());
+sortOrderEl.addEventListener('change', () => applyFilters());
+
+prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        renderQueue();
+    }
+});
+nextPageBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(filteredProjects.length / pageSize);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderQueue();
+    }
+});
+
+// Map setup
+let map, streetLayer, satLayer, boundaryLayer;
+
+function initMap() {
+    map = L.map('map', {
+        zoomControl: true,
+        attributionControl: true
+    }).setView([20.5937, 78.9629], 5);
+    streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    });
+    satLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19,
+        attribution: 'Tiles &copy; Esri'
+    });
+    streetLayer.addTo(map);
+    boundaryLayer = L.geoJSON(null, {
+        style: {
+            color: '#00774E',
+            weight: 2,
+            fillColor: 'rgba(0,119,78,0.2)',
+            fillOpacity: 0.25
+        }
+    }).addTo(map);
+}
+
+// Fit bounds button
+document.getElementById('fitBoundsBtn').addEventListener('click', () => {
+    if (boundaryLayer && boundaryLayer.getLayers().length) {
+        map.fitBounds(boundaryLayer.getBounds(), {
+            padding: [16, 16]
+        });
+    }
+});
+
+// Satellite toggle
+document.getElementById('satToggle').addEventListener('change', (e) => {
+    if (e.target.checked) {
+        map.removeLayer(streetLayer);
+        satLayer.addTo(map);
+    } else {
+        map.removeLayer(satLayer);
+        streetLayer.addTo(map);
+    }
+});
+
+// Select project and populate details
+function selectProject(id) {
+    selectedProjectId = id;
+    const project = mockProjects.find(p => p.id === id);
+    // Update queue UI
+    renderQueue();
+    // Update toolbar
+    selectedProjectBadgeEl.textContent = project.id;
+    submissionMetaEl.textContent = `${formatDate(project.submittedAt)} • ${project.submitter.name}`;
+    approveBtn.disabled = false;
+    rejectBtn.disabled = false;
+
+    // Update info card
+    projectTitleEl.textContent = project.name;
+    submitterNameEl.textContent = project.submitter.name;
+    submitterLinkEl.href = `./project_details_page.html#submitter-${project.submitter.id}`;
+    submissionDateEl.textContent = `Submitted ${formatDate(project.submittedAt)}`;
+    projectDescriptionEl.textContent = project.description;
+    ecosystemTagEl.textContent = `Ecosystem: ${project.ecosystem}`;
+    regionTagEl.textContent = `Region: ${project.region}`;
+    areaTagEl.textContent = `Area: ${project.areaHa} ha`;
+    projectIdEl.textContent = project.id;
+    openProjectDetailsLinkEl.href = `./project_details_page.html#${project.id}`;
+    openSubmitterProfileLinkEl.href = `./settings_page.html#user-${project.submitter.id}`;
+
+    // Update documents
+    renderDocuments(project.documents);
+    updateCoverageChart(project.coverage);
+
+    // Update map boundary
+    boundaryLayer.clearLayers();
+    boundaryLayer.addData(project.geojson);
+    try {
+        map.fitBounds(boundaryLayer.getBounds(), {
+            padding: [16, 16]
+        });
+    } catch {}
+
+    // Show toast
+    showToast(`Loaded project: ${project.name}`);
+}
+
+function renderDocuments(docs) {
+    docListEl.innerHTML = '';
+    if (!docs || !docs.length) {
+        docListEl.innerHTML = '<li class="list-group-item text-muted">No documents uploaded.</li>';
+        docCountEl.textContent = '0 documents';
+        return;
+    }
+    docCountEl.textContent = `${docs.length} document${docs.length>1?'s':''}`;
+    docs.forEach(d => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex align-items-center justify-content-between';
+        const icon = fileTypeIcon(d.type);
+        li.innerHTML = `
+          <div class="d-flex align-items-center gap-2">
+            <i class="${icon} text-muted"></i>
+            <a href="${d.url}" class="text-decoration-none" target="_blank" rel="noopener">${d.name}</a>
+          </div>
+          <button class="btn btn-light btn-sm"><i class="fa-solid fa-eye"></i></button>
+        `;
+        li.querySelector('button').addEventListener('click', () => {
+            window.open(d.url, '_blank', 'noopener');
+        });
+        docListEl.appendChild(li);
+    });
+    downloadAllLinkEl.href = '#';
+}
+
+function fileTypeIcon(type) {
+    switch (type) {
+        case 'pdf':
+            return 'fa-regular fa-file-pdf text-danger';
+        case 'image':
+            return 'fa-regular fa-file-image text-info';
+        case 'zip':
+            return 'fa-regular fa-file-zipper text-warning';
+        case 'sheet':
+            return 'fa-regular fa-file-excel text-success';
+        case 'json':
+            return 'fa-regular fa-file-code text-primary';
+        default:
+            return 'fa-regular fa-file';
+    }
+}
+
+// Coverage chart
+let coverageChart;
+
+function initCoverageChart() {
+    const ctx = document.getElementById('coverageChart');
+    coverageChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Provided', 'Missing'],
+            datasets: [{
+                data: [0, 0],
+                backgroundColor: ['rgba(0,119,78,0.8)', 'rgba(255,165,0,0.6)'],
+                borderColor: ['#00774E', '#FFA500'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
+            maintainAspectRatio: false
+        }
+    });
+}
+
+function updateCoverageChart(coverage) {
+    if (!coverageChart) return;
+    coverageChart.data.datasets[0].data = [coverage.provided, coverage.missing];
+    coverageChart.update();
+}
+
+// Approve / Reject flows with SweetAlert2
+approveBtn.addEventListener('click', async () => {
+    const project = mockProjects.find(p => p.id === selectedProjectId);
+    if (!project) return;
+    const result = await Swal.fire({
+        title: 'Approve this project?',
+        html: `<div class="text-start">You are approving <strong>${project.name}</strong>.<br><span class="text-muted small">This will list the project on the platform.</span></div>`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, approve',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#00774E'
+    });
+    if (result.isConfirmed) {
+        // Simulate API
+        await new Promise(r => setTimeout(r, 600));
+        Swal.fire({
+            title: 'Approved',
+            text: `${project.name} has been approved.`,
+            icon: 'success',
+            confirmButtonColor: '#00774E'
+        });
+        // Remove from queue and select next
+        const idx = mockProjects.findIndex(p => p.id === project.id);
+        mockProjects.splice(idx, 1);
+        applyFilters();
+        // Reset detail view if none
+        if (mockProjects.length) {
+            selectProject(mockProjects[0].id);
+        } else {
+            clearDetailView();
+        }
+    }
+});
+
+rejectBtn.addEventListener('click', async () => {
+    const project = mockProjects.find(p => p.id === selectedProjectId);
+    if (!project) return;
+    const {
+        value: reason
+    } = await Swal.fire({
+        title: 'Reject project',
+        html: `<div class="text-start mb-2">Provide a reason for rejecting <strong>${project.name}</strong>:</div>`,
+        input: 'textarea',
+        inputLabel: 'Rejection reason',
+        inputPlaceholder: 'Explain why this project is being rejected... (required)',
+        inputAttributes: {
+            'aria-label': 'Rejection reason'
+        },
+        inputValidator: (value) => {
+            if (!value || value.trim().length < 10) return 'Please provide at least 10 characters.';
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Confirm rejection',
+        confirmButtonColor: '#CD2026'
+    });
+    if (reason) {
+        await new Promise(r => setTimeout(r, 600));
+        Swal.fire({
+            title: 'Rejected',
+            text: `Rejection submitted with reason: ${reason}`,
+            icon: 'success'
+        });
+        // Remove from queue and reset/select next
+        const idx = mockProjects.findIndex(p => p.id === project.id);
+        mockProjects.splice(idx, 1);
+        applyFilters();
+        if (mockProjects.length) {
+            selectProject(mockProjects[0].id);
+        } else {
+            clearDetailView();
+        }
+    }
+});
+
+function clearDetailView() {
+    selectedProjectId = null;
+    selectedProjectBadgeEl.textContent = 'No project selected';
+    submissionMetaEl.textContent = 'Select a project from the queue to begin';
+    approveBtn.disabled = true;
+    rejectBtn.disabled = true;
+    projectTitleEl.textContent = 'Select a project to view details';
+    submitterNameEl.textContent = '—';
+    submitterLinkEl.href = '#';
+    submissionDateEl.textContent = '—';
+    projectDescriptionEl.textContent = 'Use the queue to the left to choose a pending project for review. Description and goals will appear here.';
+    ecosystemTagEl.textContent = 'Ecosystem: —';
+    regionTagEl.textContent = 'Region: —';
+    areaTagEl.textContent = 'Area: —';
+    projectIdEl.textContent = '—';
+    docListEl.innerHTML = '<li class="list-group-item text-muted">No project selected</li>';
+    docCountEl.textContent = '—';
+    boundaryLayer.clearLayers();
+    map.setView([20.5937, 78.9629], 5);
+    updateCoverageChart({
+        provided: 0,
+        missing: 0
+    });
+}
+
+// Init on load
+window.addEventListener('DOMContentLoaded', () => {
+    initMap();
+    initCoverageChart();
+    applyFilters();
+    if (mockProjects.length) selectProject(mockProjects[0].id);
+
+    // Optional: show alert message
+    systemAlert.classList.add('d-none');
+    systemAlertText.textContent = '3 new submissions loaded into the queue.';
+});
+  </script>
+ </body>
+</html>

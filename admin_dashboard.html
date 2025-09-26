@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Admin Dashboard • BlueCarbonMRV
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+   <!-- SweetAlert2 -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Global Theme CSS -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- Page-specific CSS -->
+    <link href="admin_dashboard.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body>
+  <!-- Header (Admin/Verifier Header with quick access to queues) -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenuMobile" class="btn btn-outline-success me-2 d-lg-none" data-bs-target="#sidebarMenuMobile" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./admin_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fw-bold">
+      Admin Console
+     </span>
+    </a>
+    <div class="d-none d-lg-flex ms-3 gap-2">
+     <a class="btn btn-outline-success" href="./project_review_page.html">
+      <i class="fa-solid fa-clipboard-check me-1">
+      </i>
+      Verification Queue
+     </a>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+     <form class="d-none d-md-flex" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+       </span>
+       <input aria-label="Search" class="form-control" id="globalSearchInput" placeholder="Search users, projects, submissions" type="search"/>
+      </div>
+     </form>
+     <a class="text-decoration-none position-relative text-dark" data-bs-title="Notifications" data-bs-toggle="tooltip" href="#">
+      <i class="fa-regular fa-bell fs-5">
+      </i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--color-secondary);">
+       5
+      </span>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#">
+       <img alt="Admin" class="rounded-circle me-2" height="32" onerror="this.onerror=null;this.src='https://picsum.photos/seed/adminavatar/32/32'" src="https://via.placeholder.com/32" width="32"/>
+       <span>
+        Admin
+       </span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./settings_page.html">
+         Settings
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="#" id="logoutBtn">
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Offcanvas Sidebar -->
+  <div aria-labelledby="sidebarMenuMobileLabel" class="offcanvas offcanvas-start" id="sidebarMenuMobile" tabindex="-1">
+   <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarMenuMobileLabel">
+     BlueCarbonMRV Admin
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="d-flex align-items-center px-3 pb-3">
+     <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/adminavatar/36/36'" src="https://via.placeholder.com/36"/>
+     <div class="small">
+      <div class="fw-semibold">
+       Admin/Verifier
+      </div>
+      <span class="badge admin-role">
+       Admin
+      </span>
+     </div>
+    </div>
+    <hr class="my-0"/>
+    <ul class="nav nav-pills flex-column mb-auto gap-1 p-3">
+     <li>
+      <a class="nav-link active" data-page="admin_dashboard" href="./admin_dashboard.html">
+       <i class="fa-solid fa-gauge me-2">
+       </i>
+       Dashboard
+      </a>
+     </li>
+     <li>
+      <a aria-controls="queueMenuMobile" aria-expanded="true" class="nav-link" data-bs-toggle="collapse" href="#queueMenuMobile" role="button">
+       <i class="fa-solid fa-clipboard-check me-2">
+       </i>
+       Queues
+      </a>
+      <div class="collapse show ps-4" id="queueMenuMobile">
+       <a class="nav-link py-1 d-flex align-items-center" href="#users">
+        <i class="fa-solid fa-users-gear me-2">
+        </i>
+        User Verifications
+       </a>
+       <a class="nav-link py-1" data-page="project_review_page" href="./project_review_page.html">
+        Project Review
+       </a>
+       <a class="nav-link py-1" data-page="submission_review_page" href="./submission_review_page.html">
+        Submission Review
+       </a>
+      </div>
+     </li>
+     <li>
+      <a class="nav-link" href="#analytics">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Analytics
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./settings_page.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="admin-shell d-flex">
+   <!-- Desktop Sidebar -->
+   <aside class="admin-sidebar d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-white border-end min-vh-100" id="sidebarMenu">
+    <a class="d-flex align-items-center mb-3 text-decoration-none" href="./admin_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fs-5 fw-bold">
+      BlueCarbonMRV Admin
+     </span>
+    </a>
+    <div class="d-flex align-items-center mt-2 mb-3">
+     <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/adminavatar/36/36'" src="https://via.placeholder.com/36"/>
+     <div class="small">
+      <div class="fw-semibold">
+       Admin/Verifier
+      </div>
+      <span class="badge admin-role">
+       Admin
+      </span>
+     </div>
+    </div>
+    <hr/>
+    <ul class="nav nav-pills flex-column mb-auto gap-1">
+     <li>
+      <a class="nav-link active" data-page="admin_dashboard" href="./admin_dashboard.html">
+       <i class="fa-solid fa-gauge me-2">
+       </i>
+       Dashboard
+      </a>
+     </li>
+     <li>
+      <a aria-controls="queueMenu" aria-expanded="true" class="nav-link" data-bs-toggle="collapse" href="#queueMenu" role="button">
+       <i class="fa-solid fa-clipboard-check me-2">
+       </i>
+       Queues
+      </a>
+      <div class="collapse show ps-4" id="queueMenu">
+       <a class="nav-link py-1 d-flex align-items-center" href="#users">
+        <i class="fa-solid fa-users-gear me-2">
+        </i>
+        User Verifications
+       </a>
+       <a class="nav-link py-1" data-page="project_review_page" href="./project_review_page.html">
+        Project Review
+       </a>
+       <a class="nav-link py-1" data-page="submission_review_page" href="./submission_review_page.html">
+        Submission Review
+       </a>
+      </div>
+     </li>
+     <li>
+      <a class="nav-link" href="#analytics">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Analytics
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./settings_page.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+     </li>
+    </ul>
+   </aside>
+   <!-- Main Content -->
+   <main class="content-wrapper flex-grow-1">
+    <div class="container-fluid py-3">
+     <!-- Page Header -->
+     <div class="page-header align-items-center mb-3">
+      <div class="d-flex align-items-center gap-3">
+       <h1 class="page-title mb-0">
+        Admin Dashboard
+       </h1>
+       <span class="badge bg-success-subtle text-success border border-success-subtle">
+        Admin/Verifier
+       </span>
+      </div>
+      <div class="navigation-links">
+       <a class="btn btn-light" href="./home_page.html">
+        <i class="fa-solid fa-house me-1">
+        </i>
+        Home
+       </a>
+       <a class="btn btn-info text-white" href="./settings_page.html">
+        <i class="fa-solid fa-gear me-1">
+        </i>
+        Settings
+       </a>
+      </div>
+     </div>
+     <!-- System Feedback / Notifications -->
+     <div class="alert alert-warning d-flex align-items-center" id="systemAlert" role="alert">
+      <i class="fa-solid fa-triangle-exclamation me-2">
+      </i>
+      <div>
+       3 high-priority items flagged for review. Please prioritize the Submissions queue.
+      </div>
+     </div>
+     <!-- Key Metrics Summary -->
+     <section class="mb-4">
+      <div class="row g-3" id="metricsRow">
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100 d-flex align-items-center justify-content-between p-3">
+         <div>
+          <div class="metric-title">
+           Pending User Verifications
+          </div>
+          <div class="metric-value" id="metricUsers">
+           <span class="skeleton" style="width:90px;height:36px;display:inline-block;border-radius:8px;">
+           </span>
+          </div>
+         </div>
+         <div class="icon-circle bg-success-subtle text-success">
+          <i class="fa-solid fa-users-gear">
+          </i>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100 d-flex align-items-center justify-content-between p-3">
+         <div>
+          <div class="metric-title">
+           Pending Projects
+          </div>
+          <div class="metric-value" id="metricProjects">
+           <span class="skeleton" style="width:90px;height:36px;display:inline-block;border-radius:8px;">
+           </span>
+          </div>
+         </div>
+         <div class="icon-circle bg-info-subtle text-info">
+          <i class="fa-solid fa-clipboard-check">
+          </i>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100 d-flex align-items-center justify-content-between p-3">
+         <div>
+          <div class="metric-title">
+           Pending Submissions
+          </div>
+          <div class="metric-value" id="metricSubmissions">
+           <span class="skeleton" style="width:90px;height:36px;display:inline-block;border-radius:8px;">
+           </span>
+          </div>
+         </div>
+         <div class="icon-circle bg-warning-subtle text-warning">
+          <i class="fa-solid fa-database">
+          </i>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100 d-flex align-items-center justify-content-between p-3">
+         <div>
+          <div class="metric-title">
+           Flags / Anomalies
+          </div>
+          <div class="metric-value" id="metricFlags">
+           <span class="skeleton" style="width:90px;height:36px;display:inline-block;border-radius:8px;">
+           </span>
+          </div>
+         </div>
+         <div class="icon-circle bg-danger-subtle text-danger">
+          <i class="fa-solid fa-triangle-exclamation">
+          </i>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Chart: Weekly Queue Inflow -->
+     <section class="mb-4">
+      <div class="card">
+       <div class="card-header">
+        <div class="title d-flex align-items-center gap-2">
+         <i class="fa-solid fa-chart-line text-success">
+         </i>
+         <span class="widget-title">
+          Weekly Queue Inflow
+         </span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+         <span class="badge-soft info">
+          Interactive
+         </span>
+         <button class="btn btn-sm btn-light" id="refreshChartBtn">
+          <i class="fa-solid fa-rotate">
+          </i>
+          Refresh
+         </button>
+        </div>
+       </div>
+       <div class="card-body">
+        <canvas aria-label="Queue inflow chart" height="90" id="queueChart" role="img">
+        </canvas>
+       </div>
+      </div>
+     </section>
+     <!-- Verification Queues: Tabs -->
+     <section class="mb-5">
+      <ul class="nav nav-tabs" id="queueTabs" role="tablist">
+       <li class="nav-item" role="presentation">
+        <button aria-controls="usersTabPane" aria-selected="true" class="nav-link active" data-bs-target="#usersTabPane" data-bs-toggle="tab" id="users-tab" role="tab" type="button">
+         <i class="fa-solid fa-users-gear me-1">
+         </i>
+         Users
+        </button>
+       </li>
+       <li class="nav-item" role="presentation">
+        <button aria-controls="projectsTabPane" aria-selected="false" class="nav-link" data-bs-target="#projectsTabPane" data-bs-toggle="tab" id="projects-tab" role="tab" type="button">
+         <i class="fa-solid fa-clipboard-check me-1">
+         </i>
+         Projects
+        </button>
+       </li>
+       <li class="nav-item" role="presentation">
+        <button aria-controls="submissionsTabPane" aria-selected="false" class="nav-link" data-bs-target="#submissionsTabPane" data-bs-toggle="tab" id="submissions-tab" role="tab" type="button">
+         <i class="fa-solid fa-database me-1">
+         </i>
+         Submissions
+        </button>
+       </li>
+      </ul>
+      <div class="tab-content border border-top-0 rounded-bottom bg-white" id="queueTabsContent">
+       <!-- Users Queue -->
+       <div aria-labelledby="users-tab" class="tab-pane fade show active p-3" id="usersTabPane" role="tabpanel" tabindex="0">
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+         <div class="input-group" style="max-width: 360px;">
+          <span class="input-group-text bg-white">
+           <i class="fa-solid fa-magnifying-glass text-muted">
+           </i>
+          </span>
+          <input class="form-control" id="userFilterInput" placeholder="Filter by name or organization" type="text"/>
+         </div>
+         <select class="form-select" id="userRoleFilter" style="max-width: 220px;">
+          <option value="">
+           All Roles
+          </option>
+          <option value="Individual">
+           Individual
+          </option>
+          <option value="Organization">
+           Organization
+          </option>
+          <option value="Verifier">
+           Verifier
+          </option>
+         </select>
+         <div class="ms-auto small text-muted" id="userPaginationInfo">
+          Showing 1–6 of 14
+         </div>
+        </div>
+        <div class="table-responsive">
+         <table class="table table-theme table-hover-reveal" id="userQueueTable">
+          <thead>
+           <tr>
+            <th data-sort-key="name" role="button">
+             User/Org Name
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th data-sort-key="role" role="button">
+             Role
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th data-sort-key="date" role="button">
+             Submission Date
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th>
+             Actions
+            </th>
+           </tr>
+          </thead>
+          <tbody id="userQueueBody">
+           <!-- rows injected by JS -->
+          </tbody>
+         </table>
+        </div>
+        <nav aria-label="User pagination" class="d-flex justify-content-between align-items-center">
+         <div class="small text-muted">
+          Page 1 of 3
+         </div>
+         <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+           <span class="page-link">
+            Previous
+           </span>
+          </li>
+          <li class="page-item active">
+           <span class="page-link">
+            1
+           </span>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            2
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            3
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            Next
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+       <!-- Projects Queue -->
+       <div aria-labelledby="projects-tab" class="tab-pane fade p-3" id="projectsTabPane" role="tabpanel" tabindex="0">
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+         <div class="input-group" style="max-width: 360px;">
+          <span class="input-group-text bg-white">
+           <i class="fa-solid fa-magnifying-glass text-muted">
+           </i>
+          </span>
+          <input class="form-control" id="projectFilterInput" placeholder="Filter by project or organization" type="text"/>
+         </div>
+         <select class="form-select" id="projectOrgFilter" style="max-width: 220px;">
+          <option value="">
+           All Submitters
+          </option>
+          <option value="GreenCo">
+           GreenCo
+          </option>
+          <option value="Oceanic Trust">
+           Oceanic Trust
+          </option>
+          <option value="EcoSphere">
+           EcoSphere
+          </option>
+         </select>
+         <div class="ms-auto small text-muted" id="projectPaginationInfo">
+          Showing 1–6 of 9
+         </div>
+        </div>
+        <div class="table-responsive">
+         <table class="table table-theme table-hover-reveal" id="projectQueueTable">
+          <thead>
+           <tr>
+            <th data-sort-key="name" role="button">
+             Project Name
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th data-sort-key="org" role="button">
+             Submitted By
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th data-sort-key="date" role="button">
+             Submission Date
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th>
+             Actions
+            </th>
+           </tr>
+          </thead>
+          <tbody id="projectQueueBody">
+           <!-- rows injected by JS -->
+          </tbody>
+         </table>
+        </div>
+        <nav aria-label="Project pagination" class="d-flex justify-content-between align-items-center">
+         <div class="small text-muted">
+          Page 1 of 2
+         </div>
+         <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+           <span class="page-link">
+            Previous
+           </span>
+          </li>
+          <li class="page-item active">
+           <span class="page-link">
+            1
+           </span>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            2
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            Next
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+       <!-- Submissions Queue -->
+       <div aria-labelledby="submissions-tab" class="tab-pane fade p-3" id="submissionsTabPane" role="tabpanel" tabindex="0">
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+         <div class="input-group" style="max-width: 360px;">
+          <span class="input-group-text bg-white">
+           <i class="fa-solid fa-magnifying-glass text-muted">
+           </i>
+          </span>
+          <input class="form-control" id="submissionFilterInput" placeholder="Filter by project or evidence" type="text"/>
+         </div>
+         <select class="form-select" id="evidenceTypeFilter" style="max-width: 220px;">
+          <option value="">
+           All Evidence Types
+          </option>
+          <option value="Satellite">
+           Satellite
+          </option>
+          <option value="Sensor">
+           Sensor
+          </option>
+          <option value="Audit">
+           Audit
+          </option>
+         </select>
+         <div class="ms-auto small text-muted" id="submissionPaginationInfo">
+          Showing 1–6 of 22
+         </div>
+        </div>
+        <div class="table-responsive">
+         <table class="table table-theme table-hover-reveal" id="submissionQueueTable">
+          <thead>
+           <tr>
+            <th data-sort-key="project" role="button">
+             Project Name
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th data-sort-key="date" role="button">
+             Submission Date
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th data-sort-key="evidence" role="button">
+             Evidence Type
+             <i class="fa-solid fa-sort sort-indicator">
+             </i>
+            </th>
+            <th>
+             Actions
+            </th>
+           </tr>
+          </thead>
+          <tbody id="submissionQueueBody">
+           <!-- rows injected by JS -->
+          </tbody>
+         </table>
+        </div>
+        <nav aria-label="Submission pagination" class="d-flex justify-content-between align-items-center">
+         <div class="small text-muted">
+          Page 1 of 4
+         </div>
+         <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+           <span class="page-link">
+            Previous
+           </span>
+          </li>
+          <li class="page-item active">
+           <span class="page-link">
+            1
+           </span>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            2
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            3
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            4
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            Next
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </section>
+    </div>
+   </main>
+  </div>
+  <!-- Footer (Admin Footer) -->
+  <footer class="bg-light border-top py-3 mt-auto">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="small text-muted">
+     © BlueCarbonMRV • Admin
+    </div>
+    <div class="small">
+     <a class="text-decoration-none me-3" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast Container for feedback -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1060">
+   <div aria-atomic="true" aria-live="polite" class="toast align-items-center text-bg-success border-0" id="actionToast" role="status">
+    <div class="d-flex">
+     <div class="toast-body">
+      Action completed successfully.
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js">
+  </script>
+  <script>
+   // Typography: ensure Poppins is applied
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.fontFamily = "Poppins, var(--font-sans)";
+
+    // Enable tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Logout handler (SweetAlert2)
+    document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Logout?',
+            text: 'You will be redirected to the login page.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#81C784',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = './login_page.html';
+            }
+        });
+    });
+});
+
+// Mock metrics loading
+const metrics = {
+    users: 14,
+    projects: 9,
+    submissions: 22,
+    flags: 3
+};
+setTimeout(() => {
+    document.getElementById('metricUsers').textContent = metrics.users;
+    document.getElementById('metricProjects').textContent = metrics.projects;
+    document.getElementById('metricSubmissions').textContent = metrics.submissions;
+    document.getElementById('metricFlags').textContent = metrics.flags;
+}, 900);
+
+// Chart.js: Weekly Queue Inflow
+let queueChart;
+
+function renderChart() {
+    const ctx = document.getElementById('queueChart');
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const users = [2, 4, 1, 3, 2, 0, 2];
+    const projects = [1, 1, 0, 2, 3, 0, 2];
+    const subs = [4, 5, 3, 7, 2, 1, 0];
+    if (queueChart) queueChart.destroy();
+    queueChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: days,
+            datasets: [{
+                label: 'Users',
+                data: users,
+                borderColor: '#81C784',
+                backgroundColor: 'rgba(129,199,132,.2)',
+                tension: .3,
+                fill: true
+            }, {
+                label: 'Projects',
+                data: projects,
+                borderColor: '#90CAF9',
+                backgroundColor: 'rgba(144,202,249,.2)',
+                tension: .3,
+                fill: true
+            }, {
+                label: 'Submissions',
+                data: subs,
+                borderColor: '#FFA500',
+                backgroundColor: 'rgba(255,165,0,.15)',
+                tension: .3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'nearest',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    display: true
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+}
+renderChart();
+document.getElementById('refreshChartBtn').addEventListener('click', () => {
+    renderChart();
+    const toast = new bootstrap.Toast(document.getElementById('actionToast'));
+    document.querySelector('#actionToast .toast-body').textContent = 'Chart refreshed';
+    toast.show();
+});
+
+// Mock data for queues
+const userQueueData = [{
+    id: 'U-1001',
+    name: 'Alice Johnson (EcoSphere)',
+    role: 'Individual',
+    date: '2025-09-17 10:12'
+}, {
+    id: 'U-1002',
+    name: 'BlueWave Org',
+    role: 'Organization',
+    date: '2025-09-16 14:35'
+}, {
+    id: 'U-1003',
+    name: 'Carlos Mendoza (GreenCo)',
+    role: 'Verifier',
+    date: '2025-09-15 09:05'
+}, {
+    id: 'U-1004',
+    name: 'Delta Nature Labs',
+    role: 'Organization',
+    date: '2025-09-15 15:42'
+}, {
+    id: 'U-1005',
+    name: 'Emma Williams',
+    role: 'Individual',
+    date: '2025-09-14 12:28'
+}, {
+    id: 'U-1006',
+    name: 'ForestLine NGO',
+    role: 'Organization',
+    date: '2025-09-13 08:47'
+}];
+
+const projectQueueData = [{
+    id: 'P-2001',
+    name: 'Mangrove Revival Phase II',
+    org: 'GreenCo',
+    date: '2025-09-18 11:20'
+}, {
+    id: 'P-2002',
+    name: 'Coastal Blue Carbon Pilot',
+    org: 'Oceanic Trust',
+    date: '2025-09-17 16:45'
+}, {
+    id: 'P-2003',
+    name: 'Delta Estuary Restoration',
+    org: 'EcoSphere',
+    date: '2025-09-16 09:00'
+}, {
+    id: 'P-2004',
+    name: 'Seagrass Mapping Expansion',
+    org: 'GreenCo',
+    date: '2025-09-15 13:12'
+}, {
+    id: 'P-2005',
+    name: 'Blue Bay Carbon Farming',
+    org: 'Oceanic Trust',
+    date: '2025-09-14 10:05'
+}, {
+    id: 'P-2006',
+    name: 'Harbor Sediment Capture',
+    org: 'EcoSphere',
+    date: '2025-09-13 17:22'
+}];
+
+const submissionQueueData = [{
+    id: 'S-3001',
+    project: 'Mangrove Revival Phase II',
+    date: '2025-09-18 08:30',
+    evidence: 'Satellite'
+}, {
+    id: 'S-3002',
+    project: 'Coastal Blue Carbon Pilot',
+    date: '2025-09-17 13:10',
+    evidence: 'Sensor'
+}, {
+    id: 'S-3003',
+    project: 'Delta Estuary Restoration',
+    date: '2025-09-17 09:50',
+    evidence: 'Audit'
+}, {
+    id: 'S-3004',
+    project: 'Seagrass Mapping Expansion',
+    date: '2025-09-16 17:05',
+    evidence: 'Sensor'
+}, {
+    id: 'S-3005',
+    project: 'Blue Bay Carbon Farming',
+    date: '2025-09-15 11:22',
+    evidence: 'Satellite'
+}, {
+    id: 'S-3006',
+    project: 'Harbor Sediment Capture',
+    date: '2025-09-14 10:40',
+    evidence: 'Audit'
+}];
+
+// Utilities: render rows
+function renderUserRows(rows) {
+    const tbody = document.getElementById('userQueueBody');
+    tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td>${r.name}</td>
+          <td><span class="badge-soft ${r.role === 'Organization' ? 'secondary' : r.role === 'Verifier' ? 'info' : 'success'}">${r.role}</span></td>
+          <td>${formatDate(r.date)}</td>
+          <td>
+            <div class="d-flex gap-2 table-actions">
+              <button class="btn btn-sm btn-primary" onclick="reviewUser('${r.id}')"><i class="fa-solid fa-eye me-1"></i> Review</button>
+              <button class="btn btn-sm btn-success" onclick="quickApprove('user','${r.id}')"><i class="fa-solid fa-check"></i></button>
+              <button class="btn btn-sm btn-danger" onclick="quickReject('user','${r.id}')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </td>
+        </tr>`).join('');
+}
+
+function renderProjectRows(rows) {
+    const tbody = document.getElementById('projectQueueBody');
+    tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td>${r.name}</td>
+          <td>${r.org}</td>
+          <td>${formatDate(r.date)}</td>
+          <td>
+            <div class="d-flex gap-2 table-actions">
+              <button class="btn btn-sm btn-primary" onclick="reviewProject('${r.id}')"><i class="fa-solid fa-eye me-1"></i> Review</button>
+              <button class="btn btn-sm btn-success" onclick="quickApprove('project','${r.id}')"><i class="fa-solid fa-check"></i></button>
+              <button class="btn btn-sm btn-danger" onclick="quickReject('project','${r.id}')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </td>
+        </tr>`).join('');
+}
+
+function renderSubmissionRows(rows) {
+    const tbody = document.getElementById('submissionQueueBody');
+    tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td>${r.project}</td>
+          <td>${formatDate(r.date)}</td>
+          <td><span class="badge-soft ${r.evidence === 'Audit' ? 'warning' : r.evidence === 'Sensor' ? 'info' : 'primary'}">${r.evidence}</span></td>
+          <td>
+            <div class="d-flex gap-2 table-actions">
+              <button class="btn btn-sm btn-primary" onclick="reviewSubmission('${r.id}')"><i class="fa-solid fa-eye me-1"></i> Review</button>
+              <button class="btn btn-sm btn-success" onclick="quickApprove('submission','${r.id}')"><i class="fa-solid fa-check"></i></button>
+              <button class="btn btn-sm btn-danger" onclick="quickReject('submission','${r.id}')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </td>
+        </tr>`).join('');
+}
+
+function formatDate(dt) {
+    // dt as "YYYY-MM-DD hh:mm"
+    const [d, t] = dt.split(' ');
+    const [Y, M, D] = d.split('-');
+    return `${D}/${M}/${Y} ${t}`;
+}
+
+// Initial render
+renderUserRows(userQueueData);
+renderProjectRows(projectQueueData);
+renderSubmissionRows(submissionQueueData);
+
+// Sorting
+function sortTable(data, key, type = 'string', asc = true) {
+    const sorted = [...data].sort((a, b) => {
+        const av = a[key];
+        const bv = b[key];
+        if (type === 'date') return (new Date(av) - new Date(bv)) * (asc ? 1 : -1);
+        return (av.toString().localeCompare(bv.toString(), undefined, {
+            numeric: true
+        })) * (asc ? 1 : -1);
+    });
+    return sorted;
+}
+
+// Attach sort handlers
+attachSortHandlers('userQueueTable', userQueueData, renderUserRows, {
+    name: 'string',
+    role: 'string',
+    date: 'date'
+});
+attachSortHandlers('projectQueueTable', projectQueueData, renderProjectRows, {
+    name: 'string',
+    org: 'string',
+    date: 'date'
+});
+attachSortHandlers('submissionQueueTable', submissionQueueData, renderSubmissionRows, {
+    project: 'string',
+    evidence: 'string',
+    date: 'date'
+});
+
+function attachSortHandlers(tableId, data, renderFn, keyTypes) {
+    const table = document.getElementById(tableId);
+    const ths = table.querySelectorAll('thead th[role="button"]');
+    const sortState = {};
+    ths.forEach(th => {
+        const key = th.getAttribute('data-sort-key');
+        sortState[key] = true; // asc first
+        th.addEventListener('click', () => {
+            const sorted = sortTable(data, key, keyTypes[key] || 'string', sortState[key]);
+            sortState[key] = !sortState[key];
+            renderFn(sorted);
+        });
+    });
+}
+
+// Filtering
+document.getElementById('userFilterInput').addEventListener('input', filterUsers);
+document.getElementById('userRoleFilter').addEventListener('change', filterUsers);
+
+function filterUsers() {
+    const q = document.getElementById('userFilterInput').value.toLowerCase();
+    const role = document.getElementById('userRoleFilter').value;
+    const filtered = userQueueData.filter(r =>
+        (r.name.toLowerCase().includes(q)) && (!role || r.role === role)
+    );
+    renderUserRows(filtered);
+    document.getElementById('userPaginationInfo').textContent = `Showing 1–${Math.min(filtered.length, 6)} of ${filtered.length}`;
+}
+
+document.getElementById('projectFilterInput').addEventListener('input', filterProjects);
+document.getElementById('projectOrgFilter').addEventListener('change', filterProjects);
+
+function filterProjects() {
+    const q = document.getElementById('projectFilterInput').value.toLowerCase();
+    const org = document.getElementById('projectOrgFilter').value;
+    const filtered = projectQueueData.filter(r =>
+        (r.name.toLowerCase().includes(q) || r.org.toLowerCase().includes(q)) && (!org || r.org === org)
+    );
+    renderProjectRows(filtered);
+    document.getElementById('projectPaginationInfo').textContent = `Showing 1–${Math.min(filtered.length, 6)} of ${filtered.length}`;
+}
+
+document.getElementById('submissionFilterInput').addEventListener('input', filterSubmissions);
+document.getElementById('evidenceTypeFilter').addEventListener('change', filterSubmissions);
+
+function filterSubmissions() {
+    const q = document.getElementById('submissionFilterInput').value.toLowerCase();
+    const ev = document.getElementById('evidenceTypeFilter').value;
+    const filtered = submissionQueueData.filter(r =>
+        (r.project.toLowerCase().includes(q) || r.evidence.toLowerCase().includes(q)) && (!ev || r.evidence === ev)
+    );
+    renderSubmissionRows(filtered);
+    document.getElementById('submissionPaginationInfo').textContent = `Showing 1–${Math.min(filtered.length, 6)} of ${filtered.length}`;
+}
+
+// Metric card click -> focus relevant tab + apply a quick filter
+document.getElementById('metricsRow').addEventListener('click', function(e) {
+    const card = e.target.closest('.metric-card');
+    if (!card) return;
+    const title = card.querySelector('.metric-title')?.textContent || '';
+    if (title.includes('User')) {
+        const tab = new bootstrap.Tab(document.querySelector('#users-tab'));
+        tab.show();
+    } else if (title.includes('Project')) {
+        const tab = new bootstrap.Tab(document.querySelector('#projects-tab'));
+        tab.show();
+    } else if (title.includes('Submission')) {
+        const tab = new bootstrap.Tab(document.querySelector('#submissions-tab'));
+        tab.show();
+    } else if (title.includes('Flags')) {
+        // Focus submissions as flags likely there
+        const tab = new bootstrap.Tab(document.querySelector('#submissions-tab'));
+        tab.show();
+    }
+});
+
+// Review actions
+function reviewUser(id) {
+    Swal.fire({
+        title: 'Open User Review',
+        text: `This would navigate to the user review page for ${id}. For demo, stay on dashboard.`,
+        icon: 'info',
+        confirmButtonColor: '#81C784'
+    });
+}
+
+function reviewProject(id) {
+    Swal.fire({
+        title: 'Proceed to Project Review?',
+        text: `Open details for Project ${id}`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Open',
+        confirmButtonColor: '#81C784'
+    }).then(res => {
+        if (res.isConfirmed) {
+            window.location.href = `./project_review_page.html?projectId=${encodeURIComponent(id)}`;
+        }
+    });
+}
+
+function reviewSubmission(id) {
+    Swal.fire({
+        title: 'Proceed to Submission Review?',
+        text: `Open details for Submission ${id}`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Open',
+        confirmButtonColor: '#81C784'
+    }).then(res => {
+        if (res.isConfirmed) {
+            window.location.href = `./submission_review_page.html?submissionId=${encodeURIComponent(id)}`;
+        }
+    });
+}
+
+// Quick approve/reject
+function quickApprove(type, id) {
+    Swal.fire({
+        title: 'Approve?',
+        text: `Approve ${type} ${id}`,
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#81C784'
+    }).then(res => {
+        if (res.isConfirmed) {
+            const toast = new bootstrap.Toast(document.getElementById('actionToast'));
+            document.querySelector('#actionToast .toast-body').textContent = `${type} ${id} approved`;
+            toast.show();
+        }
+    });
+}
+
+function quickReject(type, id) {
+    Swal.fire({
+        title: 'Reject?',
+        input: 'text',
+        inputLabel: 'Reason (optional)',
+        inputPlaceholder: 'Enter reason...',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#CD2026'
+    }).then(res => {
+        if (res.isConfirmed) {
+            const toast = new bootstrap.Toast(document.getElementById('actionToast'));
+            document.querySelector('#actionToast .toast-body').textContent = `${type} ${id} rejected`;
+            document.getElementById('actionToast').classList.remove('text-bg-success');
+            document.getElementById('actionToast').classList.add('text-bg-danger');
+            toast.show();
+            setTimeout(() => {
+                document.getElementById('actionToast').classList.remove('text-bg-danger');
+                document.getElementById('actionToast').classList.add('text-bg-success');
+            }, 2500);
+        }
+    });
+}
+
+// Expose functions to window for inline handlers
+window.reviewUser = reviewUser;
+window.reviewProject = reviewProject;
+window.reviewSubmission = reviewSubmission;
+window.quickApprove = quickApprove;
+window.quickReject = quickReject;
+  </script>
+ </body>
+</html>

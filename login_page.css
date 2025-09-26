@@ -1,0 +1,43 @@
+/* login_page.css — page-specific styles for Login page */
+/* Brand font for this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Centered auth logo */
+.auth-brand-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-1)
+    }
+/* Tweak login container spacing for tighter, polished look */
+.login-form-container {
+    padding: var(--space-6)
+    }
+.login-form-container .form-label {
+    font-weight: 600
+    }
+/* Eye icon button subtlety */
+#togglePassword {
+    border-color: var(--border-color)
+    }
+#togglePassword:hover {
+    background: var(--neutral-soft)
+    }
+/* Error display spacing */
+#errorDisplay {
+    margin-bottom: var(--space-3)
+    }
+/* Credentials table visual tweaks */
+.card .title {
+    font-weight: 600
+    }
+.table-theme code {
+    color: var(--text-strong)
+    }
+/* Responsive adjustments */
+@media (max-width: 575.98px) {
+    .login-form-container {
+        padding: var(--space-4)
+        }
+    }

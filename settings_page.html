@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Settings – BlueCarbonMRV
+  </title>
+  <!-- Brand Typography: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <!-- SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css" rel="stylesheet"/>
+  <!-- Global Theme Styles -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific Styles -->
+  <link href="settings_page.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <!-- Common Authenticated Header (Wallet & Settings) -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarOffcanvas" class="btn btn-outline-success me-2 d-lg-none" data-bs-target="#sidebarOffcanvas" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./user_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fw-bold">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-3">
+     <a class="text-decoration-none position-relative text-dark d-none d-md-inline" data-bs-title="Notifications" data-bs-toggle="tooltip" href="#">
+      <i class="fa-regular fa-bell fs-5">
+      </i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--secondary);">
+       1
+      </span>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#">
+       <img alt="Account" class="rounded-circle me-2" height="32" onerror="this.onerror=null;this.src='https://picsum.photos/seed/uavatar/32/32'" src="https://via.placeholder.com/32" width="32"/>
+       <span>
+        Account
+       </span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./settings_page.html">
+         Settings
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./wallet_page.html">
+         Wallet
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <div class="d-flex">
+   <!-- Desktop Sidebar -->
+   <style>
+    .common-sidebar { width: 220px; }
+      .common-sidebar .nav-link { border-radius:.375rem; }
+      .common-sidebar .nav-link:hover { background-color: rgba(129,199,132,.12); color:#1b5e20; }
+      .common-sidebar .nav-link.active { background-color: rgba(129,199,132,.2); color:#1b5e20; }
+      .common-role { background-color: var(--secondary); }
+   </style>
+   <aside class="common-sidebar d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-white border-end min-vh-100" id="sidebarMenu">
+    <a class="d-flex align-items-center mb-3 text-decoration-none" href="./user_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fs-6 fw-bold">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <div class="d-flex align-items-center mt-2 mb-3">
+     <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/av36/36/36'" src="https://via.placeholder.com/36"/>
+     <div class="small">
+      <div class="fw-semibold" id="sidebarUserName">
+       User Name
+      </div>
+      <span class="badge common-role text-dark" id="sidebarUserRole">
+       Role
+      </span>
+     </div>
+    </div>
+    <hr/>
+    <ul class="nav nav-pills flex-column mb-auto gap-1">
+     <li>
+      <a class="nav-link" href="./user_dashboard.html">
+       <i class="fa-solid fa-arrow-left me-2">
+       </i>
+       Back to Dashboard
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" data-page="wallet_page" href="./wallet_page.html">
+       <i class="fa-solid fa-wallet me-2">
+       </i>
+       Wallet
+      </a>
+     </li>
+     <li>
+      <a class="nav-link active" data-page="settings_page" href="./settings_page.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./marketplace_page.html">
+       <i class="fa-solid fa-store me-2">
+       </i>
+       Marketplace
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./home_page.html">
+       <i class="fa-solid fa-house me-2">
+       </i>
+       Home
+      </a>
+     </li>
+    </ul>
+   </aside>
+   <!-- Mobile Offcanvas Sidebar -->
+   <div aria-labelledby="sidebarOffcanvasLabel" class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+    <div class="offcanvas-header">
+     <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">
+      Menu
+     </h5>
+     <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+     </button>
+    </div>
+    <div class="offcanvas-body p-0">
+     <div class="p-3 border-bottom d-flex align-items-center">
+      <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/av36m/36/36'" src="https://via.placeholder.com/36"/>
+      <div class="small">
+       <div class="fw-semibold" id="offUserName">
+        User Name
+       </div>
+       <span class="badge common-role text-dark" id="offUserRole">
+        Role
+       </span>
+      </div>
+     </div>
+     <ul class="nav nav-pills flex-column mb-auto gap-1 p-3">
+      <li>
+       <a class="nav-link" href="./user_dashboard.html">
+        <i class="fa-solid fa-arrow-left me-2">
+        </i>
+        Back to Dashboard
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" href="./wallet_page.html">
+        <i class="fa-solid fa-wallet me-2">
+        </i>
+        Wallet
+       </a>
+      </li>
+      <li>
+       <a class="nav-link active" href="./settings_page.html">
+        <i class="fa-solid fa-gear me-2">
+        </i>
+        Settings
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" href="./marketplace_page.html">
+        <i class="fa-solid fa-store me-2">
+        </i>
+        Marketplace
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" href="./home_page.html">
+        <i class="fa-solid fa-house me-2">
+        </i>
+        Home
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+   <!-- Main Content -->
+   <main class="flex-grow-1">
+    <div class="container-fluid py-3 py-lg-4">
+     <!-- Page Header -->
+     <div class="page-header">
+      <div class="d-flex align-items-center gap-2">
+       <i class="fa-solid fa-gear text-success">
+       </i>
+       <h1 class="page-title m-0">
+        Settings
+       </h1>
+      </div>
+      <div aria-label="View preferences" class="view-switcher" role="group">
+       <div class="option active" title="Form view">
+        <i class="fa-solid fa-list">
+        </i>
+       </div>
+       <div class="option" title="Compact">
+        <i class="fa-solid fa-grip">
+        </i>
+       </div>
+      </div>
+     </div>
+     <!-- System Feedback Area -->
+     <div aria-live="polite" class="mb-3" id="systemFeedback">
+     </div>
+     <div class="row g-4">
+      <!-- Left: Settings Section Nav -->
+      <div class="col-12 col-lg-3">
+       <div class="settings-nav card shadow-sm sticky-top" style="top: 84px;">
+        <div class="card-header">
+         <span class="widget-title">
+          <i class="fa-solid fa-sliders me-2 text-muted">
+          </i>
+          Sections
+         </span>
+        </div>
+        <div class="list-group list-group-flush" id="settingsSectionNav" role="tablist">
+         <a aria-controls="section-profile" class="list-group-item list-group-item-action active" data-section="profile" href="#section-profile" role="tab">
+          <i class="fa-regular fa-id-badge me-2 text-muted">
+          </i>
+          Profile
+         </a>
+         <a aria-controls="section-security" class="list-group-item list-group-item-action" data-section="security" href="#section-security" role="tab">
+          <i class="fa-solid fa-lock me-2 text-muted">
+          </i>
+          Security
+         </a>
+         <a aria-controls="section-notifications" class="list-group-item list-group-item-action" data-section="notifications" href="#section-notifications" role="tab">
+          <i class="fa-regular fa-bell me-2 text-muted">
+          </i>
+          Notifications
+         </a>
+         <a aria-controls="section-language" class="list-group-item list-group-item-action" data-section="language" href="#section-language" role="tab">
+          <i class="fa-solid fa-language me-2 text-muted">
+          </i>
+          Language
+         </a>
+        </div>
+       </div>
+      </div>
+      <!-- Right: Settings Content -->
+      <div class="col-12 col-lg-9">
+       <!-- Profile Settings -->
+       <section aria-labelledby="profileHeading" class="app-card mb-4 settings-section" data-section="profile" id="section-profile">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-regular fa-id-badge text-success">
+          </i>
+          <h2 class="m-0 h5" id="profileHeading">
+           Profile Settings
+          </h2>
+         </div>
+         <div>
+          <span class="badge-soft info">
+           <i class="fa-solid fa-circle-info">
+           </i>
+           Your email is your primary identifier
+          </span>
+         </div>
+        </div>
+        <div class="card-body">
+         <form id="profileForm" novalidate="">
+          <div class="row g-3">
+           <div class="col-12">
+            <label class="form-label" for="fullName">
+             Full Name
+            </label>
+            <input class="form-control" id="fullName" placeholder="Enter your full name" required="" type="text"/>
+            <div class="invalid-feedback">
+             Full name must not be empty.
+            </div>
+           </div>
+           <div class="col-12 col-md-6">
+            <label class="form-label" for="email">
+             Email Address
+            </label>
+            <input class="form-control" disabled="" id="email" placeholder="you@example.com" type="email"/>
+           </div>
+           <div class="col-12 col-md-6">
+            <label class="form-label" for="phone">
+             Phone Number
+             <span class="text-muted">
+              (for SMS)
+             </span>
+            </label>
+            <input class="form-control" id="phone" placeholder="e.g. +1 555-123-4567" type="tel"/>
+            <div class="form-text">
+             Include country code, e.g. +1 555-123-4567
+            </div>
+            <div class="invalid-feedback">
+             Please enter a valid phone number.
+            </div>
+           </div>
+           <div class="col-12" id="orgNameWrapper" style="display:none;">
+            <label class="form-label" for="orgName">
+             Organization Name
+            </label>
+            <input class="form-control" disabled="" id="orgName" type="text"/>
+            <div class="form-text">
+             Part of verified records. Not editable here.
+            </div>
+           </div>
+          </div>
+          <div class="d-flex justify-content-end gap-2 mt-3">
+           <button class="btn btn-light" disabled="" id="cancelProfileBtn" type="button">
+            <i class="fa-solid fa-rotate-left me-1">
+            </i>
+            Cancel
+           </button>
+           <button class="btn btn-success" disabled="" id="saveProfileBtn" type="submit">
+            <span class="btn-text">
+             <i class="fa-solid fa-floppy-disk me-1">
+             </i>
+             Save Changes
+            </span>
+            <span aria-hidden="true" class="btn-spinner d-none spinner-border spinner-border-sm" role="status">
+            </span>
+           </button>
+          </div>
+         </form>
+        </div>
+       </section>
+       <!-- Security Settings -->
+       <section aria-labelledby="securityHeading" class="app-card mb-4 settings-section d-none" data-section="security" id="section-security">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-lock text-success">
+          </i>
+          <h2 class="m-0 h5" id="securityHeading">
+           Security Settings
+          </h2>
+         </div>
+         <div>
+          <span class="badge-soft warning">
+           <i class="fa-solid fa-shield-halved">
+           </i>
+           Keep your account secure
+          </span>
+         </div>
+        </div>
+        <div class="card-body">
+         <form id="passwordForm" novalidate="">
+          <div class="row g-3">
+           <div class="col-12 col-md-6">
+            <label class="form-label" for="currentPassword">
+             Current Password
+            </label>
+            <div class="input-group">
+             <input class="form-control" id="currentPassword" required="" type="password"/>
+             <button aria-label="Show/Hide" class="btn btn-light toggle-visibility-icon" data-target="#currentPassword" type="button">
+              <i class="fa-regular fa-eye">
+              </i>
+             </button>
+             <div class="invalid-feedback">
+              Current password is required.
+             </div>
+            </div>
+           </div>
+           <div class="col-12 col-md-6">
+            <label class="form-label" for="newPassword">
+             New Password
+            </label>
+            <div class="input-group">
+             <input class="form-control" id="newPassword" required="" type="password"/>
+             <button aria-label="Show/Hide" class="btn btn-light toggle-visibility-icon" data-target="#newPassword" type="button">
+              <i class="fa-regular fa-eye">
+              </i>
+             </button>
+             <div class="invalid-feedback">
+              Password must be at least 8 chars, include uppercase, number, and special.
+             </div>
+            </div>
+            <div class="mt-2">
+             <div class="d-flex justify-content-between small mb-1">
+              <span>
+               Password strength
+              </span>
+              <span class="text-muted" id="pwStrengthLabel">
+               Weak
+              </span>
+             </div>
+             <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-danger" id="pwStrengthBar" style="width: 10%;">
+              </div>
+             </div>
+            </div>
+           </div>
+           <div class="col-12 col-md-6">
+            <label class="form-label" for="confirmPassword">
+             Confirm New Password
+            </label>
+            <div class="input-group">
+             <input class="form-control" id="confirmPassword" required="" type="password"/>
+             <button aria-label="Show/Hide" class="btn btn-light toggle-visibility-icon" data-target="#confirmPassword" type="button">
+              <i class="fa-regular fa-eye">
+              </i>
+             </button>
+             <div class="invalid-feedback">
+              Must match the new password.
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="d-flex justify-content-end gap-2 mt-3">
+           <button class="btn btn-success" disabled="" id="updatePasswordBtn" type="submit">
+            <span class="btn-text">
+             <i class="fa-solid fa-key me-1">
+             </i>
+             Update Password
+            </span>
+            <span aria-hidden="true" class="btn-spinner d-none spinner-border spinner-border-sm" role="status">
+            </span>
+           </button>
+          </div>
+         </form>
+         <!-- Optional: Recent Security Events Table (sample data) -->
+         <div class="mt-4">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+           <h3 class="h6 m-0">
+            Recent Security Events
+           </h3>
+           <div class="d-flex gap-2">
+            <input class="form-control form-control-sm" id="securitySearch" placeholder="Search events..." type="text"/>
+            <select class="form-select form-select-sm" id="securitySort">
+             <option value="date_desc">
+              Newest
+             </option>
+             <option value="date_asc">
+              Oldest
+             </option>
+             <option value="type_asc">
+              Type A-Z
+             </option>
+            </select>
+           </div>
+          </div>
+          <div class="table-responsive">
+           <table class="table table-theme table-hover-reveal" id="securityTable">
+            <thead>
+             <tr>
+              <th>
+               Date
+              </th>
+              <th>
+               Event
+              </th>
+              <th>
+               IP
+              </th>
+              <th>
+               Location
+              </th>
+              <th>
+               Action
+              </th>
+             </tr>
+            </thead>
+            <tbody>
+             <!-- Rows inserted by JS -->
+            </tbody>
+           </table>
+          </div>
+          <div class="d-flex justify-content-between align-items-center small text-muted">
+           <div id="securityPaginationInfo">
+            Showing 0-0 of 0
+           </div>
+           <div class="btn-group btn-group-sm" role="group">
+            <button class="btn btn-light" disabled="" id="secPrev">
+             Prev
+            </button>
+            <button class="btn btn-light" disabled="" id="secNext">
+             Next
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </section>
+       <!-- Notification Settings -->
+       <section aria-labelledby="notificationsHeading" class="app-card mb-4 settings-section d-none" data-section="notifications" id="section-notifications">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-regular fa-bell text-success">
+          </i>
+          <h2 class="m-0 h5" id="notificationsHeading">
+           Notification Preferences
+          </h2>
+         </div>
+         <div>
+          <span class="badge-soft primary">
+           <i class="fa-solid fa-bell-concierge">
+           </i>
+           Choose channels
+          </span>
+         </div>
+        </div>
+        <div class="card-body">
+         <div class="alert alert-info d-flex align-items-center" role="alert">
+          <i class="fa-solid fa-circle-info me-2">
+          </i>
+          <div>
+           SMS options require a valid phone number in your profile.
+          </div>
+         </div>
+         <!-- Project Updates -->
+         <div class="border rounded p-3 mb-3">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+           <div>
+            <div class="fw-semibold">
+             Project Updates
+            </div>
+            <div class="text-muted small">
+             Get notified about submission status and approvals.
+            </div>
+           </div>
+           <span class="badge-soft info">
+            <i class="fa-regular fa-folder-open">
+            </i>
+            Projects
+           </span>
+          </div>
+          <div class="row g-2 align-items-center">
+           <div class="col-6 col-md-3">
+            In-App
+           </div>
+           <div class="col-6 col-md-3 text-end">
+            <div class="form-check form-switch">
+             <input class="form-check-input" id="projInApp" type="checkbox"/>
+            </div>
+           </div>
+           <div class="col-6 col-md-3">
+            Email
+           </div>
+           <div class="col-6 col-md-3 text-end">
+            <div class="form-check form-switch">
+             <input class="form-check-input" id="projEmail" type="checkbox"/>
+            </div>
+           </div>
+           <div class="col-6 col-md-3">
+            SMS
+           </div>
+           <div class="col-6 col-md-3 text-end">
+            <div class="form-check form-switch">
+             <input class="form-check-input" id="projSMS" type="checkbox"/>
+            </div>
+           </div>
+          </div>
+         </div>
+         <!-- Marketplace Activity -->
+         <div class="border rounded p-3 mb-3">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+           <div>
+            <div class="fw-semibold">
+             Marketplace Activity
+            </div>
+            <div class="text-muted small">
+             Get notified when you buy or sell carbon credits.
+            </div>
+           </div>
+           <span class="badge-soft secondary">
+            <i class="fa-solid fa-store">
+            </i>
+            Marketplace
+           </span>
+          </div>
+          <div class="row g-2 align-items-center">
+           <div class="col-6 col-md-3">
+            In-App
+           </div>
+           <div class="col-6 col-md-3 text-end">
+            <div class="form-check form-switch">
+             <input class="form-check-input" id="mktInApp" type="checkbox"/>
+            </div>
+           </div>
+           <div class="col-6 col-md-3">
+            Email
+           </div>
+           <div class="col-6 col-md-3 text-end">
+            <div class="form-check form-switch">
+             <input class="form-check-input" id="mktEmail" type="checkbox"/>
+            </div>
+           </div>
+           <div class="col-6 col-md-3">
+            SMS
+           </div>
+           <div class="col-6 col-md-3 text-end">
+            <div class="form-check form-switch">
+             <input class="form-check-input" id="mktSMS" type="checkbox"/>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="d-flex justify-content-end">
+          <button class="btn btn-success" disabled="" id="saveNotifBtn">
+           <span class="btn-text">
+            <i class="fa-solid fa-floppy-disk me-1">
+            </i>
+            Save Preferences
+           </span>
+           <span aria-hidden="true" class="btn-spinner d-none spinner-border spinner-border-sm" role="status">
+           </span>
+          </button>
+         </div>
+        </div>
+       </section>
+       <!-- Language Settings -->
+       <section aria-labelledby="languageHeading" class="app-card mb-4 settings-section d-none" data-section="language" id="section-language">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-language text-success">
+          </i>
+          <h2 class="m-0 h5" id="languageHeading">
+           Language Preferences
+          </h2>
+         </div>
+         <div>
+          <span class="badge-soft success">
+           <i class="fa-solid fa-globe">
+           </i>
+           Multilingual
+          </span>
+         </div>
+        </div>
+        <div class="card-body">
+         <form class="row g-3 align-items-end" id="languageForm" novalidate="">
+          <div class="col-12 col-md-8">
+           <label class="form-label" for="languageSelect">
+            Select Language
+           </label>
+           <select class="form-select" id="languageSelect">
+            <!-- options inserted by JS -->
+           </select>
+           <div class="form-text" id="currentLanguageText">
+            Current language: English
+           </div>
+          </div>
+          <div class="col-12 col-md-4 text-md-end">
+           <button class="btn btn-success" disabled="" id="applyLanguageBtn">
+            <span class="btn-text">
+             <i class="fa-solid fa-check me-1">
+             </i>
+             Apply Language
+            </span>
+            <span aria-hidden="true" class="btn-spinner d-none spinner-border spinner-border-sm" role="status">
+            </span>
+           </button>
+          </div>
+         </form>
+        </div>
+       </section>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+  <!-- Common Authenticated Footer -->
+  <footer class="bg-light border-top py-3 mt-auto">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="small text-muted">
+     © BlueCarbonMRV
+    </div>
+    <div class="small">
+     <a class="text-decoration-none me-3" href="./terms_page.html">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./privacy_page.html">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toasts Container -->
+  <div class="position-fixed top-0 end-0 p-3" style="z-index: var(--z-toast);">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-success border-0" id="liveToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body">
+      Settings saved successfully.
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js">
+  </script>
+  <script>
+   // Initialize tooltips
+document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+
+// Mock current user and preferences
+const currentUser = {
+    name: 'Asha Verma',
+    email: 'asha.verma@example.org',
+    phone: '+91 98765 43210',
+    role: 'NGO', // Values could be 'NGO', 'Panchayat Leader', 'Developer', 'Investor'
+    organization: 'Green Rivers Trust'
+};
+
+const supportedLanguages = [{
+    code: 'en',
+    label: 'English'
+}, {
+    code: 'hi',
+    label: 'हिन्दी (Hindi)'
+}, {
+    code: 'ta',
+    label: 'தமிழ் (Tamil)'
+}, {
+    code: 'bn',
+    label: 'বাংলা (Bangla)'
+}, {
+    code: 'te',
+    label: 'తెలుగు (Telugu)'
+}, {
+    code: 'ml',
+    label: 'മലയാളം (Malayalam)'
+}];
+
+const userLanguage = 'en';
+let languageSelected = userLanguage;
+
+const notifPreferences = {
+    projectUpdates: {
+        inApp: true,
+        email: true,
+        sms: false
+    },
+    marketplaceActivity: {
+        inApp: true,
+        email: false,
+        sms: false
+    }
+};
+
+// Populate sidebar user info
+document.getElementById('sidebarUserName').textContent = currentUser.name;
+document.getElementById('sidebarUserRole').textContent = currentUser.role;
+document.getElementById('offUserName').textContent = currentUser.name;
+document.getElementById('offUserRole').textContent = currentUser.role;
+
+// Section navigation behavior
+const nav = document.getElementById('settingsSectionNav');
+const sections = document.querySelectorAll('.settings-section');
+nav.addEventListener('click', (e) => {
+    const link = e.target.closest('a[data-section]');
+    if (!link) return;
+    e.preventDefault();
+    const sectionKey = link.getAttribute('data-section');
+    nav.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+    sections.forEach(sec => {
+        sec.classList.toggle('d-none', sec.getAttribute('data-section') !== sectionKey);
+    });
+    // Scroll to section
+    const target = document.getElementById(`section-${sectionKey}`);
+    if (target) target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+});
+
+// ----- Profile Form -----
+const fullNameEl = document.getElementById('fullName');
+const emailEl = document.getElementById('email');
+const phoneEl = document.getElementById('phone');
+const orgWrapper = document.getElementById('orgNameWrapper');
+const orgEl = document.getElementById('orgName');
+const saveProfileBtn = document.getElementById('saveProfileBtn');
+const cancelProfileBtn = document.getElementById('cancelProfileBtn');
+
+function populateProfile() {
+    fullNameEl.value = currentUser.name;
+    emailEl.value = currentUser.email;
+    phoneEl.value = currentUser.phone || '';
+    if (currentUser.role === 'NGO' || currentUser.role === 'Panchayat Leader') {
+        orgWrapper.style.display = '';
+        orgEl.value = currentUser.organization || '';
+    } else {
+        orgWrapper.style.display = 'none';
+    }
+}
+populateProfile();
+
+const originalProfile = {
+    name: fullNameEl.value,
+    phone: phoneEl.value
+};
+
+function isValidPhone(value) {
+    // Basic international phone format validation
+    const re = /^\+?[0-9 ()\-]{7,20}$/;
+    return value.trim() === '' || re.test(value.trim());
+}
+
+function checkProfileDirty() {
+    const changed = fullNameEl.value.trim() !== originalProfile.name.trim() || phoneEl.value.trim() !== originalProfile.phone.trim();
+    saveProfileBtn.disabled = !changed;
+    cancelProfileBtn.disabled = !changed;
+}
+
+[fullNameEl, phoneEl].forEach(el => el.addEventListener('input', checkProfileDirty));
+
+document.getElementById('profileForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+    if (fullNameEl.value.trim() === '') {
+        fullNameEl.classList.add('is-invalid');
+        valid = false;
+    } else {
+        fullNameEl.classList.remove('is-invalid');
+    }
+    if (!isValidPhone(phoneEl.value)) {
+        phoneEl.classList.add('is-invalid');
+        valid = false;
+    } else {
+        phoneEl.classList.remove('is-invalid');
+    }
+    if (!valid) return;
+
+    // Show loading
+    toggleBtnLoading(saveProfileBtn, true);
+
+    setTimeout(() => {
+        // Simulate success
+        toggleBtnLoading(saveProfileBtn, false);
+        originalProfile.name = fullNameEl.value;
+        originalProfile.phone = phoneEl.value;
+        checkProfileDirty();
+        showToast('Profile updated successfully.');
+        updateSMSAvailability();
+    }, 1000);
+});
+
+cancelProfileBtn.addEventListener('click', () => {
+    fullNameEl.value = originalProfile.name;
+    phoneEl.value = originalProfile.phone;
+    [fullNameEl, phoneEl].forEach(el => el.classList.remove('is-invalid'));
+    checkProfileDirty();
+});
+
+// ----- Security Form -----
+const currentPwEl = document.getElementById('currentPassword');
+const newPwEl = document.getElementById('newPassword');
+const confirmPwEl = document.getElementById('confirmPassword');
+const updatePwBtn = document.getElementById('updatePasswordBtn');
+const pwBar = document.getElementById('pwStrengthBar');
+const pwLabel = document.getElementById('pwStrengthLabel');
+
+function assessStrength(pw) {
+    let score = 0;
+    if (pw.length >= 8) score++;
+    if (/[A-Z]/.test(pw)) score++;
+    if (/[0-9]/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+    return score; // 0-4
+}
+
+function updateStrengthUI() {
+    const score = assessStrength(newPwEl.value);
+    const widths = ['10%', '25%', '60%', '80%', '100%'];
+    const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+    const colors = ['bg-danger', 'bg-danger', 'bg-warning', 'bg-info', 'bg-success'];
+    pwBar.style.width = widths[score];
+    colors.forEach(c => pwBar.classList.remove(c));
+    pwBar.classList.add(colors[score]);
+    pwLabel.textContent = labels[score];
+}
+
+function validateSecurityForm() {
+    let ok = true;
+    if (currentPwEl.value.trim() === '') ok = false;
+    const newPw = newPwEl.value;
+    const meets = newPw.length >= 8 && /[A-Z]/.test(newPw) && /[0-9]/.test(newPw) && /[^A-Za-z0-9]/.test(newPw);
+    if (!meets) ok = false;
+    if (confirmPwEl.value !== newPw) ok = false;
+    updatePwBtn.disabled = !ok;
+}
+
+[currentPwEl, newPwEl, confirmPwEl].forEach(el => el.addEventListener('input', () => {
+    updateStrengthUI();
+    validateSecurityForm();
+}));
+
+document.querySelectorAll('.toggle-visibility-icon').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const targetSel = btn.getAttribute('data-target');
+        const input = document.querySelector(targetSel);
+        if (!input) return;
+        input.type = (input.type === 'password') ? 'text' : 'password';
+        btn.querySelector('i').classList.toggle('fa-eye');
+        btn.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+});
+
+document.getElementById('passwordForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    // quick validation indicators
+    currentPwEl.classList.toggle('is-invalid', currentPwEl.value.trim() === '');
+    const newPw = newPwEl.value;
+    const meets = newPw.length >= 8 && /[A-Z]/.test(newPw) && /[0-9]/.test(newPw) && /[^A-Za-z0-9]/.test(newPw);
+    newPwEl.classList.toggle('is-invalid', !meets);
+    confirmPwEl.classList.toggle('is-invalid', confirmPwEl.value !== newPw);
+    if (updatePwBtn.disabled) return;
+
+    toggleBtnLoading(updatePwBtn, true);
+    setTimeout(() => {
+        toggleBtnLoading(updatePwBtn, false);
+        // Success modal
+        Swal.fire({
+            icon: 'success',
+            title: 'Password Updated',
+            text: 'Your password has been changed successfully.',
+            confirmButtonColor: getComputedStyle(document.documentElement).getPropertyValue('--color-success').trim() || '#198754'
+        });
+        // reset fields
+        currentPwEl.value = '';
+        newPwEl.value = '';
+        confirmPwEl.value = '';
+        updateStrengthUI();
+        validateSecurityForm();
+    }, 1000);
+});
+
+// Sample Security Events Table data and basic pagination
+const secData = [{
+    date: '2025-09-18 14:22',
+    event: 'Login Success',
+    ip: '102.98.21.7',
+    loc: 'Delhi, IN'
+}, {
+    date: '2025-09-16 09:10',
+    event: 'Password Change',
+    ip: '102.98.21.7',
+    loc: 'Delhi, IN'
+}, {
+    date: '2025-09-12 06:55',
+    event: '2FA Enabled',
+    ip: '99.15.202.33',
+    loc: 'Mumbai, IN'
+}, {
+    date: '2025-09-10 20:11',
+    event: 'Login Failed',
+    ip: '66.31.77.90',
+    loc: 'Bengaluru, IN'
+}, {
+    date: '2025-09-05 11:43',
+    event: 'New Device Sign-in',
+    ip: '81.23.44.190',
+    loc: 'Pune, IN'
+}, {
+    date: '2025-08-28 19:04',
+    event: 'Login Success',
+    ip: '102.98.21.7',
+    loc: 'Delhi, IN'
+}];
+let secFiltered = [...secData];
+let secPage = 1;
+const secPageSize = 6;
+
+function renderSecTable() {
+    const tbody = document.querySelector('#securityTable tbody');
+    tbody.innerHTML = '';
+    const start = (secPage - 1) * secPageSize;
+    const rows = secFiltered.slice(start, start + secPageSize);
+    rows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.date}</td>
+          <td>${r.event}</td>
+          <td>${r.ip}</td>
+          <td>${r.loc}</td>
+          <td>
+            <button class="btn btn-light btn-sm hover-control" data-ip="${r.ip}"><i class="fa-solid fa-circle-info me-1"></i>Details</button>
+          </td>`;
+        tbody.appendChild(tr);
+    });
+    const info = document.getElementById('securityPaginationInfo');
+    const total = secFiltered.length;
+    const shownEnd = Math.min(start + rows.length, total);
+    info.textContent = `Showing ${total ? start + 1 : 0}-${shownEnd} of ${total}`;
+    document.getElementById('secPrev').disabled = secPage <= 1;
+    document.getElementById('secNext').disabled = shownEnd >= total;
+}
+
+function applySecSearchAndSort() {
+    const q = document.getElementById('securitySearch').value.toLowerCase();
+    secFiltered = secData.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
+    const sort = document.getElementById('securitySort').value;
+    secFiltered.sort((a, b) => {
+        if (sort === 'date_desc') return b.date.localeCompare(a.date);
+        if (sort === 'date_asc') return a.date.localeCompare(b.date);
+        if (sort === 'type_asc') return a.event.localeCompare(b.event);
+        return 0;
+    });
+    secPage = 1;
+    renderSecTable();
+}
+
+document.getElementById('securitySearch').addEventListener('input', applySecSearchAndSort);
+document.getElementById('securitySort').addEventListener('change', applySecSearchAndSort);
+document.getElementById('secPrev').addEventListener('click', () => {
+    secPage--;
+    renderSecTable();
+});
+document.getElementById('secNext').addEventListener('click', () => {
+    secPage++;
+    renderSecTable();
+});
+
+document.querySelector('#securityTable tbody').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-ip]');
+    if (!btn) return;
+    Swal.fire({
+        title: 'Security Event',
+        html: `<div class="text-start">\n          <div><strong>IP:</strong> ${btn.getAttribute('data-ip')}</div>\n          <div><strong>Additional Info:</strong> Recent activity from this IP looks normal.</div>\n        </div>`,
+        icon: 'info',
+        confirmButtonText: 'Close'
+    });
+});
+
+applySecSearchAndSort();
+
+// ----- Notification Preferences -----
+const projInApp = document.getElementById('projInApp');
+const projEmail = document.getElementById('projEmail');
+const projSMS = document.getElementById('projSMS');
+const mktInApp = document.getElementById('mktInApp');
+const mktEmail = document.getElementById('mktEmail');
+const mktSMS = document.getElementById('mktSMS');
+const saveNotifBtn = document.getElementById('saveNotifBtn');
+
+function loadNotifPrefs() {
+    projInApp.checked = notifPreferences.projectUpdates.inApp;
+    projEmail.checked = notifPreferences.projectUpdates.email;
+    projSMS.checked = notifPreferences.projectUpdates.sms;
+    mktInApp.checked = notifPreferences.marketplaceActivity.inApp;
+    mktEmail.checked = notifPreferences.marketplaceActivity.email;
+    mktSMS.checked = notifPreferences.marketplaceActivity.sms;
+    updateSMSAvailability();
+}
+
+function updateSMSAvailability() {
+    const phoneValid = isValidPhone(phoneEl.value) && phoneEl.value.trim() !== '';
+    [projSMS, mktSMS].forEach(el => {
+        el.disabled = !phoneValid;
+        if (!phoneValid) el.checked = false;
+    });
+}
+
+function checkNotifDirty() {
+    const changed = (
+        projInApp.checked !== notifPreferences.projectUpdates.inApp ||
+        projEmail.checked !== notifPreferences.projectUpdates.email ||
+        projSMS.checked !== notifPreferences.projectUpdates.sms ||
+        mktInApp.checked !== notifPreferences.marketplaceActivity.inApp ||
+        mktEmail.checked !== notifPreferences.marketplaceActivity.email ||
+        mktSMS.checked !== notifPreferences.marketplaceActivity.sms
+    );
+    saveNotifBtn.disabled = !changed;
+}
+
+[projInApp, projEmail, projSMS, mktInApp, mktEmail, mktSMS].forEach(el => el.addEventListener('change', checkNotifDirty));
+
+saveNotifBtn.addEventListener('click', () => {
+    toggleBtnLoading(saveNotifBtn, true);
+    setTimeout(() => {
+        notifPreferences.projectUpdates = {
+            inApp: projInApp.checked,
+            email: projEmail.checked,
+            sms: projSMS.checked
+        };
+        notifPreferences.marketplaceActivity = {
+            inApp: mktInApp.checked,
+            email: mktEmail.checked,
+            sms: mktSMS.checked
+        };
+        toggleBtnLoading(saveNotifBtn, false);
+        saveNotifBtn.disabled = true;
+        Swal.fire({
+            icon: 'success',
+            title: 'Preferences Saved',
+            text: 'Your notification settings have been updated.',
+            confirmButtonColor: getComputedStyle(document.documentElement).getPropertyValue('--color-success').trim() || '#198754'
+        });
+    }, 900);
+});
+
+loadNotifPrefs();
+
+// ----- Language Preferences -----
+const langSelect = document.getElementById('languageSelect');
+const applyLanguageBtn = document.getElementById('applyLanguageBtn');
+const currentLanguageText = document.getElementById('currentLanguageText');
+
+function populateLanguages() {
+    langSelect.innerHTML = '';
+    supportedLanguages.forEach(l => {
+        const opt = document.createElement('option');
+        opt.value = l.code;
+        opt.textContent = l.label;
+        langSelect.appendChild(opt);
+    });
+    langSelect.value = userLanguage;
+    languageSelected = userLanguage;
+    currentLanguageText.textContent = 'Current language: ' + (supportedLanguages.find(l => l.code === userLanguage)?.label || '');
+}
+
+langSelect.addEventListener('change', () => {
+    languageSelected = langSelect.value;
+    applyLanguageBtn.disabled = (languageSelected === userLanguage);
+});
+
+document.getElementById('languageForm').addEventListener('submit', (e) => e.preventDefault());
+applyLanguageBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleBtnLoading(applyLanguageBtn, true);
+    setTimeout(() => {
+        toggleBtnLoading(applyLanguageBtn, false);
+        const newLabel = supportedLanguages.find(l => l.code === languageSelected)?.label || '';
+        currentLanguageText.textContent = 'Current language: ' + newLabel;
+        Swal.fire({
+            icon: 'success',
+            title: 'Language Applied',
+            text: `Interface language set to ${newLabel}.`,
+            confirmButtonColor: getComputedStyle(document.documentElement).getPropertyValue('--color-success').trim() || '#198754'
+        });
+        applyLanguageBtn.disabled = true;
+    }, 800);
+});
+
+populateLanguages();
+
+// Utility functions
+function toggleBtnLoading(btn, loading) {
+    const text = btn.querySelector('.btn-text');
+    const spinner = btn.querySelector('.btn-spinner');
+    if (loading) {
+        btn.disabled = true;
+        text.classList.add('d-none');
+        spinner.classList.remove('d-none');
+    } else {
+        btn.disabled = false;
+        text.classList.remove('d-none');
+        spinner.classList.add('d-none');
+    }
+}
+
+function showToast(message) {
+    const toastEl = document.getElementById('liveToast');
+    toastEl.querySelector('.toast-body').textContent = message;
+    const toast = new bootstrap.Toast(toastEl, {
+        delay: 2000
+    });
+    toast.show();
+}
+
+// Update button states initially
+checkProfileDirty();
+validateSecurityForm();
+updateStrengthUI();
+
+// Accessibility: prevent hash jump for left nav links
+document.querySelectorAll('#settingsSectionNav a').forEach(a => a.addEventListener('click', ev => ev.preventDefault()));
+  </script>
+ </body>
+</html>

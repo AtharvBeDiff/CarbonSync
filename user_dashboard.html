@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   BlueCarbonMRV - User Dashboard
+  </title>
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <!-- Theme CSS -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="user_dashboard.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <!-- Header (Investor Header with quick action to Marketplace) -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenuOffcanvas" class="btn btn-outline-primary me-2 d-lg-none" data-bs-target="#sidebarMenuOffcanvas" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./user_dashboard.html">
+     <span class="rounded-circle bg-info-subtle p-2 me-2">
+     </span>
+     <span class="fw-bold">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <div class="d-none d-lg-flex ms-3">
+     <a class="btn btn-primary" href="./marketplace_page.html" style="background-color: var(--secondary); border-color: var(--secondary); color:#08306b;">
+      <i class="fa-solid fa-store me-1">
+      </i>
+      Browse Marketplace
+     </a>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+     <form class="d-none d-md-flex" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+       </span>
+       <input aria-label="Search" class="form-control" placeholder="Search projects" type="search"/>
+      </div>
+     </form>
+     <a class="text-decoration-none position-relative text-dark" href="#" id="btnAlerts">
+      <i class="fa-regular fa-bell fs-5">
+      </i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--secondary);">
+       2
+      </span>
+     </a>
+     <a class="text-decoration-none text-dark" href="#">
+      <i class="fa-regular fa-envelope fs-5">
+      </i>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#">
+       <img alt="" class="rounded-circle me-2" height="32" onerror="this.onerror=null;this.src='https://picsum.photos/id/237/32/32';" src="https://picsum.photos/seed/user/32/32" width="32"/>
+       <span class="js-user-name">
+        Investor
+       </span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./settings_page.html">
+         Settings
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./wallet_page.html">
+         Wallet
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Offcanvas Sidebar (copy of investor sidebar) -->
+  <div aria-labelledby="sidebarMenuOffcanvasLabel" class="offcanvas offcanvas-start" id="sidebarMenuOffcanvas" tabindex="-1">
+   <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarMenuOffcanvasLabel">
+     BlueCarbonMRV
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0">
+    <div class="p-3">
+     <a class="d-flex align-items-center mb-3 text-decoration-none" href="./user_dashboard.html">
+      <span class="rounded-circle bg-info-subtle p-2 me-2">
+      </span>
+      <span class="fs-5 fw-bold">
+       BlueCarbonMRV
+      </span>
+     </a>
+     <div class="d-flex align-items-center mt-2 mb-3">
+      <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/id/1062/36/36';" src="https://picsum.photos/seed/useroff/36/36"/>
+      <div class="small">
+       <div class="fw-semibold js-user-name">
+        Investor Name
+       </div>
+       <span class="badge inv-role text-dark">
+        Investor
+       </span>
+      </div>
+     </div>
+     <hr/>
+     <ul class="nav nav-pills flex-column mb-auto gap-1">
+      <li>
+       <a class="nav-link active" data-page="user_dashboard" href="./user_dashboard.html">
+        <i class="fa-solid fa-gauge me-2">
+        </i>
+        Dashboard
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" href="./marketplace_page.html">
+        <i class="fa-solid fa-store me-2">
+        </i>
+        Marketplace
+       </a>
+      </li>
+      <li>
+       <a aria-controls="portfolioMenuMobile" aria-expanded="true" class="nav-link" data-bs-toggle="collapse" href="#portfolioMenuMobile" role="button">
+        <i class="fa-solid fa-briefcase me-2">
+        </i>
+        Portfolio
+       </a>
+       <div class="collapse show ps-4" id="portfolioMenuMobile">
+        <a class="nav-link py-1" href="./user_dashboard.html#holdings">
+         My Holdings
+        </a>
+        <a class="nav-link py-1 d-flex align-items-center" href="./user_dashboard.html#history">
+         <i class="fa-solid fa-receipt me-2">
+         </i>
+         Purchase History
+        </a>
+       </div>
+      </li>
+      <li>
+       <a class="nav-link" href="./wallet_page.html">
+        <i class="fa-solid fa-wallet me-2">
+        </i>
+        Wallet
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" href="./settings_page.html">
+        <i class="fa-solid fa-gear me-2">
+        </i>
+        Settings
+       </a>
+      </li>
+      <li>
+       <a class="nav-link" href="./home_page.html">
+        <i class="fa-solid fa-circle-question me-2">
+        </i>
+        Help
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="dashboard-shell d-lg-flex">
+   <!-- Sidebar (desktop) -->
+   <style>
+    .inv-sidebar { width: 260px; }
+      .inv-sidebar .nav-link { border-radius:.375rem; }
+      .inv-sidebar .nav-link:hover { background-color: rgba(144,202,249,.15); color:#0d47a1; }
+      .inv-sidebar .nav-link.active { background-color: rgba(144,202,249,.25); color:#0d47a1; }
+      .inv-role { background-color: var(--secondary); }
+   </style>
+   <aside class="inv-sidebar d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-white border-end min-vh-100" id="sidebarMenu">
+    <a class="d-flex align-items-center mb-3 text-decoration-none" href="./user_dashboard.html">
+     <span class="rounded-circle bg-info-subtle p-2 me-2">
+     </span>
+     <span class="fs-5 fw-bold">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <div class="d-flex align-items-center mt-2 mb-3">
+     <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/id/433/36/36';" src="https://picsum.photos/seed/sidebar/36/36"/>
+     <div class="small">
+      <div class="fw-semibold js-user-name">
+       Investor Name
+      </div>
+      <span class="badge inv-role text-dark js-role-badge">
+       Investor
+      </span>
+     </div>
+    </div>
+    <hr/>
+    <ul class="nav nav-pills flex-column mb-auto gap-1">
+     <li>
+      <a class="nav-link active" data-page="user_dashboard" href="./user_dashboard.html">
+       <i class="fa-solid fa-gauge me-2">
+       </i>
+       Dashboard
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./marketplace_page.html">
+       <i class="fa-solid fa-store me-2">
+       </i>
+       Marketplace
+      </a>
+     </li>
+     <li>
+      <a aria-controls="portfolioMenu" aria-expanded="true" class="nav-link" data-bs-toggle="collapse" href="#portfolioMenu" role="button">
+       <i class="fa-solid fa-briefcase me-2">
+       </i>
+       Portfolio
+      </a>
+      <div class="collapse show ps-4" id="portfolioMenu">
+       <a class="nav-link py-1" href="./user_dashboard.html#holdings">
+        My Holdings
+       </a>
+       <a class="nav-link py-1 d-flex align-items-center" href="./user_dashboard.html#history">
+        <i class="fa-solid fa-receipt me-2">
+        </i>
+        Purchase History
+       </a>
+      </div>
+     </li>
+     <li>
+      <a class="nav-link" href="./wallet_page.html">
+       <i class="fa-solid fa-wallet me-2">
+       </i>
+       Wallet
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./settings_page.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./home_page.html">
+       <i class="fa-solid fa-circle-question me-2">
+       </i>
+       Help
+      </a>
+     </li>
+    </ul>
+   </aside>
+   <!-- Main Content -->
+   <main class="dashboard-main flex-grow-1">
+    <div class="container-fluid py-3 py-lg-4">
+     <!-- Breadcrumb and Role Switcher -->
+     <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-2 mb-3">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb mb-0 small">
+        <li class="breadcrumb-item">
+         <a href="./home_page.html">
+          Home
+         </a>
+        </li>
+        <li aria-current="page" class="breadcrumb-item active">
+         Dashboard
+        </li>
+       </ol>
+      </nav>
+      <div class="d-flex align-items-center gap-2">
+       <span class="text-muted small">
+        Viewing as:
+       </span>
+       <div aria-label="Role switcher" class="btn-group" role="group">
+        <button class="btn btn-light btn-sm js-role-switch" data-role="Investor">
+         <i class="fa-solid fa-user-tie me-1">
+         </i>
+         Investor
+        </button>
+        <button class="btn btn-light btn-sm js-role-switch" data-role="NGO">
+         <i class="fa-solid fa-hand-holding-seedling me-1">
+         </i>
+         NGO
+        </button>
+        <button class="btn btn-light btn-sm js-role-switch" data-role="Panchayat">
+         <i class="fa-solid fa-people-group me-1">
+         </i>
+         Panchayat
+        </button>
+       </div>
+      </div>
+     </div>
+     <!-- Welcome Alert -->
+     <div class="alert alert-info d-flex align-items-center" role="alert">
+      <i class="fa-solid fa-circle-info me-2">
+      </i>
+      <div>
+       Welcome back,
+       <span class="fw-semibold js-user-name">
+        Investor
+       </span>
+       ! Here's your latest overview.
+       <a class="ms-1" href="#" id="alertLearnMore">
+        Learn more
+       </a>
+      </div>
+     </div>
+     <!-- Summary Metrics -->
+     <section class="mb-4">
+      <div class="row g-3" id="metricsRow">
+       <!-- Loading skeletons -->
+       <div class="col-12 col-md-6 col-xl-4 js-metric-skel">
+        <div class="metric-card">
+         <div class="skeleton" style="height:24px;width:60%">
+         </div>
+         <div class="skeleton mt-2" style="height:36px;width:40%">
+         </div>
+         <div class="skeleton mt-2" style="height:16px;width:50%">
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-xl-4 js-metric-skel">
+        <div class="metric-card">
+         <div class="skeleton" style="height:24px;width:60%">
+         </div>
+         <div class="skeleton mt-2" style="height:36px;width:40%">
+         </div>
+         <div class="skeleton mt-2" style="height:16px;width:50%">
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-xl-4 js-metric-skel">
+        <div class="metric-card">
+         <div class="skeleton" style="height:24px;width:60%">
+         </div>
+         <div class="skeleton mt-2" style="height:36px;width:40%">
+         </div>
+         <div class="skeleton mt-2" style="height:16px;width:50%">
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Charts + Quick Actions Row -->
+     <section class="mb-4">
+      <div class="row g-3">
+       <div class="col-12 col-xl-8">
+        <div class="card h-100">
+         <div class="card-header">
+          <div class="d-flex align-items-center gap-2">
+           <i class="fa-solid fa-chart-line text-info">
+           </i>
+           <span class="widget-title">
+            Portfolio Value (Last 12 months)
+           </span>
+          </div>
+          <div class="d-flex align-items-center gap-2 small text-muted">
+           <span class="d-none d-md-inline">
+            Interactive
+           </span>
+           <i class="fa-solid fa-circle-question" data-bs-placement="left" data-bs-toggle="tooltip" title="Zoom and pan with mouse; hover for tooltips.">
+           </i>
+          </div>
+         </div>
+         <div class="card-body">
+          <canvas height="120" id="portfolioChart">
+          </canvas>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-xl-4">
+        <div class="card h-100">
+         <div class="card-header">
+          <div class="d-flex align-items-center gap-2">
+           <i class="fa-solid fa-bolt text-warning">
+           </i>
+           <span class="widget-title">
+            Quick Actions
+           </span>
+          </div>
+         </div>
+         <div class="card-body">
+          <div class="d-grid gap-2" id="quickActions">
+           <!-- Populated by role -->
+           <button class="btn btn-primary" id="qaMarketplace">
+            <i class="fa-solid fa-store me-2">
+            </i>
+            Browse Marketplace
+           </button>
+           <button class="btn btn-light" id="qaWallet">
+            <i class="fa-solid fa-wallet me-2">
+            </i>
+            View Wallet
+           </button>
+          </div>
+         </div>
+         <div class="card-footer small text-muted">
+          Tip: Use the role switcher to see different actions.
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Projects/Investments List & Recent Activity -->
+     <section class="mb-4">
+      <div class="row g-3">
+       <div class="col-12 col-xxl-8">
+        <div class="card h-100">
+         <div class="card-header">
+          <div class="d-flex align-items-center gap-2">
+           <i class="fa-solid fa-briefcase text-success">
+           </i>
+           <span class="widget-title js-list-title">
+            My Investments
+           </span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+           <button class="btn btn-success btn-sm d-none js-create-project">
+            <i class="fa-solid fa-circle-plus me-1">
+            </i>
+            Create New Project
+           </button>
+          </div>
+         </div>
+         <div class="card-body">
+          <!-- Filters -->
+          <div class="row g-2 align-items-center mb-3">
+           <div class="col-md-4">
+            <div class="input-group">
+             <span class="input-group-text bg-white">
+              <i class="fa-solid fa-magnifying-glass text-muted">
+              </i>
+             </span>
+             <input class="form-control" id="searchInput" placeholder="Search by name" type="text"/>
+            </div>
+           </div>
+           <div class="col-md-3">
+            <select class="form-select" id="statusFilter">
+             <option value="">
+              All Statuses
+             </option>
+             <option>
+              Active
+             </option>
+             <option>
+              Pending Approval
+             </option>
+             <option>
+              Completed
+             </option>
+            </select>
+           </div>
+           <div class="col-md-3">
+            <select class="form-select" id="typeFilter">
+             <option value="">
+              All Types
+             </option>
+             <option value="Investment">
+              Investment
+             </option>
+             <option value="Project">
+              Project
+             </option>
+            </select>
+           </div>
+           <div class="col-md-2 text-md-end">
+            <button class="btn btn-light w-100" id="resetFilters">
+             <i class="fa-solid fa-rotate-left me-1">
+             </i>
+             Reset
+            </button>
+           </div>
+          </div>
+          <div class="table-responsive">
+           <table class="table table-theme align-middle" id="portfolioTable">
+            <thead>
+             <tr>
+              <th class="sortable" data-sort="name">
+               Project
+               <i class="fa-solid fa-sort ms-1 text-muted">
+               </i>
+              </th>
+              <th>
+               Status
+              </th>
+              <th class="sortable text-end" data-sort="metric">
+               Credits
+               <i class="fa-solid fa-sort ms-1 text-muted">
+               </i>
+              </th>
+              <th class="text-end d-none d-sm-table-cell">
+               Updated
+              </th>
+              <th class="text-end">
+               Action
+              </th>
+             </tr>
+            </thead>
+            <tbody id="portfolioTbody">
+             <!-- Rows injected by JS -->
+            </tbody>
+           </table>
+          </div>
+         </div>
+         <div class="card-footer d-flex justify-content-between align-items-center">
+          <div class="small text-muted" id="paginationInfo">
+           Showing 1-6 of 26
+          </div>
+          <div aria-label="Pagination" class="btn-group btn-group-sm" role="group">
+           <button class="btn btn-light" disabled="" id="prevPage">
+            <i class="fa-solid fa-chevron-left">
+            </i>
+           </button>
+           <button class="btn btn-light" id="nextPage">
+            <i class="fa-solid fa-chevron-right">
+            </i>
+           </button>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-xxl-4">
+        <div class="card h-100">
+         <div class="card-header">
+          <div class="d-flex align-items-center gap-2">
+           <i class="fa-regular fa-clock text-secondary">
+           </i>
+           <span class="widget-title">
+            Recent Activity
+           </span>
+          </div>
+         </div>
+         <div class="card-body">
+          <ul class="list-unstyled message-list" id="activityFeed">
+           <!-- Activity items injected by JS -->
+          </ul>
+         </div>
+         <div class="card-footer small text-muted">
+          Last updated
+          <span id="activityUpdated">
+           just now
+          </span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- System feedback area / Toast trigger -->
+     <div class="d-flex align-items-center gap-2 mb-4">
+      <button class="btn btn-info text-white" id="btnShowToast">
+       <i class="fa-regular fa-bell me-1">
+       </i>
+       Show Notification
+      </button>
+      <button class="btn btn-outline-primary" id="btnSimulateError">
+       <i class="fa-solid fa-triangle-exclamation me-1">
+       </i>
+       Simulate Error
+      </button>
+     </div>
+    </div>
+   </main>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-light border-top py-3 mt-auto">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="small text-muted">
+     © BlueCarbonMRV
+    </div>
+    <div class="d-flex gap-3">
+     <a class="btn btn-outline-primary btn-sm" href="./wallet_page.html" style="border-color: var(--secondary); color:#0d47a1;">
+      View Wallet
+     </a>
+     <a class="btn btn-primary btn-sm" href="./marketplace_page.html" style="background-color: var(--secondary); border-color: var(--secondary); color:#08306b;">
+      Buy Credits
+     </a>
+    </div>
+    <div class="small">
+     <a class="text-decoration-none me-3" href="./home_page.html">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./home_page.html">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Apply tooltips
+document.addEventListener('DOMContentLoaded', () => {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+});
+
+// State
+const state = {
+    user: {
+        name: localStorage.getItem('bcmrv_name') || 'Investor Name',
+        role: localStorage.getItem('bcmrv_role') || 'Investor'
+    },
+    investorMetrics: [{
+        title: 'Total Credits Owned',
+        value: '12,540 tCO₂e',
+        trend: '+3.2% MoM',
+        icon: 'fa-solid fa-leaf text-success'
+    }, {
+        title: 'Portfolio Value',
+        value: '$154,230',
+        trend: '+$4,120 this month',
+        icon: 'fa-solid fa-chart-line text-info'
+    }, {
+        title: 'Projects Invested In',
+        value: '8',
+        trend: '2 new this quarter',
+        icon: 'fa-solid fa-briefcase text-secondary'
+    }],
+    devMetrics: [{
+        title: 'Total Projects',
+        value: '6',
+        trend: '1 pending review',
+        icon: 'fa-solid fa-diagram-project text-secondary'
+    }, {
+        title: 'Total Credits Minted',
+        value: '45,300 tCO₂e',
+        trend: '+1,200 this week',
+        icon: 'fa-solid fa-seedling text-success'
+    }, {
+        title: 'Credits for Sale',
+        value: '12,000 tCO₂e',
+        trend: 'On Marketplace',
+        icon: 'fa-solid fa-store text-warning'
+    }],
+    data: [],
+    page: 1,
+    pageSize: 6,
+    sort: {
+        key: 'name',
+        dir: 'asc'
+    },
+    filters: {
+        search: '',
+        status: '',
+        type: ''
+    }
+};
+
+const sampleInvestorRows = [{
+    id: 'P-1021',
+    name: 'Mangrove Restoration - Sundarbans',
+    status: 'Active',
+    metric: 2400,
+    updated: '2025-09-12',
+    type: 'Investment'
+}, {
+    id: 'P-1048',
+    name: 'Community Forestry - Assam',
+    status: 'Pending Approval',
+    metric: 600,
+    updated: '2025-09-09',
+    type: 'Investment'
+}, {
+    id: 'P-1007',
+    name: 'Agroforestry Initiative - Kerala',
+    status: 'Active',
+    metric: 1800,
+    updated: '2025-09-03',
+    type: 'Investment'
+}, {
+    id: 'P-1089',
+    name: 'Wetland Conservation - Kutch',
+    status: 'Completed',
+    metric: 1250,
+    updated: '2025-08-28',
+    type: 'Investment'
+}, {
+    id: 'P-1115',
+    name: 'Blue Carbon Seagrass - Goa',
+    status: 'Active',
+    metric: 3200,
+    updated: '2025-08-21',
+    type: 'Investment'
+}, {
+    id: 'P-1150',
+    name: 'Rewilding Coastal Deltas',
+    status: 'Active',
+    metric: 1290,
+    updated: '2025-08-19',
+    type: 'Investment'
+}, {
+    id: 'P-1166',
+    name: 'Watershed Plantation - TN',
+    status: 'Pending Approval',
+    metric: 500,
+    updated: '2025-08-15',
+    type: 'Investment'
+}, {
+    id: 'P-1190',
+    name: 'Riparian Buffer - AP',
+    status: 'Active',
+    metric: 900,
+    updated: '2025-08-10',
+    type: 'Investment'
+}, {
+    id: 'P-1210',
+    name: 'Coastal Mangroves - Odisha',
+    status: 'Active',
+    metric: 2100,
+    updated: '2025-08-06',
+    type: 'Investment'
+}, {
+    id: 'P-1228',
+    name: 'Urban Canopy - Pune',
+    status: 'Completed',
+    metric: 750,
+    updated: '2025-08-01',
+    type: 'Investment'
+}];
+
+const sampleDevRows = [{
+    id: 'D-210',
+    name: 'Panchayat Mangrove Nursery',
+    status: 'Active',
+    metric: 8200,
+    updated: '2025-09-10',
+    type: 'Project'
+}, {
+    id: 'D-188',
+    name: 'Coastal Dune Stabilization',
+    status: 'Pending Approval',
+    metric: 1200,
+    updated: '2025-09-08',
+    type: 'Project'
+}, {
+    id: 'D-175',
+    name: 'Village Woodlot Expansion',
+    status: 'Active',
+    metric: 6400,
+    updated: '2025-09-02',
+    type: 'Project'
+}, {
+    id: 'D-169',
+    name: 'Blue Carbon Seagrass Beds',
+    status: 'Completed',
+    metric: 5400,
+    updated: '2025-08-25',
+    type: 'Project'
+}, {
+    id: 'D-157',
+    name: 'Agroforestry Demo Plots',
+    status: 'Active',
+    metric: 3900,
+    updated: '2025-08-18',
+    type: 'Project'
+}, {
+    id: 'D-150',
+    name: 'Watershed Afforestation',
+    status: 'Active',
+    metric: 7200,
+    updated: '2025-08-12',
+    type: 'Project'
+}, {
+    id: 'D-140',
+    name: 'Community Forest Patrol',
+    status: 'Pending Approval',
+    metric: 800,
+    updated: '2025-08-05',
+    type: 'Project'
+}];
+
+function fmtNumber(n) {
+    return n.toLocaleString();
+}
+
+function renderMetrics(role) {
+    const row = document.getElementById('metricsRow');
+    row.innerHTML = '';
+    const items = (role === 'Investor') ? state.investorMetrics : state.devMetrics;
+    items.forEach(m => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-6 col-xl-4';
+        col.innerHTML = `
+          <div class="metric-card h-100">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="metric-title">${m.title}</div>
+              <i class="${m.icon} fs-5"></i>
+            </div>
+            <div class="metric-value mt-1">${m.value}</div>
+            <div class="small text-muted">${m.trend}</div>
+          </div>`;
+        row.appendChild(col);
+    });
+}
+
+function setRole(role) {
+    state.user.role = role;
+    localStorage.setItem('bcmrv_role', role);
+    document.querySelectorAll('.js-role-switch').forEach(btn => btn.classList.toggle('btn-primary', btn.dataset.role === role));
+    document.querySelectorAll('.js-role-switch').forEach(btn => btn.classList.toggle('text-white', btn.dataset.role === role));
+    document.querySelectorAll('.js-user-name').forEach(el => el.textContent = state.user.name);
+    const badge = document.querySelector('.js-role-badge');
+    if (badge) badge.textContent = role;
+    // List title and create button visibility
+    document.querySelector('.js-list-title').textContent = (role === 'Investor') ? 'My Investments' : 'My Projects';
+    document.querySelector('.js-create-project').classList.toggle('d-none', role === 'Investor');
+    // Quick actions
+    renderQuickActions(role);
+    // Metrics
+    renderMetrics(role);
+    // Table data
+    state.data = (role === 'Investor') ? sampleInvestorRows.slice() : sampleDevRows.slice();
+    state.page = 1;
+    applyAndRenderTable();
+}
+
+function renderQuickActions(role) {
+    const wrap = document.getElementById('quickActions');
+    wrap.innerHTML = '';
+    if (role === 'Investor') {
+        wrap.innerHTML = `
+          <a class="btn btn-primary" href="./marketplace_page.html"><i class="fa-solid fa-store me-2"></i> Browse Marketplace</a>
+          <a class="btn btn-light" href="./wallet_page.html"><i class="fa-solid fa-wallet me-2"></i> View Wallet</a>
+        `;
+    } else {
+        wrap.innerHTML = `
+          <a class="btn btn-primary" href="./submission_review_page.html"><i class="fa-solid fa-upload me-2"></i> Submit Data</a>
+          <a class="btn btn-light" href="./wallet_page.html"><i class="fa-solid fa-wallet me-2"></i> View Wallet</a>
+        `;
+    }
+}
+
+// Table helpers
+function applyFilters(arr) {
+    return arr.filter(r => {
+        const matchSearch = state.filters.search ? r.name.toLowerCase().includes(state.filters.search) : true;
+        const matchStatus = state.filters.status ? r.status === state.filters.status : true;
+        const matchType = state.filters.type ? r.type === state.filters.type : true;
+        return matchSearch && matchStatus && matchType;
+    });
+}
+
+function sortData(arr) {
+    const {
+        key,
+        dir
+    } = state.sort;
+    const sorted = arr.slice().sort((a, b) => {
+        if (key === 'name') return a.name.localeCompare(b.name);
+        if (key === 'metric') return a.metric - b.metric;
+        return 0;
+    });
+    return dir === 'asc' ? sorted : sorted.reverse();
+}
+
+function renderTableRows(pageArr) {
+    const tbody = document.getElementById('portfolioTbody');
+    tbody.innerHTML = '';
+    pageArr.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover-row';
+        tr.innerHTML = `
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <img src="https://picsum.photos/seed/${encodeURIComponent(r.id)}/40/40" width="40" height="40" class="rounded" alt="thumb" onerror="this.onerror=null;this.src='https://picsum.photos/id/237/40/40';">
+              <div>
+                <div class="fw-semibold">${r.name}</div>
+                <div class="small text-muted">${r.id}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="badge-soft ${r.status==='Active'?'success':(r.status==='Completed'?'primary':'warning')}">${r.status}</span>
+          </td>
+          <td class="text-end">${fmtNumber(r.metric)} ${state.user.role==='Investor'?'owned':'minted'}</td>
+          <td class="text-end d-none d-sm-table-cell">${new Date(r.updated).toLocaleDateString()}</td>
+          <td class="text-end">
+            <div class="btn-group btn-group-sm" role="group">
+              <a class="btn btn-light" href="./project_details_page.html?id=${encodeURIComponent(r.id)}"><i class="fa-regular fa-eye"></i></a>
+              ${state.user.role !== 'Investor' ? `<button class="btn btn-light btn-list-action" data-id="${r.id}"><i class="fa-regular fa-pen-to-square"></i></button>`: ''}
+            </div>
+          </td>`;
+        tr.addEventListener('click', (e) => {
+            // avoid when clicking action buttons
+            if (e.target.closest('.btn')) return;
+            window.location.href = `./project_details_page.html?id=${encodeURIComponent(r.id)}`;
+        });
+        tbody.appendChild(tr);
+    });
+}
+
+function applyAndRenderTable() {
+    const filtered = applyFilters(state.data);
+    const sorted = sortData(filtered);
+    const start = (state.page - 1) * state.pageSize;
+    const pageArr = sorted.slice(start, start + state.pageSize);
+    renderTableRows(pageArr);
+    const info = document.getElementById('paginationInfo');
+    info.textContent = `Showing ${filtered.length === 0 ? 0 : start + 1}-${Math.min(start + state.pageSize, filtered.length)} of ${filtered.length}`;
+    document.getElementById('prevPage').disabled = state.page === 1;
+    document.getElementById('nextPage').disabled = start + state.pageSize >= filtered.length;
+}
+
+function bindTableControls() {
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        state.filters.search = e.target.value.trim().toLowerCase();
+        state.page = 1;
+        applyAndRenderTable();
+    });
+    document.getElementById('statusFilter').addEventListener('change', (e) => {
+        state.filters.status = e.target.value;
+        state.page = 1;
+        applyAndRenderTable();
+    });
+    document.getElementById('typeFilter').addEventListener('change', (e) => {
+        state.filters.type = e.target.value;
+        state.page = 1;
+        applyAndRenderTable();
+    });
+    document.getElementById('resetFilters').addEventListener('click', () => {
+        state.filters = {
+            search: '',
+            status: '',
+            type: ''
+        };
+        document.getElementById('searchInput').value = '';
+        document.getElementById('statusFilter').value = '';
+        document.getElementById('typeFilter').value = '';
+        state.page = 1;
+        applyAndRenderTable();
+    });
+    document.getElementById('prevPage').addEventListener('click', () => {
+        state.page--;
+        applyAndRenderTable();
+    });
+    document.getElementById('nextPage').addEventListener('click', () => {
+        state.page++;
+        applyAndRenderTable();
+    });
+    document.querySelectorAll('#portfolioTable thead .sortable').forEach(th => {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', () => {
+            const key = th.dataset.sort;
+            if (state.sort.key === key) {
+                state.sort.dir = state.sort.dir === 'asc' ? 'desc' : 'asc';
+            } else {
+                state.sort.key = key;
+                state.sort.dir = 'asc';
+            }
+            applyAndRenderTable();
+        });
+    });
+}
+
+function renderActivityFeed(role) {
+    const feed = document.getElementById('activityFeed');
+    const items = (role === 'Investor') ? [{
+        icon: 'fa-solid fa-receipt text-success',
+        text: 'Purchased 250 credits from Blue Carbon Seagrass - Goa',
+        time: '2 hours ago'
+    }, {
+        icon: 'fa-solid fa-wallet text-secondary',
+        text: 'Wallet topped up with $5,000',
+        time: '1 day ago'
+    }, {
+        icon: 'fa-solid fa-store text-info',
+        text: 'Listed 300 credits for resale in Marketplace',
+        time: '2 days ago'
+    }, {
+        icon: 'fa-regular fa-clock text-muted',
+        text: 'Price alert triggered for Mangrove Restoration - Sundarbans',
+        time: '3 days ago'
+    }, {
+        icon: 'fa-solid fa-chart-line text-primary',
+        text: 'Portfolio value increased 3.2% MoM',
+        time: '4 days ago'
+    }, {
+        icon: 'fa-solid fa-envelope text-warning',
+        text: 'Received statement for August',
+        time: '5 days ago'
+    }] : [{
+        icon: 'fa-solid fa-upload text-info',
+        text: 'Submitted monitoring data for Watershed Afforestation',
+        time: '3 hours ago'
+    }, {
+        icon: 'fa-solid fa-seedling text-success',
+        text: 'Minted 1,200 credits for Agroforestry Demo Plots',
+        time: '1 day ago'
+    }, {
+        icon: 'fa-solid fa-store text-warning',
+        text: 'Listed 500 credits for sale',
+        time: '2 days ago'
+    }, {
+        icon: 'fa-solid fa-clipboard-check text-primary',
+        text: 'Project Panchayat Mangrove Nursery approved',
+        time: '3 days ago'
+    }, {
+        icon: 'fa-solid fa-pen-to-square text-secondary',
+        text: 'Updated project details for Blue Carbon Seagrass Beds',
+        time: '4 days ago'
+    }, {
+        icon: 'fa-regular fa-envelope text-muted',
+        text: 'Verification request received from auditor',
+        time: '5 days ago'
+    }];
+    feed.innerHTML = '';
+    items.forEach(i => {
+        const li = document.createElement('li');
+        li.className = 'message-row';
+        li.innerHTML = `
+          <div class="message-bubble w-100">
+            <div class="d-flex align-items-start gap-2">
+              <i class="${i.icon} mt-1"></i>
+              <div class="flex-grow-1">
+                <div class="message-text">${i.text}</div>
+                <div class="message-metadata">${i.time}</div>
+              </div>
+            </div>
+          </div>`
+        feed.appendChild(li);
+    });
+    document.getElementById('activityUpdated').textContent = 'just now';
+}
+
+// Chart
+let chart;
+
+function renderChart() {
+    const ctx = document.getElementById('portfolioChart');
+    if (chart) {
+        chart.destroy();
+    }
+    const labels = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+    const data = [132000, 128500, 130200, 134400, 140000, 142500, 145000, 148800, 150300, 151800, 153900, 154230];
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'USD',
+                data,
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-info').trim() || '#0099D2',
+                backgroundColor: 'rgba(0,153,210,0.08)',
+                tension: 0.3,
+                fill: true,
+                pointRadius: 3,
+                pointHoverRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                tooltip: {
+                    enabled: true,
+                    callbacks: {
+                        label: ctx => ` $${ctx.parsed.y.toLocaleString()}`
+                    }
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        callback: v => `$${Number(v).toLocaleString()}`
+                    }
+                },
+                x: {}
+            }
+        }
+    });
+}
+
+// SweetAlert interactions
+function bindActions() {
+    document.getElementById('btnAlerts').addEventListener('click', (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Notifications',
+            html: '<ul class="text-start mb-0"><li>2 credits purchased in Goa Seagrass</li><li>Price alert: Sundarbans +2.1%</li></ul>',
+            icon: 'info',
+            confirmButtonText: 'Ok'
+        });
+    });
+    document.getElementById('btnShowToast').addEventListener('click', () => {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'Purchase order confirmed',
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+        });
+    });
+    document.getElementById('btnSimulateError').addEventListener('click', () => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed to fetch data',
+            text: 'Please check your network connection and retry.',
+            showCancelButton: true,
+            confirmButtonText: 'Retry'
+        }).then(res => {
+            if (res.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Recovered',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        });
+    });
+    document.querySelector('.js-create-project').addEventListener('click', () => {
+        Swal.fire({
+            title: 'Create new project?',
+            text: 'You will be redirected to the project creation flow.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Continue'
+        }).then(res => {
+            if (res.isConfirmed) window.location.href = './project_creation_page.html';
+        });
+    });
+    document.getElementById('alertLearnMore').addEventListener('click', (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'About your dashboard',
+            text: 'This dashboard summarizes your projects, investments and recent activity in one place.',
+            icon: 'info'
+        });
+    });
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    // Set typography and user name in UI
+    document.querySelectorAll('.js-user-name').forEach(el => el.textContent = state.user.name);
+
+    // Loading simulation for metrics
+    setTimeout(() => {
+        document.querySelectorAll('.js-metric-skel').forEach(el => el.remove());
+        renderMetrics(state.user.role);
+    }, 700);
+
+    // Role switcher
+    document.querySelectorAll('.js-role-switch').forEach(btn => btn.addEventListener('click', () => setRole(btn.dataset.role)));
+
+    // Set initial role
+    setRole(state.user.role);
+
+    // Table controls
+    bindTableControls();
+
+    // Activity feed
+    renderActivityFeed(state.user.role);
+
+    // Chart
+    renderChart();
+
+    // Bind actions
+    bindActions();
+
+    // Handle window resize for chart redraw
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(renderChart, 250);
+    });
+});
+  </script>
+ </body>
+</html>

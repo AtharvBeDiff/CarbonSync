@@ -1,0 +1,49 @@
+/* purchase_page.css - Page-specific styles for Purchase Page */
+:root {
+    /* Map provided common component variable to theme token so header/footer/labels using var(--secondary) render correctly */
+    --secondary: var(--color-secondary)
+    }
+/* Brand font for this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Keep the Project Snapshot card visible while scrolling on large screens */
+@media (min-width: 992px) {
+    .purchase-summary {
+        position: sticky;
+        top: 84px;
+        /* below sticky header */
+        }
+    }
+/* Subtle emphasis for price */
+#pricePerCredit {
+    color: var(--text-strong)
+    }
+/* Button states */
+#purchaseBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed
+    }
+/* Table sortable header visual */
+th.sortable:hover {
+    color: var(--color-info)
+    }
+/* Improve offcanvas width on mobile */
+@media (max-width: 991.98px) {
+    #sidebarMenu.offcanvas-start {
+        width: 280px
+        }
+    }
+/* Card header titles */
+.widget-title {
+    font-weight: 600
+    }
+/* Compact badge style adjustment */
+.badge.bg-info-subtle {
+    background-color: var(--info-soft) !important;
+    color: #005b7a !important
+    }
+/* Make sure main content doesn't overflow when next to fixed-width sidebar */
+#mainContent {
+    min-width: 0
+    }

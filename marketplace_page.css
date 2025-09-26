@@ -1,0 +1,63 @@
+/* marketplace_page.css - page specific styles for marketplace */
+:root {
+    /* rely on global variables; keep page additions minimal */
+    }
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+.page-title {
+    letter-spacing: 0.2px
+    }
+/* Map card */
+.map-card {
+    height: 440px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-2);
+    overflow: hidden;
+    box-shadow: var(--shadow-1)
+    }
+/* Project cards */
+.project-img {
+    height: 200px;
+    object-fit: cover
+    }
+.availability-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    border-radius: var(--radius-pill);
+    padding: 6px 10px;
+    font-weight: 600
+    }
+.project-card .card-footer {
+    background: var(--surface-muted)
+    }
+/* Results summary text */
+#resultsSummary {
+    font-weight: 500
+    }
+/* View switcher alignment within filter bar */
+.view-switcher .option {
+    border: none;
+    background: transparent
+    }
+.view-switcher .option.active {
+    background: var(--surface-0)
+    }
+/* Snapshot metric spacing */
+.metric-card .metric-title {
+    text-transform: uppercase;
+    letter-spacing: 0.06em
+    }
+.metric-card .metric-value {
+    line-height: 1.2
+    }
+/* Responsive tweaks */
+@media (max-width: 575.98px) {
+    .map-card {
+        height: 320px
+        }
+    .project-img {
+        height: 180px
+        }
+    }

@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Submission Review | Admin Console
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <!-- Leaflet CSS -->
+  <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+  <!-- SweetAlert2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet"/>
+  <!-- Site Theme -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="submission_review_page.css" rel="stylesheet"/>
+ </head>
+ <body style="font-family: Poppins, var(--font-sans);">
+  <!-- Admin/Verifier Header with quick access to queues -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenu" class="btn btn-outline-success me-2 d-lg-none" data-bs-target="#sidebarMenu" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./admin_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fw-bold">
+      Admin Console
+     </span>
+    </a>
+    <div class="d-none d-lg-flex ms-3 gap-2">
+     <a class="btn btn-outline-success" href="./project_review_page.html">
+      <i class="fa-solid fa-clipboard-check me-1">
+      </i>
+      Verification Queue
+     </a>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+     <form class="d-none d-md-flex" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+       </span>
+       <input aria-label="Search" class="form-control" placeholder="Search users, projects, submissions" type="search"/>
+      </div>
+     </form>
+     <a class="text-decoration-none position-relative text-dark" href="#">
+      <i class="fa-regular fa-bell fs-5">
+      </i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--color-secondary);">
+       5
+      </span>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#">
+       <img alt="Admin avatar" class="rounded-circle me-2" height="32" onerror="this.onerror=null;this.src='https://picsum.photos/seed/admin/32/32'" src="https://via.placeholder.com/32" width="32"/>
+       <span>
+        Admin
+       </span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./settings_page.html">
+         Settings
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Offcanvas on mobile, static on lg+) -->
+  <aside aria-labelledby="sidebarMenuLabel" class="offcanvas-lg offcanvas-start admin-sidebar d-lg-flex flex-column flex-shrink-0 p-3 bg-white border-end min-vh-100" data-bs-scroll="true" id="sidebarMenu" tabindex="-1">
+   <div class="offcanvas-header d-lg-none">
+    <h5 class="offcanvas-title" id="sidebarMenuLabel">
+     BlueCarbonMRV Admin
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <a class="d-flex align-items-center mb-3 text-decoration-none" href="./admin_dashboard.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="fs-5 fw-bold">
+      BlueCarbonMRV Admin
+     </span>
+    </a>
+    <div class="d-flex align-items-center mt-2 mb-3">
+     <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sideadmin/36/36'" src="https://via.placeholder.com/36"/>
+     <div class="small">
+      <div class="fw-semibold">
+       Admin/Verifier
+      </div>
+      <span class="badge admin-role">
+       Admin
+      </span>
+     </div>
+    </div>
+    <hr/>
+    <ul class="nav nav-pills flex-column mb-auto gap-1">
+     <li>
+      <a class="nav-link" data-page="admin_dashboard" href="./admin_dashboard.html">
+       <i class="fa-solid fa-gauge me-2">
+       </i>
+       Dashboard
+      </a>
+     </li>
+     <li>
+      <a aria-controls="queueMenu" aria-expanded="true" class="nav-link" data-bs-toggle="collapse" href="#queueMenu" role="button">
+       <i class="fa-solid fa-clipboard-check me-2">
+       </i>
+       Queues
+      </a>
+      <div class="collapse show ps-4" id="queueMenu">
+       <a class="nav-link py-1 d-flex align-items-center" href="./admin_dashboard.html#users">
+        <i class="fa-solid fa-users-gear me-2">
+        </i>
+        User Verifications
+       </a>
+       <a class="nav-link py-1" data-page="project_review_page" href="./project_review_page.html">
+        Project Review
+       </a>
+       <a class="nav-link py-1 active" data-page="submission_review_page" href="./submission_review_page.html">
+        Submission Review
+       </a>
+      </div>
+     </li>
+     <li>
+      <a class="nav-link" href="./admin_dashboard.html#analytics">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Analytics
+      </a>
+     </li>
+     <li>
+      <a class="nav-link" href="./settings_page.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+     </li>
+    </ul>
+   </div>
+  </aside>
+  <!-- Main Content -->
+  <main class="main-content flex-grow-1">
+   <div class="container-fluid py-3 py-lg-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-2">
+     <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item">
+       <a href="./admin_dashboard.html">
+        Admin
+       </a>
+      </li>
+      <li class="breadcrumb-item">
+       <a href="./project_review_page.html">
+        Verification Queue
+       </a>
+      </li>
+      <li aria-current="page" class="breadcrumb-item active">
+       Submission Review
+      </li>
+     </ol>
+    </nav>
+    <!-- System feedback / notification -->
+    <div class="mb-3" id="pageAlerts">
+     <div class="alert alert-warning d-flex align-items-center" role="alert">
+      <i class="fa-solid fa-triangle-exclamation me-2">
+      </i>
+      This submission includes evidence captured during low GPS accuracy windows. Please verify carefully.
+     </div>
+    </div>
+    <!-- Submission Header Card -->
+    <div class="card shadow-sm mb-3 submission-header-card">
+     <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+      <div>
+       <div class="d-flex align-items-center gap-2 mb-1">
+        <h2 class="h4 mb-0">
+         Submission SR-2025-001
+        </h2>
+        <span class="badge bg-warning text-dark">
+         Pending Review
+        </span>
+       </div>
+       <div class="text-muted small">
+        Submitted on
+        <span class="fw-semibold">
+         2025-09-12 14:22 UTC
+        </span>
+       </div>
+       <div class="mt-2">
+        <div class="small text-muted">
+         Project
+        </div>
+        <a class="fw-semibold text-decoration-none" href="./project_details_page.html">
+         Coastal Mangrove Restoration - Delta Region
+        </a>
+        <div class="small">
+         Developer:
+         <span class="fw-semibold">
+          BlueEarth Dev Co.
+         </span>
+        </div>
+       </div>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+       <div class="badge-soft info">
+        <i class="fa-solid fa-location-dot">
+        </i>
+        Region: Delta-04
+       </div>
+       <div class="badge-soft secondary">
+        <i class="fa-regular fa-clock">
+        </i>
+        SLA: 48h
+       </div>
+       <div class="badge-soft primary">
+        <i class="fa-solid fa-leaf">
+        </i>
+        Methodology: Mangrove
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Evidence Review Dashboard: Tabs -->
+    <ul class="nav nav-tabs" id="reviewTabs" role="tablist">
+     <li class="nav-item" role="presentation">
+      <button aria-controls="fieldPanel" aria-selected="true" class="nav-link active" data-bs-target="#fieldPanel" data-bs-toggle="tab" id="field-tab" role="tab" type="button">
+       <i class="fa-solid fa-images me-1">
+       </i>
+       Field Data
+      </button>
+     </li>
+     <li class="nav-item" role="presentation">
+      <button aria-controls="mapPanel" aria-selected="false" class="nav-link" data-bs-target="#mapPanel" data-bs-toggle="tab" id="map-tab" role="tab" type="button">
+       <i class="fa-solid fa-map-location-dot me-1">
+       </i>
+       Geospatial Map
+      </button>
+     </li>
+     <li class="nav-item" role="presentation">
+      <button aria-controls="aiPanel" aria-selected="false" class="nav-link" data-bs-target="#aiPanel" data-bs-toggle="tab" id="ai-tab" role="tab" type="button">
+       <i class="fa-solid fa-robot me-1">
+       </i>
+       AI Analysis
+      </button>
+     </li>
+    </ul>
+    <div class="tab-content bg-white border border-top-0 rounded-bottom shadow-sm" id="reviewTabsContent">
+     <!-- Field Data Panel -->
+     <div aria-labelledby="field-tab" class="tab-pane fade show active p-3 p-lg-4" id="fieldPanel" role="tabpanel">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+       <h3 class="h5 mb-0">
+        Field Evidence
+       </h3>
+       <div class="d-flex gap-2 align-items-center">
+        <div class="input-group" style="max-width: 320px;">
+         <span class="input-group-text bg-white">
+          <i class="fa-solid fa-magnifying-glass text-muted">
+          </i>
+         </span>
+         <input class="form-control" id="evidenceSearch" placeholder="Search by type, note, or coordinates" type="text"/>
+        </div>
+        <div aria-label="Filter type" class="btn-group" role="group">
+         <button class="btn btn-light btn-sm active" data-filter="all" type="button">
+          All
+         </button>
+         <button class="btn btn-light btn-sm" data-filter="photo" type="button">
+          Photos
+         </button>
+         <button class="btn btn-light btn-sm" data-filter="video" type="button">
+          Videos
+         </button>
+        </div>
+       </div>
+      </div>
+      <!-- Media Gallery -->
+      <div class="media-gallery row g-3" id="mediaGallery">
+       <!-- Cards (6 samples) -->
+       <div class="col-12 col-sm-6 col-lg-4" data-type="photo">
+        <div class="card h-100">
+         <img alt="Mangrove plot - photo" class="card-img-top media-thumb" data-seed="ev1" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ev1/600/360'" src="https://picsum.photos/seed/ev1/600/360"/>
+         <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+           <span class="badge bg-primary-subtle text-primary">
+            <i class="fa-solid fa-camera me-1">
+            </i>
+            Photo
+           </span>
+           <span class="small text-muted">
+            2025-09-12 09:10
+           </span>
+          </div>
+          <div class="small text-muted">
+           GPS: 24.9123, 67.0934
+          </div>
+          <button class="btn btn-sm btn-outline-success mt-2 view-media" data-gps="24.9123, 67.0934" data-src="https://picsum.photos/seed/ev1full/1200/800" data-ts="2025-09-12 09:10" data-type="photo">
+           View
+          </button>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-lg-4" data-type="photo">
+        <div class="card h-100">
+         <img alt="Field marker - photo" class="card-img-top media-thumb" data-seed="ev2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ev2/600/360'" src="https://picsum.photos/seed/ev2/600/360"/>
+         <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+           <span class="badge bg-primary-subtle text-primary">
+            <i class="fa-solid fa-camera me-1">
+            </i>
+            Photo
+           </span>
+           <span class="small text-muted">
+            2025-09-12 09:22
+           </span>
+          </div>
+          <div class="small text-muted">
+           GPS: 24.9129, 67.0911
+          </div>
+          <button class="btn btn-sm btn-outline-success mt-2 view-media" data-gps="24.9129, 67.0911" data-src="https://picsum.photos/seed/ev2full/1200/800" data-ts="2025-09-12 09:22" data-type="photo">
+           View
+          </button>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-lg-4" data-type="video">
+        <div class="card h-100">
+         <img alt="Field walkthrough - video" class="card-img-top media-thumb" data-seed="ev3" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ev3/600/360'" src="https://picsum.photos/seed/ev3/600/360"/>
+         <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+           <span class="badge bg-info-subtle text-info">
+            <i class="fa-solid fa-video me-1">
+            </i>
+            Video
+           </span>
+           <span class="small text-muted">
+            2025-09-12 09:39
+           </span>
+          </div>
+          <div class="small text-muted">
+           GPS: 24.9135, 67.0891
+          </div>
+          <button class="btn btn-sm btn-outline-success mt-2 view-media" data-gps="24.9135, 67.0891" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-ts="2025-09-12 09:39" data-type="video">
+           View
+          </button>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-lg-4" data-type="photo">
+        <div class="card h-100">
+         <img alt="Nursery saplings - photo" class="card-img-top media-thumb" data-seed="ev4" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ev4/600/360'" src="https://picsum.photos/seed/ev4/600/360"/>
+         <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+           <span class="badge bg-primary-subtle text-primary">
+            <i class="fa-solid fa-camera me-1">
+            </i>
+            Photo
+           </span>
+           <span class="small text-muted">
+            2025-09-12 10:02
+           </span>
+          </div>
+          <div class="small text-muted">
+           GPS: 24.9161, 67.0875
+          </div>
+          <button class="btn btn-sm btn-outline-success mt-2 view-media" data-gps="24.9161, 67.0875" data-src="https://picsum.photos/seed/ev4full/1200/800" data-ts="2025-09-12 10:02" data-type="photo">
+           View
+          </button>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-lg-4" data-type="photo">
+        <div class="card h-100">
+         <img alt="Transect 2 - photo" class="card-img-top media-thumb" data-seed="ev5" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ev5/600/360'" src="https://picsum.photos/seed/ev5/600/360"/>
+         <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+           <span class="badge bg-primary-subtle text-primary">
+            <i class="fa-solid fa-camera me-1">
+            </i>
+            Photo
+           </span>
+           <span class="small text-muted">
+            2025-09-12 10:26
+           </span>
+          </div>
+          <div class="small text-muted">
+           GPS: 24.9175, 67.0840
+          </div>
+          <button class="btn btn-sm btn-outline-success mt-2 view-media" data-gps="24.9175, 67.0840" data-src="https://picsum.photos/seed/ev5full/1200/800" data-ts="2025-09-12 10:26" data-type="photo">
+           View
+          </button>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-lg-4" data-type="video">
+        <div class="card h-100">
+         <img alt="Drone sweep - video" class="card-img-top media-thumb" data-seed="ev6" onerror="this.onerror=null;this.src='https://picsum.photos/seed/ev6/600/360'" src="https://picsum.photos/seed/ev6/600/360"/>
+         <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+           <span class="badge bg-info-subtle text-info">
+            <i class="fa-solid fa-video me-1">
+            </i>
+            Video
+           </span>
+           <span class="small text-muted">
+            2025-09-12 10:58
+           </span>
+          </div>
+          <div class="small text-muted">
+           GPS: 24.9192, 67.0813
+          </div>
+          <button class="btn btn-sm btn-outline-success mt-2 view-media" data-gps="24.9192, 67.0813" data-src="https://www.w3schools.com/html/movie.mp4" data-ts="2025-09-12 10:58" data-type="video">
+           View
+          </button>
+         </div>
+        </div>
+       </div>
+      </div>
+      <!-- Evidence Table -->
+      <div class="card mt-4">
+       <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="fw-semibold">
+         Evidence List
+        </div>
+        <div class="d-flex gap-2">
+         <select class="form-select form-select-sm" id="typeFilter" style="width: 160px;">
+          <option value="">
+           Filter: All types
+          </option>
+          <option value="Photo">
+           Photo
+          </option>
+          <option value="Video">
+           Video
+          </option>
+         </select>
+         <select class="form-select form-select-sm" id="qualityFilter" style="width: 180px;">
+          <option value="">
+           Filter: All quality
+          </option>
+          <option value="High">
+           High
+          </option>
+          <option value="Medium">
+           Medium
+          </option>
+          <option value="Low">
+           Low
+          </option>
+         </select>
+        </div>
+       </div>
+       <div class="table-responsive">
+        <table class="table table-theme mb-0" id="evidenceTable">
+         <thead>
+          <tr>
+           <th scope="col">
+            #
+           </th>
+           <th class="sortable" data-sort="type" scope="col">
+            Type
+            <i class="fa-solid fa-sort ms-1 text-muted">
+            </i>
+           </th>
+           <th scope="col">
+            Timestamp
+           </th>
+           <th scope="col">
+            GPS
+           </th>
+           <th class="sortable" data-sort="quality" scope="col">
+            Quality
+            <i class="fa-solid fa-sort ms-1 text-muted">
+            </i>
+           </th>
+           <th scope="col">
+            Actions
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            1
+           </td>
+           <td>
+            Photo
+           </td>
+           <td>
+            2025-09-12 09:10
+           </td>
+           <td>
+            24.9123, 67.0934
+           </td>
+           <td>
+            <span class="badge text-bg-success">
+             High
+            </span>
+           </td>
+           <td>
+            <button class="btn btn-sm btn-light table-view" data-link="#" data-target-seed="ev1">
+             View
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            2
+           </td>
+           <td>
+            Photo
+           </td>
+           <td>
+            2025-09-12 09:22
+           </td>
+           <td>
+            24.9129, 67.0911
+           </td>
+           <td>
+            <span class="badge text-bg-success">
+             High
+            </span>
+           </td>
+           <td>
+            <button class="btn btn-sm btn-light table-view" data-link="#" data-target-seed="ev2">
+             View
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            3
+           </td>
+           <td>
+            Video
+           </td>
+           <td>
+            2025-09-12 09:39
+           </td>
+           <td>
+            24.9135, 67.0891
+           </td>
+           <td>
+            <span class="badge text-bg-warning">
+             Medium
+            </span>
+           </td>
+           <td>
+            <button class="btn btn-sm btn-light table-view" data-link="#" data-target-seed="ev3">
+             View
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            4
+           </td>
+           <td>
+            Photo
+           </td>
+           <td>
+            2025-09-12 10:02
+           </td>
+           <td>
+            24.9161, 67.0875
+           </td>
+           <td>
+            <span class="badge text-bg-success">
+             High
+            </span>
+           </td>
+           <td>
+            <button class="btn btn-sm btn-light table-view" data-link="#" data-target-seed="ev4">
+             View
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            5
+           </td>
+           <td>
+            Photo
+           </td>
+           <td>
+            2025-09-12 10:26
+           </td>
+           <td>
+            24.9175, 67.0840
+           </td>
+           <td>
+            <span class="badge text-bg-secondary">
+             Low
+            </span>
+           </td>
+           <td>
+            <button class="btn btn-sm btn-light table-view" data-link="#" data-target-seed="ev5">
+             View
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            6
+           </td>
+           <td>
+            Video
+           </td>
+           <td>
+            2025-09-12 10:58
+           </td>
+           <td>
+            24.9192, 67.0813
+           </td>
+           <td>
+            <span class="badge text-bg-warning">
+             Medium
+            </span>
+           </td>
+           <td>
+            <button class="btn btn-sm btn-light table-view" data-link="#" data-target-seed="ev6">
+             View
+            </button>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div class="card-footer d-flex justify-content-between align-items-center small">
+        <div>
+         Showing 1–6 of 12 items
+        </div>
+        <nav>
+         <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+           <a class="page-link" href="#">
+            Previous
+           </a>
+          </li>
+          <li class="page-item active">
+           <a class="page-link" href="#">
+            1
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            2
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            Next
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+     <!-- Geospatial Map Panel -->
+     <div aria-labelledby="map-tab" class="tab-pane fade p-3 p-lg-4" id="mapPanel" role="tabpanel">
+      <div class="row g-3">
+       <div class="col-12 col-lg-8">
+        <div class="card h-100">
+         <div class="card-header">
+          <div class="fw-semibold">
+           <i class="fa-solid fa-map-location-dot me-2">
+           </i>
+           Project Boundary &amp; Evidence Points
+          </div>
+         </div>
+         <div class="card-body p-0">
+          <div class="map-container position-relative" id="map">
+           <div class="position-absolute top-50 start-50 translate-middle text-center" id="mapLoading">
+            <div class="spinner-border text-success" role="status">
+            </div>
+            <div class="small text-muted mt-2">
+             Loading map...
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-lg-4">
+        <div class="card h-100">
+         <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="fw-semibold">
+           Selected Evidence
+          </div>
+          <button class="btn btn-sm btn-light" id="clearSelection">
+           <i class="fa-solid fa-xmark me-1">
+           </i>
+           Clear
+          </button>
+         </div>
+         <div class="card-body">
+          <div class="text-muted small" id="selectedEvidence">
+           Click a pin on the map to see details...
+          </div>
+          <hr/>
+          <div class="d-grid gap-2">
+           <button class="btn btn-outline-success btn-sm" id="zoomProject">
+            <i class="fa-solid fa-maximize me-1">
+            </i>
+            Zoom to Project
+           </button>
+           <button class="btn btn-outline-info btn-sm" id="toggleBoundary">
+            <i class="fa-regular fa-square me-1">
+            </i>
+            Toggle Boundary
+           </button>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- AI Analysis Panel -->
+     <div aria-labelledby="ai-tab" class="tab-pane fade p-3 p-lg-4" id="aiPanel" role="tabpanel">
+      <div class="row g-3">
+       <!-- Metric cards -->
+       <div class="col-12 col-md-4">
+        <div class="metric-card h-100">
+         <div class="metric-title">
+          Change in Mangrove Area
+         </div>
+         <div class="metric-value">
+          +18.6%
+         </div>
+         <div class="small text-muted">
+          Period: Jan → Aug 2025
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-md-4">
+        <div class="metric-card h-100">
+         <div class="metric-title">
+          Estimated Biomass
+         </div>
+         <div class="metric-value">
+          +1,250 tCO₂e
+         </div>
+         <div class="small text-muted">
+          Model v2.3 • RMSE 4.1%
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-md-4">
+        <div class="metric-card h-100">
+         <div class="metric-title">
+          AI Confidence
+         </div>
+         <div class="metric-value highlight-info">
+          92%
+         </div>
+         <div class="small text-muted">
+          Threshold: 85%
+         </div>
+        </div>
+       </div>
+       <!-- Chart -->
+       <div class="col-12 col-lg-7">
+        <div class="card h-100">
+         <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="fw-semibold">
+           <i class="fa-solid fa-chart-line me-2">
+           </i>
+           Vegetation Index (NDVI) Trend
+          </div>
+          <div class="small text-muted">
+           Jan → Aug 2025
+          </div>
+         </div>
+         <div class="card-body">
+          <canvas height="160" id="ndviChart">
+          </canvas>
+          <div class="text-center mt-3" id="chartLoading">
+           <div class="spinner-border text-success" role="status">
+           </div>
+           <div class="small text-muted mt-2">
+            Loading analysis...
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <!-- Before/After slider -->
+       <div class="col-12 col-lg-5">
+        <div class="card h-100">
+         <div class="card-header">
+          <div class="fw-semibold">
+           <i class="fa-regular fa-images me-2">
+           </i>
+           Satellite Imagery Comparison
+          </div>
+         </div>
+         <div class="card-body">
+          <div class="compare-container" id="compareContainer">
+           <img alt="Before image" class="compare-img before" onerror="this.onerror=null;this.src='https://picsum.photos/seed/before/800/500'" src="https://picsum.photos/seed/before/800/500"/>
+           <img alt="After image" class="compare-img after" onerror="this.onerror=null;this.src='https://picsum.photos/seed/after/800/500'" src="https://picsum.photos/seed/after/800/500"/>
+           <input aria-label="Image comparison slider" class="form-range compare-slider" id="compareSlider" max="100" min="0" type="range" value="50"/>
+          </div>
+          <div class="d-flex justify-content-between small text-muted mt-2">
+           <span>
+            Before
+           </span>
+           <span>
+            After
+           </span>
+          </div>
+         </div>
+        </div>
+       </div>
+       <!-- AI Output Table -->
+       <div class="col-12">
+        <div class="card">
+         <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="fw-semibold">
+           <i class="fa-solid fa-table-list me-2">
+           </i>
+           AI Output Summary
+          </div>
+          <div class="small text-muted">
+           Model v2.3 (Last run: 2025-09-12 08:50 UTC)
+          </div>
+         </div>
+         <div class="table-responsive">
+          <table class="table table-theme mb-0">
+           <thead>
+            <tr>
+             <th>
+              Metric
+             </th>
+             <th>
+              Value
+             </th>
+             <th>
+              Unit
+             </th>
+             <th>
+              Confidence
+             </th>
+             <th>
+              Notes
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td>
+              Canopy Cover Increase
+             </td>
+             <td>
+              +22.3
+             </td>
+             <td>
+              %
+             </td>
+             <td>
+              <span class="badge text-bg-success">
+               High
+              </span>
+             </td>
+             <td>
+              Consistent across tiles
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Biomass Change
+             </td>
+             <td>
+              +1,250
+             </td>
+             <td>
+              tCO₂e
+             </td>
+             <td>
+              <span class="badge text-bg-success">
+               High
+              </span>
+             </td>
+             <td>
+              Aligned with field sampling
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Detected Disturbances
+             </td>
+             <td>
+              3
+             </td>
+             <td>
+              events
+             </td>
+             <td>
+              <span class="badge text-bg-warning">
+               Medium
+              </span>
+             </td>
+             <td>
+              Minor edge clearing visible
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Cloud Cover
+             </td>
+             <td>
+              12
+             </td>
+             <td>
+              %
+             </td>
+             <td>
+              <span class="badge text-bg-success">
+               High
+              </span>
+             </td>
+             <td>
+              Within tolerance
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Water Mask Change
+             </td>
+             <td>
+              -1.8
+             </td>
+             <td>
+              %
+             </td>
+             <td>
+              <span class="badge text-bg-secondary">
+               Low
+              </span>
+             </td>
+             <td>
+              Possible tidal variation
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <div class="card-footer small text-muted">
+          Data sources: Sentinel-2, PlanetScope, Drone Surveys.
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- Verification Action Panel (Sticky bottom) -->
+   <div class="verify-action-bar border-top bg-white py-2 px-3">
+    <div class="container-fluid d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
+     <div class="d-flex align-items-center gap-3">
+      <div class="fw-semibold">
+       Decision
+      </div>
+      <div class="small text-muted">
+       Submission:
+       <span class="fw-semibold">
+        SR-2025-001
+       </span>
+       • Status:
+       <span class="fw-semibold text-warning">
+        Pending Review
+       </span>
+      </div>
+     </div>
+     <div class="d-flex align-items-center gap-3">
+      <div class="small">
+       Estimated Credits to Mint:
+       <span class="fw-bold text-success" id="mintableCredits">
+        1,250 tCO₂e
+       </span>
+      </div>
+      <div class="btn-group">
+       <button class="btn btn-danger" id="rejectBtn">
+        <i class="fa-solid fa-xmark me-1">
+        </i>
+        Reject
+       </button>
+       <button class="btn btn-success" id="approveBtn">
+        <i class="fa-solid fa-check me-1">
+        </i>
+        Approve
+       </button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Admin Footer -->
+  <footer class="bg-light border-top py-3 mt-auto">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="small text-muted">
+     © BlueCarbonMRV • Admin
+    </div>
+    <div class="small">
+     <a class="text-decoration-none me-3" href="./home_page.html#terms">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./home_page.html#privacy">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Media Viewer Modal (Bootstrap) -->
+  <div aria-hidden="true" class="modal fade" id="mediaViewer" tabindex="-1">
+   <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h5 class="modal-title">
+       <i class="fa-regular fa-image me-2">
+       </i>
+       Media Viewer
+      </h5>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+      </button>
+     </div>
+     <div class="modal-body">
+      <div class="ratio ratio-16x9 bg-black rounded" id="mediaContent">
+      </div>
+      <div class="mt-3 small text-muted" id="mediaMeta">
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Toast Container -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: var(--z-toast, 1060);">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-success border-0" id="actionToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body">
+      <i class="fa-solid fa-circle-check me-2">
+      </i>
+      Action completed successfully.
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- JS: Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- Leaflet JS -->
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Helper: Bootstrap toast
+const showToast = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const t = new bootstrap.Toast(el);
+    t.show();
+};
+
+// Media Viewer logic
+const mediaModal = new bootstrap.Modal('#mediaViewer');
+const mediaContent = document.getElementById('mediaContent');
+const mediaMeta = document.getElementById('mediaMeta');
+
+function openMediaViewer(type, src, ts, gps) {
+    mediaContent.innerHTML = '';
+    if (type === 'photo') {
+        const img = document.createElement('img');
+        img.className = 'w-100 h-100 object-fit-contain rounded';
+        img.src = src;
+        img.alt = 'Evidence photo';
+        img.onerror = function() {
+            this.onerror = null;
+            this.src = 'https://picsum.photos/seed/ev-full-fallback/1200/800';
+        };
+        mediaContent.appendChild(img);
+    } else if (type === 'video') {
+        const video = document.createElement('video');
+        video.className = 'w-100 h-100 rounded';
+        video.controls = true;
+        video.innerHTML = `<source src="${src}" type="video/mp4">`;
+        mediaContent.appendChild(video);
+    }
+    mediaMeta.textContent = `Timestamp: ${ts} • GPS: ${gps}`;
+    mediaModal.show();
+}
+
+document.querySelectorAll('.view-media').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const {
+            type,
+            src,
+            ts,
+            gps
+        } = e.currentTarget.dataset;
+        openMediaViewer(type, src, ts, gps);
+    });
+});
+
+// Table: quick sort/filter (client-side demo)
+(function initTable() {
+    const table = document.getElementById('evidenceTable');
+    const tbody = table.querySelector('tbody');
+    const typeFilter = document.getElementById('typeFilter');
+    const qualityFilter = document.getElementById('qualityFilter');
+    const searchInput = document.getElementById('evidenceSearch');
+
+    function applyFilters() {
+        const typeVal = typeFilter.value.toLowerCase();
+        const qualVal = qualityFilter.value.toLowerCase();
+        const term = (searchInput.value || '').toLowerCase();
+        [...tbody.rows].forEach(row => {
+            const type = row.cells[1].textContent.toLowerCase();
+            const ts = row.cells[2].textContent.toLowerCase();
+            const gps = row.cells[3].textContent.toLowerCase();
+            const qual = row.cells[4].textContent.toLowerCase();
+            const matchType = !typeVal || type === typeVal;
+            const matchQual = !qualVal || qual.includes(qualVal);
+            const matchSearch = !term || [type, ts, gps].some(v => v.includes(term));
+            row.style.display = (matchType && matchQual && matchSearch) ? '' : 'none';
+        });
+    }
+
+    typeFilter.addEventListener('change', applyFilters);
+    qualityFilter.addEventListener('change', applyFilters);
+    searchInput.addEventListener('input', applyFilters);
+
+    table.querySelectorAll('.sortable').forEach(th => {
+        let asc = true;
+        th.addEventListener('click', () => {
+            const idx = [...th.parentElement.children].indexOf(th);
+            const rows = [...tbody.rows].filter(r => r.style.display !== 'none');
+            rows.sort((a, b) => {
+                const av = a.cells[idx].textContent.trim();
+                const bv = b.cells[idx].textContent.trim();
+                return asc ? av.localeCompare(bv) : bv.localeCompare(av);
+            });
+            rows.forEach(r => tbody.appendChild(r));
+            asc = !asc;
+        });
+    });
+
+    // Table view buttons link to corresponding gallery items
+    document.querySelectorAll('.table-view').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const seed = e.currentTarget.getAttribute('data-target-seed');
+            const cardImg = document.querySelector(`.media-thumb[data-seed="${seed}"]`);
+            if (cardImg) {
+                cardImg.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                cardImg.classList.add('ring');
+                setTimeout(() => cardImg.classList.remove('ring'), 1200);
+            }
+        });
+    });
+})();
+
+// Leaflet Map
+let map, boundaryLayer, markersLayer;
+
+function initMap() {
+    map = L.map('map');
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Example project boundary (polygon)
+    const boundaryCoords = [
+        [24.9205, 67.0800],
+        [24.9160, 67.0950],
+        [24.9100, 67.0940],
+        [24.9075, 67.0820],
+        [24.9130, 67.0785]
+    ];
+    boundaryLayer = L.polygon(boundaryCoords, {
+        color: '#81C784',
+        weight: 2,
+        fillColor: '#81C784',
+        fillOpacity: 0.15
+    });
+    boundaryLayer.addTo(map);
+
+    // Evidence markers
+    const evidence = [{
+        id: 'ev1',
+        lat: 24.9123,
+        lng: 67.0934,
+        ts: '2025-09-12 09:10',
+        type: 'photo'
+    }, {
+        id: 'ev2',
+        lat: 24.9129,
+        lng: 67.0911,
+        ts: '2025-09-12 09:22',
+        type: 'photo'
+    }, {
+        id: 'ev3',
+        lat: 24.9135,
+        lng: 67.0891,
+        ts: '2025-09-12 09:39',
+        type: 'video'
+    }, {
+        id: 'ev4',
+        lat: 24.9161,
+        lng: 67.0875,
+        ts: '2025-09-12 10:02',
+        type: 'photo'
+    }, {
+        id: 'ev5',
+        lat: 24.9175,
+        lng: 67.0840,
+        ts: '2025-09-12 10:26',
+        type: 'photo'
+    }, {
+        id: 'ev6',
+        lat: 24.9192,
+        lng: 67.0813,
+        ts: '2025-09-12 10:58',
+        type: 'video'
+    }];
+
+    markersLayer = L.layerGroup();
+    evidence.forEach(item => {
+        const iconHtml = item.type === 'photo' ? '<i class="fa-solid fa-camera"></i>' : '<i class="fa-solid fa-video"></i>';
+        const divIcon = L.divIcon({
+            className: 'evidence-icon',
+            html: iconHtml,
+            iconSize: [24, 24]
+        });
+        const marker = L.marker([item.lat, item.lng], {
+            icon: divIcon
+        });
+        marker.on('click', () => {
+            const thumb = `https://picsum.photos/seed/${item.id}/300/180`;
+            marker.bindPopup(`
+            <div class="small">
+              <img src="${thumb}" class="img-fluid rounded mb-2" alt="thumb" onerror="this.onerror=null;this.src='https://picsum.photos/seed/${item.id}/300/180'" />
+              <div><strong>${item.type.toUpperCase()}</strong> • ${item.ts}</div>
+              <div class="text-muted">${item.lat.toFixed(4)}, ${item.lng.toFixed(4)}</div>
+            </div>
+          `).openPopup();
+            document.getElementById('selectedEvidence').innerHTML = `
+            <div class="d-flex gap-2 align-items-center">
+              <span class="badge ${item.type==='photo' ? 'text-bg-primary' : 'text-bg-info'} text-uppercase">${item.type}</span>
+              <span class="small text-muted">${item.ts}</span>
+            </div>
+            <div class="mt-1">GPS: <span class="fw-semibold">${item.lat.toFixed(4)}, ${item.lng.toFixed(4)}</span></div>
+            <button class="btn btn-sm btn-outline-success mt-2" id="viewFromMap">Open in Viewer</button>
+          `;
+            setTimeout(() => {
+                const btn = document.getElementById('viewFromMap');
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        // open corresponding gallery item if exists
+                        const galleryBtn = document.querySelector(`.table-view[data-target-seed="${item.id}"]`);
+                        if (galleryBtn) galleryBtn.click();
+                    });
+                }
+            }, 50);
+        });
+        markersLayer.addLayer(marker);
+    });
+    markersLayer.addTo(map);
+
+    const allCoords = boundaryCoords.concat(evidence.map(e => [e.lat, e.lng]));
+    map.fitBounds(allCoords);
+
+    document.getElementById('mapLoading').classList.add('d-none');
+
+    document.getElementById('zoomProject').addEventListener('click', () => {
+        map.fitBounds(boundaryCoords);
+    });
+    let boundaryVisible = true;
+    document.getElementById('toggleBoundary').addEventListener('click', () => {
+        boundaryVisible = !boundaryVisible;
+        if (boundaryVisible) {
+            boundaryLayer.addTo(map);
+        } else {
+            boundaryLayer.removeFrom(map);
+        }
+    });
+    document.getElementById('clearSelection').addEventListener('click', () => {
+        document.getElementById('selectedEvidence').textContent = 'Click a pin on the map to see details...';
+        map.closePopup();
+    });
+}
+
+// AI Chart (Chart.js)
+function initChart() {
+    const ctx = document.getElementById('ndviChart');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            datasets: [{
+                label: 'NDVI',
+                data: [0.42, 0.45, 0.51, 0.56, 0.61, 0.64, 0.66, 0.68],
+                borderColor: '#81C784',
+                backgroundColor: 'rgba(129,199,132,0.15)',
+                tension: 0.25,
+                fill: true,
+                pointRadius: 3,
+                pointHoverRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    suggestedMin: 0.3,
+                    suggestedMax: 0.8,
+                    grid: {
+                        color: 'rgba(0,0,0,0.05)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+    document.getElementById('chartLoading').classList.add('d-none');
+}
+
+// Image comparison slider
+function initCompare() {
+    const slider = document.getElementById('compareSlider');
+    const afterImg = document.querySelector('#compareContainer .after');
+    const apply = (val) => {
+        const pct = parseInt(val, 10);
+        afterImg.style.clipPath = `inset(0 0 0 ${pct}%)`;
+    };
+    apply(slider.value);
+    slider.addEventListener('input', (e) => apply(e.target.value));
+}
+
+// Approve / Reject using SweetAlert2
+function initDecisionActions() {
+    const approveBtn = document.getElementById('approveBtn');
+    const rejectBtn = document.getElementById('rejectBtn');
+    const credits = document.getElementById('mintableCredits').textContent;
+
+    approveBtn.addEventListener('click', async () => {
+        const res = await Swal.fire({
+            title: 'Confirm Approval',
+            html: `<div class="text-start">You are about to approve <strong>SR-2025-001</strong>.<br/>This will mint <strong>${credits}</strong> to the developer's account.</div>`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm & Mint',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#198754'
+        });
+        if (res.isConfirmed) {
+            Swal.fire({
+                title: 'Processing...',
+                html: 'Triggering smart contract minting transaction.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            // Simulate API
+            setTimeout(() => {
+                Swal.fire({
+                    title: 'Success',
+                    html: 'Credits minted and submission approved.<br/>Redirecting to Verification Queue...',
+                    icon: 'success',
+                    timer: 1800,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+                setTimeout(() => {
+                    window.location.href = './project_review_page.html';
+                }, 1800);
+            }, 1800);
+        }
+    });
+
+    rejectBtn.addEventListener('click', async () => {
+        const {
+            value: reason
+        } = await Swal.fire({
+            title: 'Reject Submission',
+            input: 'textarea',
+            inputLabel: 'Provide a clear reason for rejection',
+            inputPlaceholder: 'Explain why SR-2025-001 does not meet criteria... (required)',
+            inputAttributes: {
+                'aria-label': 'Rejection reason'
+            },
+            inputValidator: (value) => {
+                if (!value) return 'Rejection reason is required';
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Submit Rejection',
+            confirmButtonColor: '#dc3545'
+        });
+        if (reason) {
+            Swal.fire({
+                title: 'Submitting...',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+            setTimeout(() => {
+                Swal.fire({
+                    title: 'Rejected',
+                    html: 'The submission has been rejected and the developer has been notified.',
+                    icon: 'success'
+                }).then(() => {
+                    // Optionally redirect back to queue
+                    window.location.href = './project_review_page.html';
+                });
+            }, 1200);
+        }
+    });
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', () => {
+    // Map only when map tab is visible or after small delay
+    const initMapOnce = () => {
+        if (!window._mapInit) {
+            initMap();
+            window._mapInit = true;
+        }
+    };
+    // Initialize immediately (so map is ready if tab opened)
+    setTimeout(initMapOnce, 400);
+
+    // Chart & compare
+    setTimeout(initChart, 500);
+    initCompare();
+
+    // Decisions
+    initDecisionActions();
+
+    // Filter buttons for gallery (demo)
+    document.querySelectorAll('[data-filter]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const type = btn.getAttribute('data-filter');
+            document.querySelectorAll('#mediaGallery > [data-type]').forEach(card => {
+                const ctype = card.getAttribute('data-type');
+                card.style.display = (type === 'all' || type === ctype) ? '' : 'none';
+            });
+        });
+    });
+});
+  </script>
+ </body>
+</html>

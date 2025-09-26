@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   BlueCarbonMRV – Restoring Blue Carbon Ecosystems
+  </title>
+  <!-- Brand Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <!-- Site Theme -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="home_page.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <!-- Optional Offcanvas Sidebar for Public pages (Home Page includes it) -->
+  <div aria-labelledby="sidebarLabel" class="offcanvas offcanvas-start public-sidebar" id="sidebarMenu" tabindex="-1">
+   <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title d-flex align-items-center" id="sidebarLabel">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="brand-text">
+      BlueCarbonMRV
+     </span>
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body d-flex flex-column">
+    <div class="nav flex-column gap-1">
+     <a class="nav-link d-flex align-items-center active" data-page="home_page" href="./home_page.html">
+      <i class="fa-solid fa-house me-2">
+      </i>
+      Home
+     </a>
+     <a class="nav-link d-flex align-items-center" data-page="marketplace_page" href="./marketplace_page.html">
+      <i class="fa-solid fa-seedling me-2">
+      </i>
+      Projects
+     </a>
+     <a class="nav-link d-flex align-items-center" data-page="home_page#how" href="#how-it-works">
+      <i class="fa-solid fa-circle-info me-2">
+      </i>
+      How It Works
+     </a>
+     <hr/>
+     <a class="nav-link d-flex align-items-center" data-page="login_page" href="./login_page.html">
+      <i class="fa-solid fa-right-to-bracket me-2">
+      </i>
+      Log In
+     </a>
+     <a class="nav-link d-flex align-items-center" data-page="registration_page" href="./registration_page.html">
+      <i class="fa-solid fa-user-plus me-2">
+      </i>
+      Sign Up
+     </a>
+    </div>
+   </div>
+  </div>
+  <!-- Public/Guest Header (Sticky) -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top main-header">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenu" class="btn btn-outline-success me-2 d-lg-none" data-bs-target="#sidebarMenu" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./home_page.html" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="brand-text">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <button aria-controls="publicNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#publicNav" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="publicNav">
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+       <a class="nav-link" data-page="marketplace_page" href="./marketplace_page.html">
+        Projects
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="#how-it-works">
+        How It Works
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="./home_page.html">
+        Home
+       </a>
+      </li>
+     </ul>
+     <!-- Search (primarily visible/used on marketplace_page) -->
+     <form class="d-none d-lg-flex me-3" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+       </span>
+       <input aria-label="Search" class="form-control" disabled="" placeholder="Search projects" type="search"/>
+      </div>
+     </form>
+     <ul class="navbar-nav align-items-lg-center">
+      <li class="nav-item me-2 d-none d-lg-inline">
+       <a class="btn btn-outline-success" data-page="login_page" href="./login_page.html">
+        Log In
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="btn btn-success" data-page="registration_page" href="./registration_page.html" style="background-color: var(--color-success); border-color: var(--color-success);">
+        Sign Up
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- System feedback alert (dismissible) -->
+  <div class="container pt-3">
+   <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong>
+     Public Beta:
+    </strong>
+    Platform data shown here is sample for demonstration. Sign up to get notified when we launch.
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button">
+    </button>
+   </div>
+  </div>
+  <!-- Hero Section -->
+  <header class="hero-section position-relative overflow-hidden">
+   <div class="hero-bg">
+   </div>
+   <div class="container position-relative z-1">
+    <div class="row align-items-center py-5 py-lg-6">
+     <div class="col-lg-7 text-center text-lg-start">
+      <h1 class="display-5 fw-bold text-strong mb-3">
+       Measure. Verify. Restore. Finance Blue Carbon at Scale.
+      </h1>
+      <p class="lead text-muted mb-4">
+       A transparent platform connecting Panchayats, NGOs, and Investors to fund mangrove restoration with verifiable climate and community impact.
+      </p>
+      <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+       <a class="btn btn-success btn-lg" href="./marketplace_page.html">
+        <i class="fa-solid fa-seedling me-2">
+        </i>
+        Explore Projects
+       </a>
+       <a class="btn btn-outline-success btn-lg" href="#how-it-works">
+        How it works
+       </a>
+      </div>
+     </div>
+     <div class="col-lg-5 d-none d-lg-block">
+      <div class="app-card shadow-2 p-0 overflow-hidden rounded-3 hero-visual">
+       <img alt="Blue Carbon Restoration" class="w-100 h-100 object-fit-cover" onerror="this.onerror=null;this.src='https://picsum.photos/seed/fallback/900/700';" src="https://picsum.photos/seed/bluecarbon-hero/900/700"/>
+      </div>
+     </div>
+    </div>
+   </div>
+  </header>
+  <!-- Platform Statistics Bar -->
+  <section class="bg-white border-top border-bottom py-4" id="platform-stats">
+   <div class="container">
+    <div class="row g-3 align-items-stretch text-center" id="statsRow">
+     <div class="col-12 col-md-4">
+      <div class="metric-card h-100">
+       <div class="d-flex align-items-center justify-content-center gap-2">
+        <i class="fa-solid fa-certificate text-success fs-4">
+        </i>
+        <span class="metric-title">
+         Total Credits Minted
+        </span>
+       </div>
+       <div class="metric-value" id="statCredits">
+        <span class="skeleton" style="height:38px;display:inline-block;width:140px;border-radius:8px">
+        </span>
+       </div>
+      </div>
+     </div>
+     <div class="col-12 col-md-4">
+      <div class="metric-card h-100">
+       <div class="d-flex align-items-center justify-content-center gap-2">
+        <i class="fa-solid fa-circle-check text-primary fs-4">
+        </i>
+        <span class="metric-title">
+         Verified Projects
+        </span>
+       </div>
+       <div class="metric-value" id="statProjects">
+        <span class="skeleton" style="height:38px;display:inline-block;width:100px;border-radius:8px">
+        </span>
+       </div>
+      </div>
+     </div>
+     <div class="col-12 col-md-4">
+      <div class="metric-card h-100">
+       <div class="d-flex align-items-center justify-content-center gap-2">
+        <i class="fa-solid fa-tree text-warning fs-4">
+        </i>
+        <span class="metric-title">
+         Hectares Restored
+        </span>
+       </div>
+       <div class="metric-value" id="statHectares">
+        <span class="skeleton" style="height:38px;display:inline-block;width:120px;border-radius:8px">
+        </span>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="text-center small text-muted mt-2">
+     Figures update periodically — animated when visible.
+    </div>
+   </div>
+  </section>
+  <!-- Featured Projects Section -->
+  <main class="py-5">
+   <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+     <h2 class="page-title m-0">
+      Featured Projects
+     </h2>
+     <a class="btn btn-outline-success" href="./marketplace_page.html">
+      <i class="fa-solid fa-arrow-right me-2">
+      </i>
+      View All
+     </a>
+    </div>
+    <!-- Loading / Error States -->
+    <div aria-live="polite" class="loading-state" id="projectsLoading">
+     <div class="skeleton" style="height:18px;width:40%;">
+     </div>
+     <div class="grid auto-fit-lg mt-3">
+      <div class="skeleton" style="height:240px">
+      </div>
+      <div class="skeleton" style="height:240px">
+      </div>
+      <div class="skeleton" style="height:240px">
+      </div>
+     </div>
+    </div>
+    <div class="alert alert-danger d-none" id="projectsError" role="alert">
+     Unable to load featured projects. Please try again later.
+    </div>
+    <div class="row g-4" hidden="" id="featuredProjects">
+     <!-- Project Cards injected via JS -->
+    </div>
+    <!-- Optional Insights Card: Credits Minted Over Time -->
+    <div class="card mt-5 shadow-1">
+     <div class="card-header">
+      <div class="title d-flex align-items-center gap-2">
+       <i class="fa-solid fa-chart-line text-info">
+       </i>
+       <span class="widget-title">
+        Credits Minted Over Time
+       </span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <span class="badge-soft info">
+        <i class="fa-regular fa-clock me-1">
+        </i>
+        Updated hourly
+       </span>
+      </div>
+     </div>
+     <div class="card-body">
+      <canvas aria-label="Line chart showing credits minted trend" height="90" id="creditsChart">
+      </canvas>
+     </div>
+    </div>
+    <!-- Recently Verified Projects (Table with filtering/sorting) -->
+    <div class="card mt-5">
+     <div class="card-header">
+      <div class="title d-flex align-items-center gap-2">
+       <i class="fa-solid fa-circle-check text-success">
+       </i>
+       <span class="widget-title">
+        Recently Verified Projects
+       </span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <div class="input-group input-group-sm" style="width: 280px;">
+        <span class="input-group-text bg-white">
+         <i class="fa-solid fa-magnifying-glass text-muted">
+         </i>
+        </span>
+        <input aria-label="Filter projects" class="form-control" id="projectsFilter" placeholder="Filter by name or location" type="search"/>
+       </div>
+      </div>
+     </div>
+     <div class="card-body p-0">
+      <div class="table-responsive">
+       <table class="table table-theme mb-0" id="recentTable">
+        <thead>
+         <tr>
+          <th data-sort="name" role="button">
+           Project
+           <i class="fa-solid fa-sort ms-1 text-muted">
+           </i>
+          </th>
+          <th data-sort="location" role="button">
+           Location
+           <i class="fa-solid fa-sort ms-1 text-muted">
+           </i>
+          </th>
+          <th class="text-end" data-sort="credits" role="button">
+           Credits
+           <i class="fa-solid fa-sort ms-1 text-muted">
+           </i>
+          </th>
+          <th data-sort="date" role="button">
+           Verified On
+           <i class="fa-solid fa-sort ms-1 text-muted">
+           </i>
+          </th>
+          <th>
+           Action
+          </th>
+         </tr>
+        </thead>
+        <tbody id="recentTableBody">
+         <!-- Rows injected -->
+        </tbody>
+       </table>
+      </div>
+     </div>
+     <div class="card-footer d-flex justify-content-between align-items-center">
+      <small class="text-muted" id="paginationInfo">
+       Showing 0–0 of 0
+      </small>
+      <div class="text-muted small">
+       Sorted by:
+       <span id="sortedBy">
+        name
+       </span>
+      </div>
+     </div>
+    </div>
+    <!-- How it works -->
+    <section class="mt-5" id="how-it-works">
+     <div class="row g-4 align-items-stretch">
+      <div class="col-md-4">
+       <div class="app-card h-100 p-4">
+        <div class="d-flex align-items-center mb-2 gap-2">
+         <i class="fa-solid fa-leaf text-success">
+         </i>
+         <h3 class="h5 m-0">
+          1. Propose
+         </h3>
+        </div>
+        <p class="mb-0 text-muted">
+         Panchayats and NGOs submit restoration proposals with baseline imagery and community details.
+        </p>
+       </div>
+      </div>
+      <div class="col-md-4">
+       <div class="app-card h-100 p-4">
+        <div class="d-flex align-items-center mb-2 gap-2">
+         <i class="fa-solid fa-microscope text-info">
+         </i>
+         <h3 class="h5 m-0">
+          2. Verify
+         </h3>
+        </div>
+        <p class="mb-0 text-muted">
+         Independent verification with satellite, drone, and field data ensures integrity of credits minted.
+        </p>
+       </div>
+      </div>
+      <div class="col-md-4">
+       <div class="app-card h-100 p-4">
+        <div class="d-flex align-items-center mb-2 gap-2">
+         <i class="fa-solid fa-hand-holding-dollar text-warning">
+         </i>
+         <h3 class="h5 m-0">
+          3. Fund
+         </h3>
+        </div>
+        <p class="mb-0 text-muted">
+         Investors finance projects, communities gain livelihood, ecosystems recover — transparently tracked.
+        </p>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div>
+  </main>
+  <!-- Public Footer -->
+  <footer class="public-footer bg-light border-top mt-auto py-4">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="d-flex align-items-center">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <strong class="brand-text">
+      BlueCarbonMRV
+     </strong>
+    </div>
+    <div class="d-flex gap-3">
+     <a class="text-decoration-none" href="./marketplace_page.html">
+      Explore Projects
+     </a>
+     <a class="text-decoration-none" href="./registration_page.html">
+      Register
+     </a>
+    </div>
+    <div class="d-flex gap-3 small">
+     <a class="text-decoration-none" href="./terms.html">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./privacy.html">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast container -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
+   <div aria-atomic="true" aria-live="assertive" class="toast" id="liveToast" role="alert">
+    <div class="toast-header">
+     <i class="fa-solid fa-bell text-primary me-2">
+     </i>
+     <strong class="me-auto">
+      Notification
+     </strong>
+     <small>
+      just now
+     </small>
+     <button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+    <div class="toast-body">
+     Welcome to BlueCarbonMRV — explore featured projects below.
+    </div>
+   </div>
+  </div>
+  <!-- JS: Bootstrap, Chart.js, SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.all.min.js">
+  </script>
+  <script>
+   // Header scroll state
+(function() {
+    const nav = document.querySelector('.main-header');
+    const onScroll = () => {
+        if (window.scrollY > 8) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+    };
+    document.addEventListener('scroll', onScroll, {
+        passive: true
+    });
+    onScroll();
+})();
+
+// Smooth scroll for in-page links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const targetId = a.getAttribute('href');
+        if (targetId.length > 1) {
+            const el = document.querySelector(targetId);
+            if (el) {
+                e.preventDefault();
+                el.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+});
+
+// Mock API: Stats
+const fetchPlatformStats = () => new Promise(resolve => {
+    setTimeout(() => resolve({
+        credits: 1843200,
+        projects: 128,
+        hectares: 5342
+    }), 800);
+});
+
+// Count-up animation
+function animateCount(el, to, duration = 1500) {
+    const start = 0;
+    const startTs = performance.now();
+    const fmt = (n) => n.toLocaleString('en-US');
+
+    function step(ts) {
+        const progress = Math.min((ts - startTs) / duration, 1);
+        const current = Math.floor(progress * (to - start) + start);
+        el.textContent = fmt(current);
+        if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
+// Observe stats section to animate when visible
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(async (entry) => {
+        if (entry.isIntersecting) {
+            statsObserver.disconnect();
+            try {
+                const data = await fetchPlatformStats();
+                const creditsEl = document.getElementById('statCredits');
+                const projectsEl = document.getElementById('statProjects');
+                const hectaresEl = document.getElementById('statHectares');
+                creditsEl.innerHTML = '';
+                projectsEl.innerHTML = '';
+                hectaresEl.innerHTML = '';
+                animateCount(creditsEl, data.credits);
+                animateCount(projectsEl, data.projects, 1200);
+                animateCount(hectaresEl, data.hectares, 1300);
+            } catch (e) {
+                document.getElementById('platform-stats').insertAdjacentHTML('beforeend', '<div class="container mt-2"><div class="alert alert-danger">Failed to load platform statistics.</div></div>');
+            }
+        }
+    });
+}, {
+    threshold: 0.3
+});
+statsObserver.observe(document.getElementById('platform-stats'));
+
+// Mock API: Featured projects
+const sampleProjects = [{
+    id: 'mng-001',
+    name: 'Sundarbans Mangrove Revival',
+    location: 'West Bengal, India',
+    img: 'https://picsum.photos/seed/sundarbans/600/400',
+    desc: 'Community-led restoration across cyclone-affected creeks.'
+}, {
+    id: 'mng-002',
+    name: 'Godavari Delta Blue',
+    location: 'Andhra Pradesh, India',
+    img: 'https://picsum.photos/seed/godavari/600/400',
+    desc: 'Restoring degraded mangrove belts with native species.'
+}, {
+    id: 'mng-003',
+    name: 'Pichavaram Blue Shield',
+    location: 'Tamil Nadu, India',
+    img: 'https://picsum.photos/seed/pichavaram/600/400',
+    desc: 'Sediment stabilization and nursery-supported planting.'
+}, {
+    id: 'mng-004',
+    name: 'Kumbalangi Tidal Greens',
+    location: 'Kerala, India',
+    img: 'https://picsum.photos/seed/kumbalangi/600/400',
+    desc: 'Eco-tourism integrated restoration with local livelihoods.'
+}];
+
+function loadFeaturedProjects() {
+    const container = document.getElementById('featuredProjects');
+    const loading = document.getElementById('projectsLoading');
+    const error = document.getElementById('projectsError');
+    // Simulate network
+    setTimeout(() => {
+        try {
+            loading.classList.add('d-none');
+            container.hidden = false;
+            const take = 3; // show 3 on home
+            sampleProjects.slice(0, take).forEach(p => {
+                const col = document.createElement('div');
+                col.className = 'col-12 col-md-6 col-lg-4';
+                col.innerHTML = `
+              <a href="./project_details_page.html?id=${encodeURIComponent(p.id)}" class="text-decoration-none text-reset">
+                <div class="card h-100 project-card">
+                  <div class="ratio ratio-4x3 bg-light">
+                    <img src="${p.img}" alt="${p.name}" class="w-100 h-100 object-fit-cover" onerror="this.onerror=null;this.src='https://picsum.photos/seed/${p.id}/600/400';">
+                  </div>
+                  <div class="card-body">
+                    <h3 class="h5 card-title mb-1">${p.name}</h3>
+                    <p class="text-muted mb-2"><i class="fa-solid fa-location-dot me-1 text-primary"></i>${p.location}</p>
+                    <p class="card-text">${p.desc}</p>
+                  </div>
+                  <div class="card-footer d-flex justify-content-between align-items-center">
+                    <span class="badge-soft success"><i class="fa-solid fa-shield-heart me-1"></i>Verified</span>
+                    <span class="text-muted small">Learn more <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                  </div>
+                </div>
+              </a>`;
+                container.appendChild(col);
+            });
+        } catch (e) {
+            loading.classList.add('d-none');
+            error.classList.remove('d-none');
+        }
+    }, 900);
+}
+loadFeaturedProjects();
+
+// Chart.js: Credits over time (mock)
+(function initChart() {
+    const ctx = document.getElementById('creditsChart');
+    if (!ctx) return;
+    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const data = [42000, 58000, 61000, 75000, 91000, 105000, 120000, 138000, 149000, 160000, 175000, 184000];
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Credits Minted',
+                data,
+                fill: true,
+                tension: 0.35,
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-info') || '#0099D2',
+                backgroundColor: 'rgba(0,153,210,0.12)',
+                pointRadius: 3,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#0099D2',
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    ticks: {
+                        callback: (v) => v.toLocaleString()
+                    },
+                    grid: {
+                        color: 'rgba(0,0,0,0.06)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.parsed.y.toLocaleString()} credits`
+                    }
+                },
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+})();
+
+// Recently Verified Projects Table: Mock Data
+const tableData = [{
+    name: 'Sundarbans Mangrove Revival',
+    location: 'West Bengal, IN',
+    credits: 32000,
+    date: '2025-08-14',
+    id: 'mng-001'
+}, {
+    name: 'Godavari Delta Blue',
+    location: 'Andhra Pradesh, IN',
+    credits: 28000,
+    date: '2025-07-29',
+    id: 'mng-002'
+}, {
+    name: 'Pichavaram Blue Shield',
+    location: 'Tamil Nadu, IN',
+    credits: 21000,
+    date: '2025-07-10',
+    id: 'mng-003'
+}, {
+    name: 'Kumbalangi Tidal Greens',
+    location: 'Kerala, IN',
+    credits: 17000,
+    date: '2025-06-22',
+    id: 'mng-004'
+}, {
+    name: 'Mahanadi Delta Mangroves',
+    location: 'Odisha, IN',
+    credits: 19500,
+    date: '2025-06-02',
+    id: 'mng-005'
+}, {
+    name: 'Gulf of Kutch Channels',
+    location: 'Gujarat, IN',
+    credits: 24500,
+    date: '2025-05-18',
+    id: 'mng-006'
+}];
+
+const tableBody = document.getElementById('recentTableBody');
+const filterInput = document.getElementById('projectsFilter');
+const paginationInfo = document.getElementById('paginationInfo');
+const sortedByLabel = document.getElementById('sortedBy');
+const headers = document.querySelectorAll('#recentTable thead th[role="button"]');
+
+let currentSort = {
+    key: 'name',
+    dir: 'asc'
+};
+let filtered = [...tableData];
+
+function renderTable() {
+    const rows = filtered.map(row => `
+        <tr>
+          <td>${row.name}</td>
+          <td>${row.location}</td>
+          <td class="text-end">${row.credits.toLocaleString()}</td>
+          <td>${new Date(row.date).toLocaleDateString('en-GB', {year:'numeric', month:'short', day:'2-digit'})}</td>
+          <td>
+            <a class="btn btn-sm btn-outline-success" href="./project_details_page.html?id=${encodeURIComponent(row.id)}">View</a>
+          </td>
+        </tr>
+      `).join('');
+    tableBody.innerHTML = rows;
+    paginationInfo.textContent = `Showing 1–${filtered.length} of ${filtered.length}`;
+}
+
+function sortData(key) {
+    if (currentSort.key === key) {
+        currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort = {
+            key,
+            dir: 'asc'
+        };
+    }
+    filtered.sort((a, b) => {
+        let va = a[key],
+            vb = b[key];
+        if (key === 'date') {
+            va = new Date(va).getTime();
+            vb = new Date(vb).getTime();
+        }
+        if (va < vb) return currentSort.dir === 'asc' ? -1 : 1;
+        if (va > vb) return currentSort.dir === 'asc' ? 1 : -1;
+        return 0;
+    });
+    sortedByLabel.textContent = `${key} (${currentSort.dir})`;
+    renderTable();
+}
+
+headers.forEach(h => h.addEventListener('click', () => sortData(h.getAttribute('data-sort'))));
+filterInput.addEventListener('input', () => {
+    const q = filterInput.value.toLowerCase();
+    filtered = tableData.filter(r => r.name.toLowerCase().includes(q) || r.location.toLowerCase().includes(q));
+    sortData(currentSort.key);
+});
+
+// Initial render
+sortData('name');
+
+// SweetAlert2: Cookie/Consent prompt
+(function consent() {
+    const key = 'bcmrv_consent_v1';
+    if (!localStorage.getItem(key)) {
+        setTimeout(() => {
+            Swal.fire({
+                title: 'We value your privacy',
+                html: 'We use cookies to enhance your experience and analyze traffic. You can manage preferences later in settings.',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Accept',
+                cancelButtonText: 'Decline',
+                confirmButtonColor: getComputedStyle(document.documentElement).getPropertyValue('--color-success') || '#00774E'
+            }).then(res => {
+                localStorage.setItem(key, res.isConfirmed ? 'accepted' : 'declined');
+                const toastEl = document.getElementById('liveToast');
+                if (toastEl) new bootstrap.Toast(toastEl).show();
+            });
+        }, 600);
+    }
+})();
+  </script>
+ </body>
+</html>

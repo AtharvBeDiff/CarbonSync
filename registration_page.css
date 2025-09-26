@@ -1,0 +1,116 @@
+/* registration_page.css - page-specific styles */
+/* Use Poppins for this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Public sidebar/link styling (from common components) */
+:root {
+    --primary: #81C784;
+    --secondary: #90CAF9
+    }
+.brand-text {
+    font-weight: 700;
+    color: #2e7d32
+    }
+.public-sidebar .nav-link {
+    border-radius: 0.375rem
+    }
+.public-sidebar .nav-link:hover {
+    background-color: rgba(129, 199, 132, 0.15);
+    color: #2e7d32
+    }
+.public-sidebar .nav-link.active {
+    background-color: rgba(129, 199, 132, 0.2);
+    color: #2e7d32
+    }
+.public-footer a {
+    color: #2e7d32
+    }
+.public-footer a:hover {
+    color: #1565c0
+    }
+/* Registration stepper */
+.registration-stepper {
+    display: flex;
+    align-items: center;
+    gap: 12px
+    }
+.registration-stepper .step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted)
+    }
+.registration-stepper .step .circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    font-weight: 700
+    }
+.registration-stepper .step .label {
+    font-weight: 600;
+    font-size: 0.95rem
+    }
+.registration-stepper .divider {
+    flex: 1;
+    height: 2px;
+    background: var(--divider-color)
+    }
+.registration-stepper .step.active .circle {
+    border-color: var(--color-success);
+    background: var(--success-soft);
+    color: var(--color-success)
+    }
+.registration-stepper .step.active .label {
+    color: var(--text-strong)
+    }
+.registration-stepper .step.completed .circle {
+    border-color: var(--color-primary);
+    background: var(--primary-soft);
+    color: var(--text-strong)
+    }
+.registration-stepper .step.completed .label {
+    color: var(--text)
+    }
+/* Dropzone */
+.doc-dropzone {
+    cursor: pointer;
+    border-style: dashed !important;
+    border-color: var(--border-color) !important
+    }
+.doc-dropzone.drag-over {
+    background: var(--secondary-soft);
+    border-color: var(--color-secondary) !important
+    }
+/* Inputs */
+input.is-invalid, select.is-invalid {
+    border-color: var(--color-error) !important
+    }
+/* Strength text */
+#passwordStrengthText {
+    min-height: 1.2rem
+    }
+/* Card adjustments */
+.app-card .card-header {
+    background: var(--surface-0)
+    }
+/* Buttons */
+.btn-success {
+    background-color: var(--color-success);
+    border-color: var(--color-success)
+    }
+.btn-success:hover {
+    background-color: var(--success-600);
+    border-color: var(--success-600)
+    }
+/* Responsive tweaks */
+@media (max-width: 575.98px) {
+    .registration-stepper .label {
+        display: none
+        }
+    }

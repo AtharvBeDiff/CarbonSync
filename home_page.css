@@ -1,0 +1,92 @@
+/* Home Page Specific Styles (home_page.css) */
+:root {
+    --primary: #81C784;
+    --secondary: #90CAF9
+    }
+/* Brand font override for this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Public sidebar tweaks (from common component spec) */
+.brand-text {
+    font-weight: 700;
+    color: #2e7d32
+    }
+.public-sidebar .nav-link {
+    border-radius: 0.375rem
+    }
+.public-sidebar .nav-link:hover {
+    background-color: rgba(129, 199, 132, 0.15);
+    color: #2e7d32
+    }
+.public-sidebar .nav-link.active {
+    background-color: rgba(129, 199, 132, 0.2);
+    color: #2e7d32
+    }
+.public-footer a {
+    color: #2e7d32
+    }
+.public-footer a:hover {
+    color: #1565c0
+    }
+/* Header scrolled effect */
+.main-header {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease
+    }
+.main-header.scrolled {
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: var(--shadow-1)
+    }
+/* Hero Section */
+.hero-section {
+    position: relative;
+    min-height: 68vh;
+    display: grid;
+    align-items: center
+    }
+.hero-section .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(232, 236, 241, 0.6) 0%, rgba(249, 249, 250, 0.95) 100%), url(https://picsum.photos/seed/bluecarbon-cover/1600/900) center/cover no-repeat;
+    filter: none
+    }
+.hero-section .hero-visual {
+    height: 340px
+    }
+.hero-section .hero-visual img {
+    object-fit: cover
+    }
+/* Project cards */
+.project-card .card-title {
+    color: var(--text-strong)
+    }
+.project-card img {
+    transition: transform 0.35s ease
+    }
+.project-card:hover img {
+    transform: scale(1.03)
+    }
+/* Stats icons */
+.metric-card i {
+    line-height: 1
+    }
+/* Table interactions */
+#recentTable thead th[role="button"] {
+    user-select: none
+    }
+#recentTable tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02)
+    }
+/* Utilities */
+.object-fit-cover {
+    object-fit: cover
+    }
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .hero-section {
+        min-height: 56vh
+        }
+    .hero-section .hero-visual {
+        height: 280px
+        }
+    }

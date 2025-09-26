@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   BlueCarbonMRV — Marketplace
+  </title>
+  <!-- Brand Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <!-- Leaflet (Map) -->
+  <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+  <!-- SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.6/dist/sweetalert2.min.css" rel="stylesheet"/>
+  <!-- Global Theme CSS -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="marketplace_page.css" rel="stylesheet"/>
+ </head>
+ <body class="d-flex flex-column min-vh-100">
+  <!-- Optional Offcanvas Sidebar for Public pages (Marketplace) -->
+  <style>
+   :root { --primary:#81C784; --secondary:#90CAF9; }
+    .brand-text { font-weight:700; color:#2e7d32; }
+    .public-sidebar .nav-link { border-radius:.375rem; }
+    .public-sidebar .nav-link:hover { background-color: rgba(129,199,132,.15); color:#2e7d32; }
+    .public-sidebar .nav-link.active { background-color: rgba(129,199,132,.2); color:#2e7d32; }
+    .public-footer a { color:#2e7d32; }
+    .public-footer a:hover { color:#1565c0; }
+  </style>
+  <div aria-labelledby="sidebarLabel" class="offcanvas offcanvas-start public-sidebar" id="sidebarMenu" tabindex="-1">
+   <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title d-flex align-items-center" id="sidebarLabel">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="brand-text">
+      BlueCarbonMRV
+     </span>
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body d-flex flex-column">
+    <div class="nav flex-column gap-1">
+     <a class="nav-link d-flex align-items-center" data-page="home_page" href="./home_page.html">
+      <i class="fa-solid fa-house me-2">
+      </i>
+      Home
+     </a>
+     <a class="nav-link d-flex align-items-center active" data-page="marketplace_page" href="./marketplace_page.html">
+      <i class="fa-solid fa-seedling me-2">
+      </i>
+      Projects
+     </a>
+     <a class="nav-link d-flex align-items-center" data-page="home_page#how" href="./home_page.html#how-it-works">
+      <i class="fa-solid fa-circle-info me-2">
+      </i>
+      How It Works
+     </a>
+     <hr/>
+     <a class="nav-link d-flex align-items-center" data-page="login_page" href="./login_page.html">
+      <i class="fa-solid fa-right-to-bracket me-2">
+      </i>
+      Log In
+     </a>
+     <a class="nav-link d-flex align-items-center" data-page="registration_page" href="./registration_page.html">
+      <i class="fa-solid fa-user-plus me-2">
+      </i>
+      Sign Up
+     </a>
+    </div>
+   </div>
+  </div>
+  <!-- Public/Guest Header -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMenu" class="btn btn-outline-success me-2 d-lg-none" data-bs-target="#sidebarMenu" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./home_page.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="brand-text">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <button aria-controls="publicNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#publicNav" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="publicNav">
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+       <a class="nav-link active" data-page="marketplace_page" href="./marketplace_page.html">
+        Projects
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="./home_page.html#how-it-works">
+        How It Works
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="./home_page.html">
+        Home
+       </a>
+      </li>
+     </ul>
+     <!-- Search (primarily visible/used on marketplace_page) -->
+     <form class="d-none d-lg-flex me-3" id="headerSearchForm" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+       </span>
+       <input aria-label="Search" class="form-control" id="headerSearchInput" placeholder="Search projects" type="search"/>
+      </div>
+     </form>
+     <ul class="navbar-nav align-items-lg-center">
+      <li class="nav-item me-2 d-none d-lg-inline">
+       <a class="btn btn-outline-success" data-page="login_page" href="./login_page.html">
+        Log In
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="btn btn-success" data-page="registration_page" href="./registration_page.html" style="background-color: var(--primary); border-color: var(--primary);">
+        Sign Up
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <main class="flex-grow-1">
+   <div class="container-xxl py-4">
+    <!-- Page Title / Subtitle -->
+    <div class="page-header">
+     <div>
+      <h1 class="page-title mb-1">
+       Blue Carbon Projects Marketplace
+      </h1>
+      <p class="text-muted mb-0">
+       Discover, filter, and evaluate verified blue carbon projects. Switch between map and grid views, then view details to purchase credits.
+      </p>
+     </div>
+     <div class="d-none d-md-flex align-items-center gap-2">
+      <div class="badge-soft info">
+       <i class="fa-solid fa-shield-check me-1">
+       </i>
+       Verified Registry
+      </div>
+      <div class="badge-soft success">
+       <i class="fa-regular fa-circle-check me-1">
+       </i>
+       Quality Screened
+      </div>
+     </div>
+    </div>
+    <!-- Snapshot / Chart -->
+    <section class="mb-4">
+     <div class="row g-3">
+      <div class="col-12 col-xl-8">
+       <div class="card h-100">
+        <div class="card-header">
+         <div class="title d-flex align-items-center gap-2">
+          <i class="fa-solid fa-chart-column text-success">
+          </i>
+          <span class="widget-title">
+           Marketplace Snapshot
+          </span>
+         </div>
+         <div class="text-muted small">
+          Credits available by project type
+         </div>
+        </div>
+        <div class="card-body">
+         <canvas height="120" id="snapshotChart">
+         </canvas>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-xl-4">
+       <div class="metric-card h-100">
+        <div class="d-flex align-items-center justify-content-between">
+         <div>
+          <div class="metric-title">
+           Total Projects
+          </div>
+          <div class="metric-value" id="metricTotalProjects">
+           —
+          </div>
+         </div>
+         <i class="fa-solid fa-seedling fa-2x text-success">
+         </i>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+         <div>
+          <div class="metric-title">
+           Credits Available
+          </div>
+          <div class="metric-value" id="metricTotalCredits">
+           —
+          </div>
+         </div>
+         <i class="fa-regular fa-square-check fa-2x text-info">
+         </i>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+         <div>
+          <div class="metric-title">
+           Average Price
+          </div>
+          <div class="metric-value" id="metricAvgPrice">
+           —
+          </div>
+         </div>
+         <i class="fa-solid fa-tag fa-2x text-warning">
+         </i>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- Filter & Search Bar -->
+    <section class="mb-3">
+     <div class="card">
+      <div class="card-body">
+       <div class="row g-3 align-items-end">
+        <div class="col-12 col-md-4">
+         <label class="form-label" for="keywordSearch">
+          Search
+         </label>
+         <div class="input-group">
+          <span class="input-group-text bg-white">
+           <i class="fa-solid fa-magnifying-glass text-muted">
+           </i>
+          </span>
+          <input class="form-control" id="keywordSearch" placeholder="Search by name, developer or description" type="search"/>
+         </div>
+        </div>
+        <div class="col-12 col-md-3">
+         <label class="form-label" for="locationFilter">
+          Location
+         </label>
+         <select class="form-select" id="locationFilter">
+          <option selected="" value="all">
+           All Locations
+          </option>
+         </select>
+        </div>
+        <div class="col-12 col-md-3">
+         <label class="form-label" for="typeFilter">
+          Project Type
+         </label>
+         <select class="form-select" id="typeFilter">
+          <option selected="" value="all">
+           All Types
+          </option>
+          <option value="Mangrove Restoration">
+           Mangrove Restoration
+          </option>
+          <option value="Seagrass Conservation">
+           Seagrass Conservation
+          </option>
+          <option value="Saltmarsh Rehabilitation">
+           Saltmarsh Rehabilitation
+          </option>
+         </select>
+        </div>
+        <div class="col-12 col-md-2">
+         <label class="form-label" for="availabilityFilter">
+          Credits
+         </label>
+         <select class="form-select" id="availabilityFilter">
+          <option selected="" value="all">
+           Any
+          </option>
+          <option value="available">
+           Available only
+          </option>
+          <option value="soldout">
+           Sold out
+          </option>
+         </select>
+        </div>
+        <div class="col-12 col-md-3">
+         <label class="form-label" for="sortBy">
+          Sort by
+         </label>
+         <select class="form-select" id="sortBy">
+          <option value="relevance">
+           Relevance
+          </option>
+          <option value="credits_desc">
+           Credits: High to Low
+          </option>
+          <option value="credits_asc">
+           Credits: Low to High
+          </option>
+          <option value="price_asc">
+           Price: Low to High
+          </option>
+          <option value="price_desc">
+           Price: High to Low
+          </option>
+          <option value="name_asc">
+           Name: A to Z
+          </option>
+         </select>
+        </div>
+        <div class="col-12 col-md-3">
+         <label class="form-label" for="itemsPerPage">
+          Items per page
+         </label>
+         <select class="form-select" id="itemsPerPage">
+          <option value="6">
+           6
+          </option>
+          <option selected="" value="9">
+           9
+          </option>
+          <option value="12">
+           12
+          </option>
+          <option value="18">
+           18
+          </option>
+         </select>
+        </div>
+        <div class="col-12 col-md-3">
+         <label class="form-label d-block">
+          View
+         </label>
+         <div aria-label="View mode toggle" class="view-switcher" role="group">
+          <button class="option active" id="btnListView" type="button">
+           <i class="fa-solid fa-grip">
+           </i>
+           Grid
+          </button>
+          <button class="option" id="btnMapView" type="button">
+           <i class="fa-solid fa-map">
+           </i>
+           Map
+          </button>
+         </div>
+        </div>
+        <div class="col-12 col-md-3 text-md-end">
+         <button class="btn btn-light w-100" id="clearFilters">
+          <i class="fa-solid fa-rotate-left me-1">
+          </i>
+          Clear
+         </button>
+        </div>
+       </div>
+      </div>
+      <div class="card-footer d-flex flex-wrap gap-2 align-items-center">
+       <span class="small text-muted" id="resultsSummary">
+        Loading projects…
+       </span>
+       <div class="ms-auto d-none d-md-flex align-items-center gap-2">
+        <span class="small text-muted">
+         Tip:
+        </span>
+        <span class="badge-soft info">
+         <i class="fa-regular fa-lightbulb">
+         </i>
+         Use map to discover nearby projects
+        </span>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- Notification area (hidden by default) -->
+    <div class="alert alert-info d-none" id="systemAlert" role="alert">
+     <i class="fa-solid fa-circle-info me-1">
+     </i>
+     <span id="systemAlertText">
+      Info
+     </span>
+    </div>
+    <!-- Listings: Map and Grid Views -->
+    <section>
+     <!-- Map View -->
+     <div class="mb-3 d-none" id="mapViewContainer">
+      <div class="map-card" id="projectsMap">
+      </div>
+     </div>
+     <!-- Grid View -->
+     <div id="gridViewContainer">
+      <div class="row g-3 mb-3 d-none" id="gridLoading">
+       <!-- Skeletons shown during initial load -->
+       <div aria-hidden="true" class="col-12 col-md-6 col-lg-4">
+        <div class="card">
+         <div class="ratio ratio-16x9 skeleton">
+         </div>
+         <div class="card-body">
+          <div class="skeleton mb-2" style="height: 20px;">
+          </div>
+          <div class="skeleton mb-2" style="height: 14px; width: 60%;">
+          </div>
+          <div class="skeleton" style="height: 14px; width: 40%;">
+          </div>
+         </div>
+        </div>
+       </div>
+       <div aria-hidden="true" class="col-12 col-md-6 col-lg-4">
+        <div class="card">
+         <div class="ratio ratio-16x9 skeleton">
+         </div>
+         <div class="card-body">
+          <div class="skeleton mb-2" style="height: 20px;">
+          </div>
+          <div class="skeleton mb-2" style="height: 14px; width: 60%;">
+          </div>
+          <div class="skeleton" style="height: 14px; width: 40%;">
+          </div>
+         </div>
+        </div>
+       </div>
+       <div aria-hidden="true" class="col-12 col-md-6 col-lg-4">
+        <div class="card">
+         <div class="ratio ratio-16x9 skeleton">
+         </div>
+         <div class="card-body">
+          <div class="skeleton mb-2" style="height: 20px;">
+          </div>
+          <div class="skeleton mb-2" style="height: 14px; width: 60%;">
+          </div>
+          <div class="skeleton" style="height: 14px; width: 40%;">
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="row g-3" id="projectsGrid">
+      </div>
+      <div class="empty-state d-none mt-3" id="noResults">
+       <div class="text-center">
+        <i class="fa-regular fa-face-frown fa-2x text-muted mb-2">
+        </i>
+        <div class="h5 mb-1">
+         No projects match your filters
+        </div>
+        <p class="empty-state-text">
+         Try removing some filters or searching with different keywords.
+        </p>
+        <button class="btn btn-outline-secondary" id="btnResetFromEmpty">
+         <i class="fa-solid fa-rotate-left me-1">
+         </i>
+         Reset filters
+        </button>
+       </div>
+      </div>
+      <nav aria-label="Project pagination" class="mt-3">
+       <ul class="pagination justify-content-center" id="pagination">
+       </ul>
+      </nav>
+     </div>
+    </section>
+   </div>
+  </main>
+  <!-- Public Footer -->
+  <footer class="public-footer bg-light border-top mt-auto py-4">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="d-flex align-items-center">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <strong class="brand-text">
+      BlueCarbonMRV
+     </strong>
+    </div>
+    <div class="d-flex gap-3">
+     <a class="text-decoration-none" href="./marketplace_page.html">
+      Explore Projects
+     </a>
+     <a class="text-decoration-none" href="./registration_page.html">
+      Register
+     </a>
+    </div>
+    <div class="d-flex gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast container -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-dark border-0" id="welcomeToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body">
+      <i class="fa-solid fa-circle-check me-2 text-success">
+      </i>
+      Loaded marketplace data.
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.6/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Utility: debounce
+function debounce(fn, delay = 300) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// Mock dataset
+const projects = [{
+    id: 1,
+    name: 'Mangrove Revival - Delta North',
+    developer: 'BlueRoots Dev',
+    location: 'Nigeria',
+    type: 'Mangrove Restoration',
+    creditsAvailable: 250000,
+    pricePerCredit: 9.5,
+    lat: 5.489,
+    lng: 7.028,
+    img: 'https://picsum.photos/seed/m1/800/450',
+    desc: 'Restoring degraded mangrove stands with community-led planting and monitoring.'
+}, {
+    id: 2,
+    name: 'Seagrass Shield - Coral Bay',
+    developer: 'OceanCare Ltd',
+    location: 'Australia',
+    type: 'Seagrass Conservation',
+    creditsAvailable: 120000,
+    pricePerCredit: 12.0,
+    lat: -24.878,
+    lng: 113.661,
+    img: 'https://picsum.photos/seed/m2/800/450',
+    desc: 'Seagrass meadow protection across key nursery habitats for fisheries.'
+}, {
+    id: 3,
+    name: 'Saltmarsh Rise - Solent',
+    developer: 'Coastal Trust',
+    location: 'United Kingdom',
+    type: 'Saltmarsh Rehabilitation',
+    creditsAvailable: 0,
+    pricePerCredit: 14.2,
+    lat: 50.806,
+    lng: -1.104,
+    img: 'https://picsum.photos/seed/m3/800/450',
+    desc: 'Managed realignment enabling marsh expansion and long-term carbon storage.'
+}, {
+    id: 4,
+    name: 'Mangrove Mosaic - Sunderbans',
+    developer: 'DeltaGreen',
+    location: 'India',
+    type: 'Mangrove Restoration',
+    creditsAvailable: 420000,
+    pricePerCredit: 8.7,
+    lat: 21.949,
+    lng: 88.908,
+    img: 'https://picsum.photos/seed/m4/800/450',
+    desc: 'Community nurseries and hydrology fixes in cyclone-impacted blocks.'
+}, {
+    id: 5,
+    name: 'Seagrass Corridor - Lamu',
+    developer: 'Marine Nexus',
+    location: 'Kenya',
+    type: 'Seagrass Conservation',
+    creditsAvailable: 76000,
+    pricePerCredit: 10.8,
+    lat: -2.271,
+    lng: 40.902,
+    img: 'https://picsum.photos/seed/m5/800/450',
+    desc: 'Expanding protected seagrass corridors supporting sea turtle habitats.'
+}, {
+    id: 6,
+    name: 'Saltmarsh Rebirth - Bayou',
+    developer: 'Gulf Restore',
+    location: 'United States',
+    type: 'Saltmarsh Rehabilitation',
+    creditsAvailable: 188000,
+    pricePerCredit: 11.3,
+    lat: 29.849,
+    lng: -90.112,
+    img: 'https://picsum.photos/seed/m6/800/450',
+    desc: 'Sediment nourishment and invasive control to rebuild marsh elevation.'
+}, {
+    id: 7,
+    name: 'Mangrove Ring - Palawan',
+    developer: 'Isla Verde',
+    location: 'Philippines',
+    type: 'Mangrove Restoration',
+    creditsAvailable: 95000,
+    pricePerCredit: 9.9,
+    lat: 9.834,
+    lng: 118.738,
+    img: 'https://picsum.photos/seed/m7/800/450',
+    desc: 'Perimeter replanting to stabilize coasts and benefit fisheries.'
+}, {
+    id: 8,
+    name: 'Seagrass Safeguard - Med',
+    developer: 'Poseidon Labs',
+    location: 'Spain',
+    type: 'Seagrass Conservation',
+    creditsAvailable: 220000,
+    pricePerCredit: 13.1,
+    lat: 39.569,
+    lng: 2.650,
+    img: 'https://picsum.photos/seed/m8/800/450',
+    desc: 'Posidonia conservation and anchoring restrictions near tourist hubs.'
+}, {
+    id: 9,
+    name: 'Saltmarsh Tides - Delta Ebro',
+    developer: 'Iberia Blue',
+    location: 'Spain',
+    type: 'Saltmarsh Rehabilitation',
+    creditsAvailable: 53000,
+    pricePerCredit: 10.1,
+    lat: 40.706,
+    lng: 0.737,
+    img: 'https://picsum.photos/seed/m9/800/450',
+    desc: 'Tidal flow restoration and channel reactivation for marsh health.'
+}, {
+    id: 10,
+    name: 'Mangrove Shield - Yucatán',
+    developer: 'Marea Verde',
+    location: 'Mexico',
+    type: 'Mangrove Restoration',
+    creditsAvailable: 300000,
+    pricePerCredit: 8.9,
+    lat: 20.967,
+    lng: -89.623,
+    img: 'https://picsum.photos/seed/m10/800/450',
+    desc: 'Hydrological reconnection and assisted regeneration in lagoons.'
+}, {
+    id: 11,
+    name: 'Seagrass Network - Skagerrak',
+    developer: 'Nordic Blue',
+    location: 'Norway',
+    type: 'Seagrass Conservation',
+    creditsAvailable: 0,
+    pricePerCredit: 12.7,
+    lat: 58.970,
+    lng: 5.733,
+    img: 'https://picsum.photos/seed/m11/800/450',
+    desc: 'Nursery bed enhancement with buoyed “no-trawl” lanes across bays.'
+}, {
+    id: 12,
+    name: 'Saltmarsh Horizon - Wadden',
+    developer: 'Lowlands Coast',
+    location: 'Netherlands',
+    type: 'Saltmarsh Rehabilitation',
+    creditsAvailable: 145000,
+    pricePerCredit: 10.9,
+    lat: 53.195,
+    lng: 5.792,
+    img: 'https://picsum.photos/seed/m12/800/450',
+    desc: 'Brushwood dams and sills to foster sediment capture and accretion.'
+}, {
+    id: 13,
+    name: 'Mangrove Frontier - Mahakam',
+    developer: 'Borneo Blue',
+    location: 'Indonesia',
+    type: 'Mangrove Restoration',
+    creditsAvailable: 410000,
+    pricePerCredit: 8.4,
+    lat: -0.529,
+    lng: 117.164,
+    img: 'https://picsum.photos/seed/m13/800/450',
+    desc: 'Tidal channel re-opening and diverse species plantings with co-ops.'
+}, {
+    id: 14,
+    name: 'Seagrass Oasis - Zanzibar',
+    developer: 'CoastCare Africa',
+    location: 'Tanzania',
+    type: 'Seagrass Conservation',
+    creditsAvailable: 88000,
+    pricePerCredit: 11.8,
+    lat: -6.163,
+    lng: 39.197,
+    img: 'https://picsum.photos/seed/m14/800/450',
+    desc: 'Monitoring, marker buoys, and community patrols for meadows.'
+}, {
+    id: 15,
+    name: 'Mangrove Tapestry - Orinoco',
+    developer: 'Estuario Labs',
+    location: 'Venezuela',
+    type: 'Mangrove Restoration',
+    creditsAvailable: 210000,
+    pricePerCredit: 9.2,
+    lat: 9.000,
+    lng: -62.998,
+    img: 'https://picsum.photos/seed/m15/800/450',
+    desc: 'Reconnecting creeks and adaptive planting across estuary islands.'
+}, {
+    id: 16,
+    name: 'Saltmarsh Weave - Camargue',
+    developer: 'Delta France',
+    location: 'France',
+    type: 'Saltmarsh Rehabilitation',
+    creditsAvailable: 67000,
+    pricePerCredit: 11.0,
+    lat: 43.494,
+    lng: 4.428,
+    img: 'https://picsum.photos/seed/m16/800/450',
+    desc: 'Salinity management and pioneer vegetation re-establishment.'
+}];
+
+// State
+let state = {
+    search: '',
+    location: 'all',
+    type: 'all',
+    availability: 'all',
+    sort: 'relevance',
+    itemsPerPage: 9,
+    currentPage: 1,
+    view: 'grid',
+    isLoading: true
+};
+
+// Elements
+const el = {
+    headerSearchInput: document.getElementById('headerSearchInput'),
+    keywordSearch: document.getElementById('keywordSearch'),
+    locationFilter: document.getElementById('locationFilter'),
+    typeFilter: document.getElementById('typeFilter'),
+    availabilityFilter: document.getElementById('availabilityFilter'),
+    sortBy: document.getElementById('sortBy'),
+    itemsPerPage: document.getElementById('itemsPerPage'),
+    btnListView: document.getElementById('btnListView'),
+    btnMapView: document.getElementById('btnMapView'),
+    clearFilters: document.getElementById('clearFilters'),
+    resultsSummary: document.getElementById('resultsSummary'),
+    projectsGrid: document.getElementById('projectsGrid'),
+    gridLoading: document.getElementById('gridLoading'),
+    noResults: document.getElementById('noResults'),
+    btnResetFromEmpty: document.getElementById('btnResetFromEmpty'),
+    pagination: document.getElementById('pagination'),
+    mapViewContainer: document.getElementById('mapViewContainer'),
+    gridViewContainer: document.getElementById('gridViewContainer'),
+    metricTotalProjects: document.getElementById('metricTotalProjects'),
+    metricTotalCredits: document.getElementById('metricTotalCredits'),
+    metricAvgPrice: document.getElementById('metricAvgPrice'),
+    systemAlert: document.getElementById('systemAlert'),
+    systemAlertText: document.getElementById('systemAlertText')
+};
+
+// Bootstrap Toast
+const welcomeToast = new bootstrap.Toast(document.getElementById('welcomeToast'), {
+    delay: 2500
+});
+
+// Leaflet map
+let map, markersLayer;
+
+function initMap() {
+    if (map) return; // initialize once
+    map = L.map('projectsMap', {
+        zoomControl: true
+    });
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    });
+    tiles.addTo(map);
+    markersLayer = L.layerGroup().addTo(map);
+    map.setView([10, 10], 2);
+}
+
+function updateMapMarkers(data) {
+    if (!map) initMap();
+    markersLayer.clearLayers();
+    const bounds = [];
+    data.forEach(p => {
+        const m = L.marker([p.lat, p.lng]).addTo(markersLayer);
+        const avail = p.creditsAvailable > 0 ? `<span class="badge-soft success">${p.creditsAvailable.toLocaleString()} credits</span>` : `<span class="badge-soft warning">Sold out</span>`;
+        const popupHtml = `
+          <div class="p-1" style="min-width:220px">
+            <div class="fw-bold mb-1">${p.name}</div>
+            <div class="small text-muted mb-1"><i class="fa-solid fa-location-dot me-1"></i>${p.location} • ${p.type}</div>
+            <img src="${p.img}" onerror="this.src='https://picsum.photos/seed/fallback${p.id}/320/180'" class="rounded mb-2" style="width:100%;height:auto;object-fit:cover;" alt="${p.name}">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>${avail}</div>
+              <a class="btn btn-sm btn-primary" href="./project_details_page.html?id=${p.id}">View Details</a>
+            </div>
+          </div>`;
+        m.bindPopup(popupHtml);
+        bounds.push([p.lat, p.lng]);
+    });
+    if (bounds.length) {
+        map.fitBounds(bounds, {
+            padding: [30, 30]
+        });
+    }
+}
+
+// Filtering / Sorting / Pagination
+function applyFilters() {
+    const q = state.search.trim().toLowerCase();
+    let data = projects.slice();
+    // filter
+    data = data.filter(p => {
+        const matchesSearch = !q || (p.name.toLowerCase().includes(q) || p.developer.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+        const matchesLoc = state.location === 'all' || p.location === state.location;
+        const matchesType = state.type === 'all' || p.type === state.type;
+        let matchesAvail = true;
+        if (state.availability === 'available') matchesAvail = p.creditsAvailable > 0;
+        if (state.availability === 'soldout') matchesAvail = p.creditsAvailable === 0;
+        return matchesSearch && matchesLoc && matchesType && matchesAvail;
+    });
+    // sort
+    switch (state.sort) {
+        case 'credits_desc':
+            data.sort((a, b) => b.creditsAvailable - a.creditsAvailable);
+            break;
+        case 'credits_asc':
+            data.sort((a, b) => a.creditsAvailable - b.creditsAvailable);
+            break;
+        case 'price_asc':
+            data.sort((a, b) => a.pricePerCredit - b.pricePerCredit);
+            break;
+        case 'price_desc':
+            data.sort((a, b) => b.pricePerCredit - a.pricePerCredit);
+            break;
+        case 'name_asc':
+            data.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        default:
+            break; // relevance keeps original order
+    }
+    return data;
+}
+
+function renderPagination(totalItems) {
+    const per = state.itemsPerPage;
+    const totalPages = Math.max(1, Math.ceil(totalItems / per));
+    const current = Math.min(state.currentPage, totalPages);
+    state.currentPage = current;
+    const ul = el.pagination;
+    ul.innerHTML = '';
+    const createPageItem = (label, page, disabled = false, active = false, icon = null) => {
+        const li = document.createElement('li');
+        li.className = `page-item ${disabled ? 'disabled' : ''} ${active ? 'active' : ''}`;
+        const a = document.createElement('a');
+        a.className = 'page-link';
+        a.href = '#';
+        a.innerHTML = icon ? `<i class="${icon}"></i>` : label;
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!disabled) {
+                state.currentPage = page;
+                updateView();
+                window.scrollTo({
+                    top: document.querySelector('.navbar').offsetHeight + 12,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        li.appendChild(a);
+        return li;
+    };
+    ul.appendChild(createPageItem('', current - 1, current === 1, false, 'fa-solid fa-chevron-left'));
+    for (let p = 1; p <= totalPages; p++) {
+        if (p === 1 || p === totalPages || Math.abs(p - current) <= 1) {
+            ul.appendChild(createPageItem(String(p), p, false, p === current));
+        } else if (Math.abs(p - current) === 2) {
+            const li = document.createElement('li');
+            li.className = 'page-item disabled';
+            li.innerHTML = '<span class="page-link">…</span>';
+            ul.appendChild(li);
+        }
+    }
+    ul.appendChild(createPageItem('', current + 1, current === totalPages, false, 'fa-solid fa-chevron-right'));
+}
+
+function renderGrid(data) {
+    const per = state.itemsPerPage;
+    const start = (state.currentPage - 1) * per;
+    const items = data.slice(start, start + per);
+    el.projectsGrid.innerHTML = '';
+    items.forEach(p => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-6 col-lg-4';
+        col.innerHTML = `
+          <div class="card project-card h-100">
+            <div class="position-relative">
+              <img src="${p.img}" onerror="this.src='https://picsum.photos/seed/fallback${p.id}/800/450'" class="card-img-top project-img" alt="${p.name}">
+              ${p.creditsAvailable>0 ? `<span class='availability-badge badge bg-success-subtle text-success'><i class='fa-regular fa-circle-check me-1'></i>Available</span>` : `<span class='availability-badge badge bg-warning-subtle text-dark'><i class='fa-regular fa-clock me-1'></i>Waitlist</span>`}
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">${p.name}</h5>
+              <div class="small text-muted mb-2"><i class="fa-solid fa-location-dot me-1"></i>${p.location} • ${p.type}</div>
+              <p class="card-text flex-grow-1">${p.desc}</p>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="d-flex flex-column">
+                  <span class="small text-muted">Available Credits</span>
+                  <strong>${p.creditsAvailable.toLocaleString()}</strong>
+                </div>
+                <div class="text-end">
+                  <span class="small text-muted">Price/credit</span>
+                  <div class="fw-bold">$${p.pricePerCredit.toFixed(2)}</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <a href="./project_details_page.html?id=${p.id}" class="btn btn-light"><i class="fa-regular fa-file-lines me-1"></i>Details</a>
+              <button class="btn btn-primary" data-project-id="${p.id}"><i class="fa-solid fa-cart-shopping me-1"></i>Buy Credits</button>
+            </div>
+          </div>`;
+        el.projectsGrid.appendChild(col);
+    });
+    // Attach Buy handlers
+    el.projectsGrid.querySelectorAll('button.btn-primary').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const id = Number(e.currentTarget.getAttribute('data-project-id'));
+            const proj = projects.find(pp => pp.id === id);
+            Swal.fire({
+                title: 'Proceed to purchase?',
+                html: `<div class='text-start'>
+                    <div class='mb-2'><strong>${proj.name}</strong></div>
+                    <div class='small text-muted mb-2'><i class="fa-solid fa-location-dot me-1"></i>${proj.location} • ${proj.type}</div>
+                    <div class='d-flex justify-content-between'><span>Available:</span><strong>${proj.creditsAvailable.toLocaleString()} credits</strong></div>
+                    <div class='d-flex justify-content-between'><span>Price per credit:</span><strong>$${proj.pricePerCredit.toFixed(2)}</strong></div>
+                   </div>`,
+                showCancelButton: true,
+                confirmButtonText: 'Login to Continue',
+                cancelButtonText: 'Cancel',
+                icon: 'info'
+            }).then(res => {
+                if (res.isConfirmed) {
+                    window.location.href = './login_page.html';
+                }
+            });
+        });
+    });
+}
+
+function updateMetrics(dataAll) {
+    const totalProjects = dataAll.length;
+    const totalCredits = dataAll.reduce((s, p) => s + p.creditsAvailable, 0);
+    const avgPrice = dataAll.reduce((s, p) => s + p.pricePerCredit, 0) / dataAll.length;
+    el.metricTotalProjects.textContent = totalProjects.toLocaleString();
+    el.metricTotalCredits.textContent = totalCredits.toLocaleString();
+    el.metricAvgPrice.textContent = isFinite(avgPrice) ? `$${avgPrice.toFixed(2)}` : '—';
+}
+
+function renderChart() {
+    const ctx = document.getElementById('snapshotChart');
+    const types = ['Mangrove Restoration', 'Seagrass Conservation', 'Saltmarsh Rehabilitation'];
+    const sums = types.map(t => projects.filter(p => p.type === t).reduce((s, p) => s + p.creditsAvailable, 0));
+    const bg = ['rgba(129,199,132,0.4)', 'rgba(144,202,249,0.4)', 'rgba(0,153,210,0.35)'];
+    const bd = ['#81C784', '#90CAF9', '#0099D2'];
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: types,
+            datasets: [{
+                label: 'Credits',
+                data: sums,
+                backgroundColor: bg,
+                borderColor: bd,
+                borderWidth: 1,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => ctx.parsed.y.toLocaleString() + ' credits'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: (v) => v.toLocaleString()
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateSummaryText(totalFiltered) {
+    const start = totalFiltered ? (state.currentPage - 1) * state.itemsPerPage + 1 : 0;
+    const end = Math.min(state.currentPage * state.itemsPerPage, totalFiltered);
+    el.resultsSummary.textContent = totalFiltered ? `Showing ${start}-${end} of ${totalFiltered.toLocaleString()} projects` : 'No projects to show';
+}
+
+function fillLocationOptions() {
+    const unique = Array.from(new Set(projects.map(p => p.location))).sort();
+    unique.forEach(loc => {
+        const opt = document.createElement('option');
+        opt.value = loc;
+        opt.textContent = loc;
+        el.locationFilter.appendChild(opt);
+    });
+}
+
+function setActiveViewButtons() {
+    if (state.view === 'grid') {
+        el.btnListView.classList.add('active');
+        el.btnMapView.classList.remove('active');
+        el.gridViewContainer.classList.remove('d-none');
+        el.mapViewContainer.classList.add('d-none');
+    } else {
+        el.btnMapView.classList.add('active');
+        el.btnListView.classList.remove('active');
+        el.mapViewContainer.classList.remove('d-none');
+        el.gridViewContainer.classList.add('d-none');
+    }
+}
+
+function updateView() {
+    const filtered = applyFilters();
+    updateSummaryText(filtered.length);
+    if (state.view === 'map') {
+        setActiveViewButtons();
+        updateMapMarkers(filtered);
+        el.noResults.classList.toggle('d-none', filtered.length !== 0);
+    } else {
+        setActiveViewButtons();
+        if (filtered.length === 0) {
+            el.noResults.classList.remove('d-none');
+            el.projectsGrid.innerHTML = '';
+            el.pagination.innerHTML = '';
+        } else {
+            el.noResults.classList.add('d-none');
+            renderPagination(filtered.length);
+            renderGrid(filtered);
+        }
+    }
+}
+
+function resetFilters() {
+    state.search = '';
+    state.location = 'all';
+    state.type = 'all';
+    state.availability = 'all';
+    state.sort = 'relevance';
+    state.itemsPerPage = 9;
+    state.currentPage = 1;
+    // reset UI
+    el.headerSearchInput.value = '';
+    el.keywordSearch.value = '';
+    el.locationFilter.value = 'all';
+    el.typeFilter.value = 'all';
+    el.availabilityFilter.value = 'all';
+    el.sortBy.value = 'relevance';
+    el.itemsPerPage.value = '9';
+    updateView();
+}
+
+// Event wiring
+document.addEventListener('DOMContentLoaded', () => {
+    // Font face already loaded via Google Fonts; apply metrics and chart
+    fillLocationOptions();
+    updateMetrics(projects);
+    renderChart();
+
+    // Loading UI
+    el.gridLoading.classList.remove('d-none');
+    setTimeout(() => {
+        state.isLoading = false;
+        el.gridLoading.classList.add('d-none');
+        updateView();
+        welcomeToast.show();
+    }, 800);
+
+    // Listeners
+    const onSearchChanged = debounce((val) => {
+        state.search = val;
+        state.currentPage = 1;
+        updateView();
+    }, 300);
+    el.keywordSearch.addEventListener('input', e => onSearchChanged(e.target.value));
+    if (el.headerSearchInput) el.headerSearchInput.addEventListener('input', e => {
+        el.keywordSearch.value = e.target.value;
+        onSearchChanged(e.target.value);
+    });
+
+    el.locationFilter.addEventListener('change', e => {
+        state.location = e.target.value;
+        state.currentPage = 1;
+        updateView();
+    });
+    el.typeFilter.addEventListener('change', e => {
+        state.type = e.target.value;
+        state.currentPage = 1;
+        updateView();
+    });
+    el.availabilityFilter.addEventListener('change', e => {
+        state.availability = e.target.value;
+        state.currentPage = 1;
+        updateView();
+    });
+    el.sortBy.addEventListener('change', e => {
+        state.sort = e.target.value;
+        state.currentPage = 1;
+        updateView();
+    });
+    el.itemsPerPage.addEventListener('change', e => {
+        state.itemsPerPage = Number(e.target.value);
+        state.currentPage = 1;
+        updateView();
+    });
+
+    el.btnListView.addEventListener('click', () => {
+        state.view = 'grid';
+        setActiveViewButtons();
+        updateView();
+    });
+    el.btnMapView.addEventListener('click', () => {
+        state.view = 'map';
+        initMap();
+        setActiveViewButtons();
+        updateView();
+    });
+
+    el.clearFilters.addEventListener('click', () => {
+        resetFilters();
+        showSystemAlert('Filters cleared.');
+    });
+    el.btnResetFromEmpty.addEventListener('click', () => {
+        resetFilters();
+    });
+});
+
+function showSystemAlert(msg) {
+    el.systemAlertText.textContent = msg;
+    el.systemAlert.classList.remove('d-none');
+    setTimeout(() => el.systemAlert.classList.add('d-none'), 2000);
+}
+  </script>
+ </body>
+</html>

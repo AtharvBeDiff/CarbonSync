@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   BlueCarbonMRV — Log In
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <!-- Global Theme Styles -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="login_page.css" rel="stylesheet"/>
+ </head>
+ <body class="d-flex flex-column min-vh-100">
+  <!-- Header (Public/Guest Header) - No sidebar toggle on login page -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+   <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="./home_page.html">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <span class="brand-text">
+      BlueCarbonMRV
+     </span>
+    </a>
+    <button aria-controls="publicNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#publicNav" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="publicNav">
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+       <a class="nav-link" data-page="marketplace_page" href="./marketplace_page.html">
+        Projects
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="./home_page.html#how-it-works">
+        How It Works
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="./home_page.html">
+        Home
+       </a>
+      </li>
+     </ul>
+     <ul class="navbar-nav align-items-lg-center">
+      <li class="nav-item me-2 d-none d-lg-inline">
+       <a class="btn btn-outline-success" data-page="login_page" href="./login_page.html">
+        Log In
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="btn btn-success" data-page="registration_page" href="./registration_page.html" style="background-color: var(--color-primary); border-color: var(--color-primary);">
+        Sign Up
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <main class="flex-grow-1">
+   <div class="container py-5">
+    <div class="row justify-content-center">
+     <div class="col-md-7 col-lg-5">
+      <div class="login-form-container">
+       <div class="text-center mb-3">
+        <img alt="BlueCarbonMRV logo" class="auth-brand-img" onerror="this.onerror=null;this.src='https://picsum.photos/id/237/80/80';" src="https://picsum.photos/seed/bluecarbon-logo/80/80"/>
+        <h1 class="page-title mt-2 mb-1" style="font-size: 1.5rem;">
+         Welcome back
+        </h1>
+        <p class="text-muted mb-0">
+         Sign in to continue to your dashboard
+        </p>
+       </div>
+       <!-- Error Display (hidden by default) -->
+       <div aria-live="assertive" class="alert alert-danger d-none" id="errorDisplay" role="alert">
+       </div>
+       <form id="loginForm" novalidate="">
+        <!-- Email Field -->
+        <div class="mb-3">
+         <label class="form-label" for="email">
+          Email Address
+         </label>
+         <input class="form-control" id="email" placeholder="Enter your email" required="" type="email"/>
+         <div class="invalid-feedback" id="emailError">
+          Please enter a valid email address.
+         </div>
+        </div>
+        <!-- Password Field with visibility toggle -->
+        <div class="mb-3">
+         <div class="d-flex justify-content-between align-items-center">
+          <label class="form-label mb-0" for="password">
+           Password
+          </label>
+          <a class="small" href="./reset_password_page.html">
+           Forgot Password?
+          </a>
+         </div>
+         <div class="input-group">
+          <input class="form-control" id="password" placeholder="Enter your password" required="" type="password"/>
+          <button aria-label="Toggle password visibility" class="btn btn-light toggle-visibility-icon" id="togglePassword" type="button">
+           <i class="fa-regular fa-eye">
+           </i>
+          </button>
+         </div>
+         <div class="invalid-feedback d-block" id="passwordError" style="display:none;">
+          Password is required.
+         </div>
+        </div>
+        <!-- Actions -->
+        <div class="d-grid gap-2">
+         <button class="btn btn-success" id="loginBtn" style="background-color: var(--color-primary); border-color: var(--color-primary);" type="submit">
+          <span class="btn-label">
+           Log In
+          </span>
+          <span aria-hidden="true" class="spinner-border spinner-border-sm ms-2 d-none" id="loginSpinner" role="status">
+          </span>
+         </button>
+         <div class="text-center small">
+          Don't have an account?
+          <a href="./registration_page.html">
+           Sign Up
+          </a>
+         </div>
+        </div>
+       </form>
+      </div>
+     </div>
+    </div>
+    <!-- Sample Credentials to test role-based redirects -->
+    <div class="row justify-content-center mt-4">
+     <div class="col-md-10 col-lg-8">
+      <div class="card">
+       <div class="card-header">
+        <div class="title d-flex align-items-center gap-2">
+         <i class="fa-solid fa-key text-success">
+         </i>
+         <strong>
+          Test Credentials
+         </strong>
+        </div>
+       </div>
+       <div class="card-body">
+        <p class="text-muted mb-3">
+         Use any of the accounts below to test the login and automatic redirection by role. Credentials are case sensitive.
+        </p>
+        <div class="table-responsive">
+         <table class="table table-theme mb-0 align-middle">
+          <thead>
+           <tr>
+            <th scope="col">
+             Email
+            </th>
+            <th scope="col">
+             Password
+            </th>
+            <th scope="col">
+             Role
+            </th>
+            <th scope="col">
+             Redirects To
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             <code>
+              admin@bluecarbon.com
+             </code>
+            </td>
+            <td>
+             <code>
+              Admin@123
+             </code>
+            </td>
+            <td>
+             <span class="badge-soft info">
+              Admin
+             </span>
+            </td>
+            <td>
+             <a href="./admin_dashboard.html">
+              Admin Dashboard
+             </a>
+            </td>
+           </tr>
+           <tr>
+            <td>
+             <code>
+              user@bluecarbon.com
+             </code>
+            </td>
+            <td>
+             <code>
+              User@123
+             </code>
+            </td>
+            <td>
+             <span class="badge-soft success">
+              User
+             </span>
+            </td>
+            <td>
+             <a href="./user_dashboard.html">
+              User Dashboard
+             </a>
+            </td>
+           </tr>
+           <tr>
+            <td>
+             <code>
+              reviewer@bluecarbon.com
+             </code>
+            </td>
+            <td>
+             <code>
+              Review@123
+             </code>
+            </td>
+            <td>
+             <span class="badge-soft secondary">
+              Reviewer
+             </span>
+            </td>
+            <td>
+             <a href="./submission_review_page.html">
+              Submission Review
+             </a>
+            </td>
+           </tr>
+           <tr>
+            <td>
+             <code>
+              buyer@bluecarbon.com
+             </code>
+            </td>
+            <td>
+             <code>
+              Buyer@123
+             </code>
+            </td>
+            <td>
+             <span class="badge-soft warning">
+              Buyer
+             </span>
+            </td>
+            <td>
+             <a href="./marketplace_page.html">
+              Marketplace
+             </a>
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+       <div class="card-footer d-flex justify-content-between align-items-center small text-muted">
+        <span>
+         <i class="fa-regular fa-circle-question me-1">
+         </i>
+         Need help?
+         <a href="./reset_password_page.html">
+          Reset your password
+         </a>
+         or
+         <a href="./registration_page.html">
+          create an account
+         </a>
+         .
+        </span>
+        <span>
+         Demo only
+        </span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer (Public Footer) -->
+  <footer class="public-footer bg-light border-top mt-auto py-4">
+   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="d-flex align-items-center">
+     <span class="rounded-circle bg-success-subtle p-2 me-2">
+     </span>
+     <strong class="brand-text">
+      BlueCarbonMRV
+     </strong>
+    </div>
+    <div class="d-flex gap-3">
+     <a class="text-decoration-none" href="./marketplace_page.html">
+      Explore Projects
+     </a>
+     <a class="text-decoration-none" href="./registration_page.html">
+      Register
+     </a>
+    </div>
+    <div class="d-flex gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- Page Scripts -->
+  <script>
+   (function() {
+    const form = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loginBtn = document.getElementById('loginBtn');
+    const spinner = document.getElementById('loginSpinner');
+    const errorDisplay = document.getElementById('errorDisplay');
+    const passwordError = document.getElementById('passwordError');
+    const toggleBtn = document.getElementById('togglePassword');
+
+    // Mock user directory with role-based redirects
+    const USERS = {
+        'admin@bluecarbon.com': {
+            password: 'Admin@123',
+            role: 'admin',
+            redirect: './admin_dashboard.html'
+        },
+        'user@bluecarbon.com': {
+            password: 'User@123',
+            role: 'user',
+            redirect: './user_dashboard.html'
+        },
+        'reviewer@bluecarbon.com': {
+            password: 'Review@123',
+            role: 'reviewer',
+            redirect: './submission_review_page.html'
+        },
+        'buyer@bluecarbon.com': {
+            password: 'Buyer@123',
+            role: 'buyer',
+            redirect: './marketplace_page.html'
+        }
+    };
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function setLoading(isLoading) {
+        loginBtn.disabled = isLoading;
+        spinner.classList.toggle('d-none', !isLoading);
+        loginBtn.querySelector('.btn-label').textContent = isLoading ? 'Signing in…' : 'Log In';
+    }
+
+    function showError(message) {
+        errorDisplay.textContent = message || 'Something went wrong. Please try again.';
+        errorDisplay.classList.remove('d-none');
+    }
+
+    function clearError() {
+        errorDisplay.classList.add('d-none');
+        errorDisplay.textContent = '';
+    }
+
+    // Client-side validation helpers
+    function validateEmail() {
+        const valid = emailRegex.test(emailInput.value.trim());
+        emailInput.classList.toggle('is-invalid', !valid);
+        return valid;
+    }
+
+    function validatePassword() {
+        const ok = passwordInput.value.trim().length > 0;
+        passwordError.style.display = ok ? 'none' : 'block';
+        passwordInput.classList.toggle('is-invalid', !ok);
+        return ok;
+    }
+
+    emailInput.addEventListener('blur', validateEmail);
+    passwordInput.addEventListener('blur', validatePassword);
+
+    // Toggle password visibility
+    toggleBtn.addEventListener('click', function() {
+        const isPassword = passwordInput.getAttribute('type') === 'password';
+        passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+        toggleBtn.innerHTML = isPassword ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        clearError();
+        const emailOk = validateEmail();
+        const passOk = validatePassword();
+        if (!emailOk || !passOk) return;
+
+        setLoading(true);
+
+        // Simulate async authentication
+        setTimeout(() => {
+            const email = emailInput.value.trim();
+            const pass = passwordInput.value;
+            const user = USERS[email];
+
+            if (user && user.password === pass) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Authenticated',
+                    text: `Welcome, ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}! Redirecting to your dashboard…`,
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+                // Persist a trivial session flag for demo purposes
+                try {
+                    localStorage.setItem('bluecarbon_role', user.role);
+                } catch (_e) {}
+                setTimeout(() => {
+                    window.location.href = user.redirect;
+                }, 800);
+            } else {
+                setLoading(false);
+                showError('Invalid email or password. Please check your credentials and try again.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login failed',
+                    text: 'Invalid credentials. If you forgot your password, use the Reset Password link.'
+                });
+            }
+        }, 900);
+    });
+})();
+  </script>
+ </body>
+</html>

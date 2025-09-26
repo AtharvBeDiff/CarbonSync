@@ -1,0 +1,52 @@
+:root {
+    --font-sans: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+    }
+/* Settings Page specific styles (avoid duplication with global style.css) */
+.settings-nav .list-group-item.active {
+    background: var(--primary-soft);
+    color: var(--text-strong);
+    border-left: 3px solid var(--color-primary)
+    }
+.settings-nav .list-group-item {
+    border: none;
+    border-bottom: 1px solid var(--divider-color)
+    }
+.settings-section .card-header {
+    background: var(--surface-muted)
+    }
+/* Make left nav sticky below header (header height approx 64-84px) */
+@media (min-width: 992px) {
+    .settings-nav.sticky-top {
+        top: 84px !important
+        }
+    }
+/* Improve input-group toggle eye icon contrast */
+.toggle-visibility-icon {
+    border-color: var(--border-color)
+    }
+.toggle-visibility-icon:hover {
+    background: var(--neutral-soft)
+    }
+/* Security table tweaks */
+#securityTable tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02)
+    }
+#securityTable th {
+    white-space: nowrap
+    }
+/* Buttons within sections keep consistent spacing */
+.settings-section .btn + .btn {
+    margin-left: 0.5rem
+    }
+/* Offcanvas width to align with sidebar feel on mobile */
+#sidebarOffcanvas {
+    width: 260px
+    }
+/* Toast position spacing on small screens */
+@media (max-width: 575.98px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+        }
+    }
